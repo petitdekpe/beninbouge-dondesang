@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('fr') }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Bénin Bouge{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#14160F;font-family:'Manrope',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+@keyframes bbFloat{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-10px) rotate(var(--r,0deg))}}
+@keyframes bbSpark{0%,100%{opacity:.35;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
+@keyframes bbPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+@keyframes bbRise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes bbConf{0%{transform:translateY(-20vh) rotate(0deg);opacity:0}10%{opacity:1}100%{transform:translateY(112vh) rotate(720deg);opacity:1}}
+@keyframes bbPop{0%{transform:scale(0)}60%{transform:scale(1.12)}100%{transform:scale(1)}}
+@keyframes bbDraw{to{stroke-dashoffset:0}}
+input::placeholder,textarea::placeholder{color:#9a9a8f}
+{% block extra_css %}{% endblock %}
+</style>
+{% block stylesheets %}{% endblock %}
+</head>
+<body>
+{% block body %}{% endblock %}
+{% block javascripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,114 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ lang == 'fr' ? 'Merci !' : 'Thank you!' }} — Bénin Bouge{% endblock %}
+
+{% block extra_css %}
+body{background:#FBF7EC}
+{% endblock %}
+
+{% block body %}
+<div style="min-height:100vh;background:#FBF7EC;color:#0E3F51;font-family:'Manrope',sans-serif;position:relative;overflow:hidden;display:flex;flex-direction:column">
+
+  <!-- confetti -->
+  <div id="confetti-root" style="position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0"></div>
+
+  <!-- header -->
+  <header style="position:relative;z-index:3;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;max-width:1100px;margin:0 auto;width:100%">
+    <a href="{{ path('landing') }}" style="display:flex;align-items:center;gap:10px;text-decoration:none">
+      <span style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:#14160F">
+        <img src="{{ asset('assets/logo-rond.png') }}" alt="Bénin Bouge" style="width:38px;height:38px;object-fit:contain;border-radius:10px"/>
+      </span>
+      <span style="font-weight:800;font-size:15px;color:#0E3F51;letter-spacing:.3px">Bénin Bouge</span>
+    </a>
+    <div style="display:flex;border:1px solid rgba(14,63,81,.22);border-radius:999px;overflow:hidden">
+      <a href="?{{ {amount: amount, lang: 'fr'}|url_encode }}" style="display:inline-block;background:{{ lang == 'fr' ? '#3A8556' : 'transparent' }};color:{{ lang == 'fr' ? '#fff' : '#0E3F51' }};padding:6px 13px;font-family:Manrope;font-weight:800;font-size:13px;text-decoration:none">FR</a>
+      <a href="?{{ {amount: amount, lang: 'en'}|url_encode }}" style="display:inline-block;background:{{ lang == 'en' ? '#3A8556' : 'transparent' }};color:{{ lang == 'en' ? '#fff' : '#0E3F51' }};padding:6px 13px;font-family:Manrope;font-weight:800;font-size:13px;text-decoration:none">EN</a>
+    </div>
+  </header>
+
+  <!-- main -->
+  <main style="position:relative;z-index:2;flex:1;display:flex;align-items:center;justify-content:center;padding:24px 20px 56px">
+    <div style="max-width:560px;width:100%;text-align:center;animation:bbRise .5s ease both">
+
+      <!-- check medallion -->
+      <div style="width:104px;height:104px;margin:0 auto;border-radius:50%;background:#3A8556;display:flex;align-items:center;justify-content:center;box-shadow:0 18px 40px rgba(58,133,86,.35);animation:bbPop .55s cubic-bezier(.2,.8,.2,1) both">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+          <path d="M14 27 L23 36 L39 18" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="60" stroke-dashoffset="60" style="animation:bbDraw .5s .35s ease forwards"/>
+        </svg>
+      </div>
+
+      <div style="display:inline-block;margin-top:22px;background:#3A8556;color:#fff;font-weight:800;font-size:12.5px;letter-spacing:1.6px;text-transform:uppercase;padding:7px 16px;border-radius:999px">{{ t.hero.badge }}</div>
+
+      <h1 style="font-family:'Anton',sans-serif;font-weight:400;font-size:62px;line-height:1;margin:18px 0 0;text-transform:uppercase;letter-spacing:.5px">
+        {% if lang == 'fr' %}
+          <span style="color:#0E3F51">Merci</span> <span style="color:#E1251B">infiniment !</span>
+        {% else %}
+          <span style="color:#0E3F51">Thank</span> <span style="color:#E1251B">you so much!</span>
+        {% endif %}
+      </h1>
+
+      <p style="font-size:17.5px;line-height:1.6;color:#55584e;margin:18px auto 0;max-width:460px">
+        {% if lang == 'fr' %}
+          Votre don pour « Sang Donné, Vies Sauvées » a bien été reçu. Grâce à vous, nous faisons rayonner les 2 ans de Bénin Bouge et nous sauvons des vies, ensemble.
+        {% else %}
+          Your donation to "Blood Given, Lives Saved" has been received. Thanks to you, we celebrate the 2 years of Bénin Bouge and save lives, together.
+        {% endif %}
+      </p>
+
+      <!-- receipt card -->
+      <div style="background:#fff;border:1px solid #ece4cf;border-radius:18px;box-shadow:0 14px 36px rgba(0,0,0,.07);padding:24px;margin-top:30px;text-align:left">
+        <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px dashed #e6ddc8;padding-bottom:16px">
+          <div>
+            <div style="font-size:12px;font-weight:800;color:#9a9a8f;text-transform:uppercase;letter-spacing:.6px">{{ lang == 'fr' ? 'Montant du don' : 'Donation amount' }}</div>
+            <div style="font-family:'Anton';font-size:34px;color:#E1251B;line-height:1.05;margin-top:3px">{{ amount|number_format(0, ',', ' ') }} <span style="font-size:17px;color:#0E3F51">FCFA</span></div>
+          </div>
+          <span style="flex:none;width:50px;height:58px;display:flex;align-items:center;justify-content:center;position:relative">
+            <span style="position:absolute;inset:0;background:#E1251B;clip-path:polygon(50% 0,100% 100%,0 100%);border-radius:0 50% 50% 50%"></span>
+            <span style="position:relative;color:#fff;font-size:18px;z-index:1">♥</span>
+          </span>
+        </div>
+        <div style="display:flex;justify-content:space-between;gap:12px;margin-top:14px;font-size:14.5px">
+          <span style="color:#9a9a8f;font-weight:600">{{ lang == 'fr' ? 'Donateur' : 'Donor' }}</span>
+          <span style="font-weight:800;color:#0E3F51;text-align:right">{{ donorName }}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;gap:12px;margin-top:9px;font-size:14.5px">
+          <span style="color:#9a9a8f;font-weight:600">{{ lang == 'fr' ? 'Référence' : 'Reference' }}</span>
+          <span style="font-weight:800;color:#0E3F51;font-variant-numeric:tabular-nums">{{ reference }}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:16px;background:#f4f8f0;border-radius:10px;padding:11px 13px;font-size:13.5px;color:#295D3C;font-weight:600">
+          <span>✉</span>{{ lang == 'fr' ? 'Un reçu vous sera envoyé par email.' : 'A receipt will be sent to your email.' }}
+        </div>
+      </div>
+
+      <!-- share -->
+      <div style="margin-top:30px">
+        <div style="font-size:13px;font-weight:800;color:#9a9a8f;text-transform:uppercase;letter-spacing:1px">{{ lang == 'fr' ? 'Partagez la générosité' : 'Share the generosity' }}</div>
+        <div style="display:flex;gap:11px;justify-content:center;margin-top:14px;flex-wrap:wrap">
+          <button type="button" data-share="whatsapp" style="display:inline-flex;align-items:center;gap:8px;background:#3A8556;color:#fff;border:none;padding:12px 18px;border-radius:999px;font-family:'Manrope';font-weight:800;font-size:14px;cursor:pointer">WhatsApp</button>
+          <button type="button" data-share="facebook" style="display:inline-flex;align-items:center;gap:8px;background:#1877F2;color:#fff;border:none;padding:12px 18px;border-radius:999px;font-family:'Manrope';font-weight:800;font-size:14px;cursor:pointer">Facebook</button>
+          <button type="button" data-share="x" style="display:inline-flex;align-items:center;gap:8px;background:#0E3F51;color:#fff;border:none;padding:12px 18px;border-radius:999px;font-family:'Manrope';font-weight:800;font-size:14px;cursor:pointer">X</button>
+          <button type="button" data-copy-link style="display:inline-flex;align-items:center;gap:8px;background:#fff;color:#0E3F51;border:1.5px solid #d8d0bb;padding:12px 18px;border-radius:999px;font-family:'Manrope';font-weight:800;font-size:14px;cursor:pointer">{{ lang == 'fr' ? 'Copier le lien' : 'Copy link' }}</button>
+        </div>
+      </div>
+
+      <!-- back -->
+      <a href="{{ path('landing') }}" style="display:inline-flex;align-items:center;gap:8px;margin-top:28px;color:#0E3F51;text-decoration:none;font-weight:800;font-size:15px;border-bottom:2px solid #3A8556;padding-bottom:2px">{{ lang == 'fr' ? "Retour à l'accueil" : 'Back to home' }} →</a>
+    </div>
+  </main>
+
+  <footer style="position:relative;z-index:2;text-align:center;padding:22px;font-size:13px;color:#8a8d7e">
+    {{ t.footerTagline }}
+  </footer>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+  window.BB_MERCI = {
+    shareText: {{ (lang == 'fr' ? "J'ai soutenu la campagne « Sang Donné, Vies Sauvées » pour les 2 ans de Bénin Bouge. Rejoignez-nous !" : 'I supported the "Blood Given, Lives Saved" campaign for the 2 years of Bénin Bouge. Join us!')|json_encode|raw }},
+    copyLabel: {{ (lang == 'fr' ? 'Copier le lien' : 'Copy link')|json_encode|raw }},
+    copiedLabel: {{ (lang == 'fr' ? 'Copié ✓' : 'Copied ✓')|json_encode|raw }}
+  };
+</script>
+<script src="{{ asset('js/merci.js') }}"></script>
+{% endblock %}

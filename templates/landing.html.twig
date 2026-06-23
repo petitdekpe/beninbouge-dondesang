@@ -24,6 +24,8 @@
         <a href="#campagne" style="color:#EFEEE6;text-decoration:none;font-weight:600;font-size:14.5px;letter-spacing:.2px">{{ t.nav.campaign }}</a>
         <a href="#partenaires" style="color:#EFEEE6;text-decoration:none;font-weight:600;font-size:14.5px;letter-spacing:.2px">{{ t.nav.partners }}</a>
         <a href="#infos" style="color:#EFEEE6;text-decoration:none;font-weight:600;font-size:14.5px;letter-spacing:.2px">{{ t.nav.info }}</a>
+        <a href="{{ path('donations_track', {lang: lang}) }}" style="color:#EFEEE6;text-decoration:none;font-weight:600;font-size:14.5px;letter-spacing:.2px">{{ t.tracking.title }}</a>
+        <a href="{{ path('messages_list', {lang: lang}) }}" style="color:#EFEEE6;text-decoration:none;font-weight:600;font-size:14.5px;letter-spacing:.2px">{{ t.msgsPage.title }}</a>
       </nav>
       <div style="display:flex;align-items:center;gap:clamp(8px,2vw,14px);flex:none;margin-left:auto">
         <div style="display:flex;border:1px solid rgba(255,255,255,.22);border-radius:999px;overflow:hidden">

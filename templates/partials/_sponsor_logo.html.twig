@@ -1,0 +1,9 @@
+{% if s.websiteUrl %}
+  <a href="{{ s.websiteUrl }}" target="_blank" rel="noopener noreferrer" title="{{ s.name }}" style="flex:none;display:flex;align-items:center;justify-content:center;height:56px;width:140px">
+    <img src="{{ asset('uploads/sponsors/' ~ s.logoFilename) }}" alt="{{ s.name }}" style="max-height:56px;max-width:100%;object-fit:contain">
+  </a>
+{% else %}
+  <span title="{{ s.name }}" style="flex:none;display:flex;align-items:center;justify-content:center;height:56px;width:140px">
+    <img src="{{ asset('uploads/sponsors/' ~ s.logoFilename) }}" alt="{{ s.name }}" style="max-height:56px;max-width:100%;object-fit:contain">
+  </span>
+{% endif %}

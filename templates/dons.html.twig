@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ t.tracking.title }} — Bénin Bouge{% endblock %}
+
+{% block extra_css %}
+body{background:#FBF7EC}
+{% endblock %}
+
+{% block body %}
+<div style="min-height:100vh;background:#FBF7EC;color:#0E3F51;font-family:'Manrope',sans-serif">
+
+  <!-- header -->
+  <header style="padding:18px clamp(16px,5vw,24px);display:flex;align-items:center;flex-wrap:wrap;gap:12px;justify-content:space-between;max-width:1100px;margin:0 auto;width:100%">
+    <a href="{{ path('landing', {lang: lang}) }}" style="display:flex;align-items:center;gap:10px;text-decoration:none">
+      <span style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:#14160F">
+        <img src="{{ asset('assets/logo-rond.png') }}" alt="Bénin Bouge" style="width:38px;height:38px;object-fit:contain;border-radius:10px"/>
+      </span>
+      <span style="font-weight:800;font-size:15px;color:#0E3F51;letter-spacing:.3px">Bénin Bouge</span>
+    </a>
+    <div style="display:flex;border:1px solid rgba(14,63,81,.22);border-radius:999px;overflow:hidden">
+      <a href="?lang=fr" style="display:inline-block;background:{{ lang == 'fr' ? '#3A8556' : 'transparent' }};color:{{ lang == 'fr' ? '#fff' : '#0E3F51' }};padding:6px 13px;font-family:Manrope;font-weight:800;font-size:13px;text-decoration:none">FR</a>
+      <a href="?lang=en" style="display:inline-block;background:{{ lang == 'en' ? '#3A8556' : 'transparent' }};color:{{ lang == 'en' ? '#fff' : '#0E3F51' }};padding:6px 13px;font-family:Manrope;font-weight:800;font-size:13px;text-decoration:none">EN</a>
+    </div>
+  </header>
+
+  <!-- main -->
+  <main style="max-width:900px;margin:0 auto;padding:clamp(10px,4vw,20px) clamp(16px,5vw,24px) clamp(60px,9vw,90px)">
+
+    <div style="text-align:center;margin:clamp(20px,5vw,32px) 0 clamp(30px,6vw,40px)">
+      <div style="color:#3A8556;font-weight:800;font-size:13px;letter-spacing:2px;text-transform:uppercase">{{ t.tracking.kicker }}</div>
+      <h1 style="font-family:'Anton';font-size:clamp(28px,6vw,44px);margin:12px 0 0;text-transform:uppercase;color:#0E3F51">{{ t.tracking.title }}</h1>
+      <p style="font-size:clamp(15px,2.2vw,16.5px);line-height:1.6;color:#55584e;margin:14px auto 0;max-width:560px">{{ t.tracking.lead }}</p>
+    </div>
+
+    <!-- total card -->
+    <div style="background:#0E3F51;border-radius:20px;padding:clamp(26px,6vw,38px);text-align:center;box-shadow:0 18px 40px rgba(14,63,81,.25)">
+      <div style="color:#9fb3bc;font-weight:700;font-size:12.5px;letter-spacing:1.4px;text-transform:uppercase">{{ t.tracking.totalLabel }}</div>
+      <div style="font-family:'Anton';font-size:clamp(40px,11vw,72px);color:#fff;line-height:1;margin-top:10px">{{ total|number_format(0, ',', ' ') }} <span style="font-size:clamp(18px,3vw,28px);color:#89B69A">FCFA</span></div>
+      <div style="margin-top:10px;color:#CFD9DD;font-weight:700;font-size:14px">{{ count }} {{ t.tracking.countSuffix }}</div>
+    </div>
+
+    <!-- list -->
+    <div style="margin-top:clamp(34px,6vw,48px)">
+      <h2 style="font-family:'Anton';font-size:clamp(20px,4vw,26px);text-transform:uppercase;color:#0E3F51;margin-bottom:18px">{{ t.tracking.listTitle }}</h2>
+
+      <div style="display:flex;flex-direction:column;gap:10px">
+        {% for d in donations %}
+          <div style="min-width:0;background:#fff;border:1px solid #ece4cf;border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:space-between">
+            <div style="min-width:0;display:flex;align-items:center;gap:12px">
+              <span style="flex:none;width:38px;height:38px;border-radius:50%;background:rgba(58,133,86,.14);color:#3A8556;display:flex;align-items:center;justify-content:center;font-size:16px">♥</span>
+              <div style="min-width:0;overflow-wrap:break-word">
+                <div style="font-weight:800;color:#0E3F51;font-size:15px">{{ d.anonymous or not d.donorName ? t.tracking.anonymous : d.donorName }}</div>
+                <div style="font-size:12.5px;color:#9a9a8f;margin-top:2px">{{ d.confirmedAt ? d.confirmedAt|date('d/m/Y H:i') : d.createdAt|date('d/m/Y H:i') }}</div>
+              </div>
+            </div>
+            <div style="font-family:'Anton';font-size:clamp(17px,3vw,21px);color:#E1251B;flex:none">{{ d.amount|number_format(0, ',', ' ') }} <span style="font-size:13px;color:#0E3F51">FCFA</span></div>
+          </div>
+        {% else %}
+          <p style="text-align:center;color:#9a9a8f;padding:30px 0">{{ t.tracking.empty }}</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:clamp(36px,6vw,48px);display:flex;flex-wrap:wrap;gap:14px;justify-content:center">
+      <a href="{{ path('landing', {lang: lang}) }}" style="display:inline-flex;align-items:center;gap:8px;color:#0E3F51;text-decoration:none;font-weight:800;font-size:15px;border-bottom:2px solid #3A8556;padding-bottom:2px">{{ t.tracking.back }}</a>
+      <a href="{{ path('landing', {lang: lang}) }}#don" style="display:inline-flex;align-items:center;gap:8px;background:#E1251B;color:#fff;text-decoration:none;font-weight:800;font-size:15px;padding:10px 20px;border-radius:999px">{{ t.tracking.cta }}</a>
+    </div>
+  </main>
+</div>
+{% endblock %}

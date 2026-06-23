@@ -204,6 +204,37 @@
     }
   }
 
+  function openFedaPay(donationId) {
+    var eff = effectiveAmount();
+    var donorName = state.name.trim() || cfg.donorFallback;
+    var description = 'Don – Sang Donné, Vies Sauvées (Bénin Bouge)';
+    if (donationId) description = 'Don #' + donationId + ' – Sang Donné, Vies Sauvées (Bénin Bouge)';
+
+    var widget = FedaPay.init({
+      public_key: cfg.fedapayPublicKey,
+      transaction: {
+        amount: eff,
+        description: description,
+      },
+      customer: {
+        firstname: donorName,
+        email: state.email.trim(),
+        phone_number: state.phone.trim() ? { number: state.phone.trim(), country: 'bj' } : undefined,
+      },
+      currency: { iso: 'XOF' },
+      onComplete: function (resp) {
+        if (resp.reason === FedaPay.CHECKOUT_COMPLETE) {
+          var params = new URLSearchParams({ amount: String(eff) });
+          if (!state.anonymous && state.name.trim()) params.set('name', state.name.trim());
+          window.location.href = cfg.merciUrl + '?' + params.toString();
+        } else {
+          setSubmitting(false);
+        }
+      },
+    });
+    widget.open();
+  }
+
   if (payBtn) {
     payBtn.addEventListener('click', function () {
       if (typeof FedaPay === 'undefined') {
@@ -213,32 +244,21 @@
       clearPayError();
       setSubmitting(true);
 
-      var eff = effectiveAmount();
-      var donorName = state.name.trim() || cfg.donorFallback;
-
-      var widget = FedaPay.init({
-        public_key: cfg.fedapayPublicKey,
-        transaction: {
-          amount: eff,
-          description: 'Don – Sang Donné, Vies Sauvées (Bénin Bouge)',
-        },
-        customer: {
-          firstname: donorName,
+      fetch('/api/donations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: effectiveAmount(),
+          name: state.anonymous ? '' : state.name.trim(),
           email: state.email.trim(),
-          phone_number: state.phone.trim() ? { number: state.phone.trim(), country: 'bj' } : undefined,
-        },
-        currency: { iso: 'XOF' },
-        onComplete: function (resp) {
-          if (resp.reason === FedaPay.CHECKOUT_COMPLETE) {
-            var params = new URLSearchParams({ amount: String(eff) });
-            if (!state.anonymous && state.name.trim()) params.set('name', state.name.trim());
-            window.location.href = cfg.merciUrl + '?' + params.toString();
-          } else {
-            setSubmitting(false);
-          }
-        },
-      });
-      widget.open();
+          phone: state.phone.trim(),
+          anonymous: state.anonymous,
+          method: state.method,
+        }),
+      })
+        .then(function (res) { return res.ok ? res.json() : null; })
+        .then(function (data) { openFedaPay(data && data.id); })
+        .catch(function () { openFedaPay(null); });
     });
   }
 

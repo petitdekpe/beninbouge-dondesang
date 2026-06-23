@@ -16,13 +16,18 @@ final class Dictionary
             'hero' => [
                 'badge' => '2 ans de Bénin Bouge',
                 't1' => 'Deux ans à', 't2' => 'faire bouger', 't3' => 'le Bénin.',
-                'lead' => 'Pour souffler nos 2 bougies, on transforme l’énergie en solidarité. Soutenez la 2ᵉ édition de « Sang Donné, Vies Sauvées » et aidez-nous à sauver des vies.',
+                'lead' => 'Pour souffler nos 2 bougies, Bénin Bouge transforme l’énergie en solidarité. Soutenez la 2ᵉ édition de « Sang Donné, Vies Sauvées » et aidez-nous à sauver des vies.',
                 'cta' => 'Je fais un don', 'cta2' => 'Découvrir la campagne',
                 'dateLabel' => 'Date', 'date' => 'Sam. 11 juillet 2026',
                 'placeLabel' => 'Lieu', 'place' => 'EYA Centre, Akpakpa',
                 'edition' => '2ᵉ édition · en partenariat avec l’ANTS & l’ADSBB',
             ],
             'statsNote' => 'Chiffres indicatifs — à valider avec l’équipe Bénin Bouge.',
+            'stats' => [
+                'kicker' => 'Le média',
+                'title' => 'Pourquoi Bénin Bouge ?',
+                'lead' => 'Bénin Bouge est le média qui raconte un Bénin qui avance : actualités, portraits, mobilisation citoyenne et grands rendez-vous solidaires comme « Sang Donné, Vies Sauvées ».',
+            ],
             'camp' => [
                 'kicker' => 'Sang Donné, Vies Sauvées',
                 'title' => 'Et si vous deveniez donneur ?',
@@ -32,7 +37,7 @@ final class Dictionary
             'give' => [
                 'kicker' => 'Collecte de fonds',
                 'title' => 'Votre don finance la collecte',
-                'lead' => 'Chaque contribution couvre la logistique de l’événement : matériel, restauration des donneurs, communication et goodies. 100 % au service de la cause.',
+                'lead' => 'Chaque contribution couvre la logistique de cet événement anniversaire : matériel, restauration des donneurs, communication et goodies. 100 % au service de la cause.',
                 'choose' => 'Choisissez un montant',
                 'free' => 'Autre', 'freePh' => 'Montant libre',
                 'ctaPrefix' => 'Donner', 'secured' => 'Paiement sécurisé via FedaPay · Mobile Money & carte',
@@ -49,6 +54,7 @@ final class Dictionary
                 'kicker' => 'Ils nous accompagnent',
                 'title' => 'Partenaires officiels',
                 'lead' => 'La campagne est menée main dans la main avec les acteurs de référence de la transfusion sanguine au Bénin.',
+                'sponsorsLabel' => 'Avec le soutien de',
             ],
             'info' => [
                 'kicker' => 'Rendez-vous',
@@ -62,7 +68,7 @@ final class Dictionary
             'faq' => [
                 ['q' => 'Qui peut donner son sang ?', 'a' => 'Toute personne en bonne santé, âgée de 18 à 60 ans et pesant au moins 50 kg. Il suffit de se présenter le jour J muni d’une pièce d’identité.'],
                 ['q' => 'Le don de sang est-il douloureux ?', 'a' => 'Non. Le prélèvement dure environ 8 à 10 minutes et reste très bien toléré. Une collation est offerte juste après pour récupérer.'],
-                ['q' => 'À quoi sert mon don financier ?', 'a' => 'Il finance entièrement l’organisation de la collecte : matériel médical, restauration des donneurs, communication et goodies. Aucun frais caché.'],
+                ['q' => 'À quoi sert mon don financier ?', 'a' => 'Il finance l’organisation de cet événement anniversaire : matériel médical, restauration des donneurs, communication et goodies. Aucun frais caché.'],
                 ['q' => 'Le paiement est-il sécurisé ?', 'a' => 'Oui. Les paiements sont traités par FedaPay, qui prend en charge Mobile Money (MTN, Moov, Celtiis) et les cartes bancaires de façon sécurisée.'],
                 ['q' => 'Puis-je donner sans venir à l’événement ?', 'a' => 'Absolument. Vous pouvez soutenir la cause en faisant un don en ligne, même sans pouvoir vous déplacer le 11 juillet.'],
             ],
@@ -85,15 +91,45 @@ final class Dictionary
             'statsList' => [
                 ['n' => '+150', 'l' => 'articles publiés'], ['n' => '+50K', 'l' => 'abonnés'], ['n' => '120+', 'l' => 'poches collectées'], ['n' => '2', 'l' => 'éditions solidaires'],
             ],
+            'voeux' => [
+                'kicker' => 'Joyeux anniversaire',
+                'title' => 'Un mot pour les 2 ans de Bénin Bouge',
+                'lead' => 'Laissez un message de soutien ou un souvenir pour fêter les 2 ans de Bénin Bouge.',
+                'namePh' => 'Votre nom', 'messagePh' => 'Votre message...',
+                'submit' => 'Envoyer mon message',
+                'empty' => 'Soyez le premier à laisser un message !',
+                'seeAll' => 'Voir tous les messages',
+            ],
+            'tracking' => [
+                'kicker' => 'Transparence',
+                'title' => 'Suivi des dons',
+                'lead' => 'Merci à toutes les personnes qui soutiennent « Sang Donné, Vies Sauvées ». Voici le total collecté et la liste des dons confirmés.',
+                'totalLabel' => 'Total collecté',
+                'countSuffix' => 'dons confirmés',
+                'listTitle' => 'Derniers dons confirmés',
+                'anonymous' => 'Donateur anonyme',
+                'empty' => 'Aucun don confirmé pour le moment. Soyez le premier !',
+                'back' => "Retour à l'accueil",
+                'amountCol' => 'Montant', 'donorCol' => 'Donateur', 'dateCol' => 'Date',
+                'cta' => 'Faire un don',
+            ],
+            'msgsPage' => [
+                'kicker' => 'Joyeux anniversaire',
+                'title' => 'Tous les messages pour Bénin Bouge',
+                'lead' => 'Découvrez les mots laissés par la communauté pour célébrer les 2 ans de Bénin Bouge.',
+                'countSuffix' => 'messages reçus',
+                'empty' => 'Aucun message pour le moment. Soyez le premier !',
+                'back' => "Retour à l'accueil",
+                'cta' => 'Laisser un message',
+            ],
             'campPoints' => [
                 ['icon' => '✚', 't' => 'Un besoin vital', 'd' => 'Le sang ne se fabrique pas : seuls les dons permettent de soigner accidentés, femmes en couches et malades.'],
                 ['icon' => '⏱', 't' => '10 minutes pour sauver une vie', 'd' => 'Un don rapide, encadré par des professionnels de l’ANTS, peut sauver jusqu’à 3 vies.'],
                 ['icon' => '🤝', 't' => 'Une mobilisation collective', 'd' => 'Donneurs, bénévoles, partenaires et donateurs : chacun a un rôle dans cette chaîne de solidarité.'],
             ],
             'partnersList' => [
-                ['abbr' => 'ANTS', 'name' => 'Agence Nationale pour la Transfusion Sanguine', 'role' => 'Encadrement médical et collecte du sang.'],
-                ['abbr' => 'ADSBB', 'name' => 'Association des Donneurs de Sang Bénévoles du Bénin', 'role' => 'Mobilisation et sensibilisation des donneurs.'],
-                ['abbr' => 'JMDS', 'name' => 'Journée Mondiale du Donneur de Sang 2026', 'role' => 'Cadre national de la campagne.'],
+                ['abbr' => 'ANTS', 'logo' => 'ANTS.jpg', 'name' => 'Agence Nationale pour la Transfusion Sanguine', 'role' => 'Encadrement médical et collecte du sang.'],
+                ['abbr' => 'ADSBB', 'logo' => 'ADSBB.png', 'name' => 'Association des Donneurs de Sang Bénévoles du Bénin', 'role' => 'Mobilisation et sensibilisation des donneurs.'],
             ],
         ];
     }
@@ -105,13 +141,18 @@ final class Dictionary
             'hero' => [
                 'badge' => '2 years of Bénin Bouge',
                 't1' => 'Two years', 't2' => 'moving', 't3' => 'Benin forward.',
-                'lead' => 'To blow out our 2 candles, we’re turning energy into solidarity. Support the 2nd edition of "Blood Given, Lives Saved" and help us save lives.',
+                'lead' => 'To blow out our 2 candles, Bénin Bouge is turning energy into solidarity. Support the 2nd edition of "Blood Given, Lives Saved" and help us save lives.',
                 'cta' => 'Donate now', 'cta2' => 'Discover the campaign',
                 'dateLabel' => 'Date', 'date' => 'Sat. July 11, 2026',
                 'placeLabel' => 'Venue', 'place' => 'EYA Center, Akpakpa',
                 'edition' => '2nd edition · with ANTS & ADSBB',
             ],
             'statsNote' => 'Indicative figures — to be confirmed with the Bénin Bouge team.',
+            'stats' => [
+                'kicker' => 'The media',
+                'title' => 'Why Bénin Bouge?',
+                'lead' => 'Bénin Bouge is the media telling the story of a Benin on the move: news, profiles, civic mobilization and major solidarity events like "Blood Given, Lives Saved".',
+            ],
             'camp' => [
                 'kicker' => 'Blood Given, Lives Saved',
                 'title' => 'What if you became a donor?',
@@ -121,7 +162,7 @@ final class Dictionary
             'give' => [
                 'kicker' => 'Fundraising',
                 'title' => 'Your gift funds the drive',
-                'lead' => 'Every contribution covers the event logistics: supplies, donor refreshments, communication and goodies. 100% for the cause.',
+                'lead' => 'Every contribution covers the logistics of this anniversary event: supplies, donor refreshments, communication and goodies. 100% for the cause.',
                 'choose' => 'Choose an amount',
                 'free' => 'Other', 'freePh' => 'Custom amount',
                 'ctaPrefix' => 'Give', 'secured' => 'Secure payment via FedaPay · Mobile Money & card',
@@ -138,6 +179,7 @@ final class Dictionary
                 'kicker' => 'They support us',
                 'title' => 'Official partners',
                 'lead' => 'The campaign is run hand in hand with Benin’s leading blood transfusion stakeholders.',
+                'sponsorsLabel' => 'With the support of',
             ],
             'info' => [
                 'kicker' => 'Save the date',
@@ -151,7 +193,7 @@ final class Dictionary
             'faq' => [
                 ['q' => 'Who can donate blood?', 'a' => 'Anyone in good health, aged 18 to 60 and weighing at least 50 kg. Just show up on the day with an ID document.'],
                 ['q' => 'Does donating blood hurt?', 'a' => 'No. The donation takes about 8 to 10 minutes and is very well tolerated. A snack is offered right after to recover.'],
-                ['q' => 'What does my financial gift fund?', 'a' => 'It fully funds the organization of the drive: medical supplies, donor refreshments, communication and goodies. No hidden fees.'],
+                ['q' => 'What does my financial gift fund?', 'a' => 'It funds the organization of this anniversary event: medical supplies, donor refreshments, communication and goodies. No hidden fees.'],
                 ['q' => 'Is the payment secure?', 'a' => 'Yes. Payments are processed by FedaPay, which handles Mobile Money (MTN, Moov, Celtiis) and bank cards securely.'],
                 ['q' => 'Can I give without attending the event?', 'a' => 'Absolutely. You can support the cause with an online donation, even if you can’t make it on July 11.'],
             ],
@@ -174,15 +216,45 @@ final class Dictionary
             'statsList' => [
                 ['n' => '+150', 'l' => 'articles published'], ['n' => '+50K', 'l' => 'followers'], ['n' => '120+', 'l' => 'blood bags collected'], ['n' => '2', 'l' => 'solidarity editions'],
             ],
+            'voeux' => [
+                'kicker' => 'Happy anniversary',
+                'title' => 'Leave a word for Bénin Bouge’s 2nd anniversary',
+                'lead' => 'Share a message of support or a memory to celebrate 2 years of Bénin Bouge.',
+                'namePh' => 'Your name', 'messagePh' => 'Your message...',
+                'submit' => 'Send my message',
+                'empty' => 'Be the first to leave a message!',
+                'seeAll' => 'See all messages',
+            ],
+            'tracking' => [
+                'kicker' => 'Transparency',
+                'title' => 'Donation tracking',
+                'lead' => 'Thank you to everyone supporting "Blood Given, Lives Saved". Here is the total raised and the list of confirmed donations.',
+                'totalLabel' => 'Total raised',
+                'countSuffix' => 'confirmed donations',
+                'listTitle' => 'Latest confirmed donations',
+                'anonymous' => 'Anonymous donor',
+                'empty' => 'No confirmed donation yet. Be the first!',
+                'back' => 'Back to home',
+                'amountCol' => 'Amount', 'donorCol' => 'Donor', 'dateCol' => 'Date',
+                'cta' => 'Donate now',
+            ],
+            'msgsPage' => [
+                'kicker' => 'Happy anniversary',
+                'title' => 'All messages for Bénin Bouge',
+                'lead' => 'Discover the words left by the community to celebrate 2 years of Bénin Bouge.',
+                'countSuffix' => 'messages received',
+                'empty' => 'No message yet. Be the first!',
+                'back' => 'Back to home',
+                'cta' => 'Leave a message',
+            ],
             'campPoints' => [
                 ['icon' => '✚', 't' => 'A vital need', 'd' => 'Blood cannot be manufactured: only donations can treat accident victims, mothers in labor and patients.'],
                 ['icon' => '⏱', 't' => '10 minutes to save a life', 'd' => 'A quick donation, supervised by ANTS professionals, can save up to 3 lives.'],
                 ['icon' => '🤝', 't' => 'A collective effort', 'd' => 'Donors, volunteers, partners and contributors: everyone has a role in this chain of solidarity.'],
             ],
             'partnersList' => [
-                ['abbr' => 'ANTS', 'name' => 'National Agency for Blood Transfusion', 'role' => 'Medical supervision and blood collection.'],
-                ['abbr' => 'ADSBB', 'name' => 'Benin Voluntary Blood Donors Association', 'role' => 'Donor mobilization and awareness.'],
-                ['abbr' => 'JMDS', 'name' => 'World Blood Donor Day 2026', 'role' => 'National framework of the campaign.'],
+                ['abbr' => 'ANTS', 'logo' => 'ANTS.jpg', 'name' => 'National Agency for Blood Transfusion', 'role' => 'Medical supervision and blood collection.'],
+                ['abbr' => 'ADSBB', 'logo' => 'ADSBB.png', 'name' => 'Benin Voluntary Blood Donors Association', 'role' => 'Donor mobilization and awareness.'],
             ],
         ];
     }

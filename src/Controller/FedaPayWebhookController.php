@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Donation;
+use App\Repository\DonationRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,6 +32,8 @@ final class FedaPayWebhookController extends \Symfony\Bundle\FrameworkBundle\Con
     public function __construct(
         private readonly HttpClientInterface $httpClient,
         private readonly LoggerInterface $logger,
+        private readonly EntityManagerInterface $em,
+        private readonly DonationRepository $donations,
     ) {
     }
 
@@ -68,20 +73,40 @@ final class FedaPayWebhookController extends \Symfony\Bundle\FrameworkBundle\Con
             return new JsonResponse(['error' => 'lookup failed'], 502);
         }
 
-        if (($transaction['status'] ?? null) === 'approved') {
-            // TODO: persist the confirmed donation (database, spreadsheet, etc.)
-            // and/or send a receipt email here. For now this just logs it.
-            $this->logger->info('Donation confirmed via webhook', [
-                'id' => $transaction['id'] ?? $transactionId,
-                'amount' => $transaction['amount'] ?? null,
-                'customer' => $transaction['customer'] ?? null,
-            ]);
-        } else {
-            $this->logger->info('Transaction not approved', [
-                'id' => $transactionId,
-                'status' => $transaction['status'] ?? null,
-            ]);
+        $status = $transaction['status'] ?? 'unknown';
+
+        // Find the pending row created by the frontend just before checkout
+        // opened — its id is embedded in the transaction description as
+        // "Don #<id>". Fall back to matching by FedaPay transaction id
+        // (webhook retries), then to creating a fresh row so a confirmed
+        // payment is never lost even if the description match fails.
+        $donation = null;
+        if (preg_match('/Don #(\d+)/', (string) ($transaction['description'] ?? ''), $m)) {
+            $donation = $this->em->getRepository(Donation::class)->find((int) $m[1]);
         }
+        $donation ??= $this->donations->findOneByFedapayTransactionId((string) $transactionId);
+        $donation ??= new Donation();
+
+        $donation->setFedapayTransactionId((string) $transactionId);
+        $donation->setStatus($status);
+        if (isset($transaction['amount'])) {
+            $donation->setAmount((int) $transaction['amount']);
+        }
+        if (isset($transaction['customer'])) {
+            $donation->setRawCustomer(json_encode($transaction['customer']));
+        }
+        if ($status === 'approved' && !$donation->getConfirmedAt()) {
+            $donation->setConfirmedAt(new \DateTimeImmutable());
+        }
+
+        $this->em->persist($donation);
+        $this->em->flush();
+
+        $this->logger->info('FedaPay transaction processed', [
+            'donation_id' => $donation->getId(),
+            'transaction_id' => $transactionId,
+            'status' => $status,
+        ]);
 
         return new JsonResponse(['received' => true]);
     }

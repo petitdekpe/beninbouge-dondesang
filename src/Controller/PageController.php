@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Repository\BirthdayMessageRepository;
+use App\Repository\SponsorRepository;
 use App\Translation\Dictionary;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +18,12 @@ final class PageController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
         ['id' => 'moov', 'name' => 'Moov Money', 'abbr' => 'Moov', 'color' => '#0F61A8', 'ink' => '#fff'],
         ['id' => 'celtiis', 'name' => 'Celtiis Cash', 'abbr' => 'Cs', 'color' => '#0F8A40', 'ink' => '#fff'],
     ];
+
+    public function __construct(
+        private readonly BirthdayMessageRepository $messages,
+        private readonly SponsorRepository $sponsors,
+    ) {
+    }
 
     #[Route('/', name: 'landing', methods: ['GET'])]
     public function landing(Request $request): Response
@@ -35,6 +43,8 @@ final class PageController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
             'chipAmounts' => self::CHIP_AMOUNTS,
             'methods' => array_merge(self::PAYMENT_METHODS, [$cardMethod]),
             'fedapayPublicKey' => $_ENV['FEDAPAY_PUBLIC_KEY'] ?? 'pk_sandbox_XXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            'birthdayMessages' => $this->messages->findLatest(12),
+            'sponsors' => $this->sponsors->findAllOrdered(),
         ]);
     }
 

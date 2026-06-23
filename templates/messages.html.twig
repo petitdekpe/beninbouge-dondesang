@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ t.msgsPage.title }} — Bénin Bouge{% endblock %}
+
+{% block extra_css %}
+body{background:#3A8556}
+{% endblock %}
+
+{% block body %}
+<div style="min-height:100vh;background:#3A8556;color:#fff;font-family:'Manrope',sans-serif">
+
+  <!-- header -->
+  <header style="padding:18px clamp(16px,5vw,24px);display:flex;align-items:center;flex-wrap:wrap;gap:12px;justify-content:space-between;max-width:1100px;margin:0 auto;width:100%">
+    <a href="{{ path('landing', {lang: lang}) }}" style="display:flex;align-items:center;gap:10px;text-decoration:none">
+      <span style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:#14160F">
+        <img src="{{ asset('assets/logo-rond.png') }}" alt="Bénin Bouge" style="width:38px;height:38px;object-fit:contain;border-radius:10px"/>
+      </span>
+      <span style="font-weight:800;font-size:15px;color:#fff;letter-spacing:.3px">Bénin Bouge</span>
+    </a>
+    <div style="display:flex;border:1px solid rgba(255,255,255,.3);border-radius:999px;overflow:hidden">
+      <a href="?lang=fr" style="display:inline-block;background:{{ lang == 'fr' ? '#fff' : 'transparent' }};color:{{ lang == 'fr' ? '#3A8556' : '#fff' }};padding:6px 13px;font-family:Manrope;font-weight:800;font-size:13px;text-decoration:none">FR</a>
+      <a href="?lang=en" style="display:inline-block;background:{{ lang == 'en' ? '#fff' : 'transparent' }};color:{{ lang == 'en' ? '#3A8556' : '#fff' }};padding:6px 13px;font-family:Manrope;font-weight:800;font-size:13px;text-decoration:none">EN</a>
+    </div>
+  </header>
+
+  <!-- main -->
+  <main style="max-width:980px;margin:0 auto;padding:clamp(10px,4vw,20px) clamp(16px,5vw,24px) clamp(60px,9vw,90px)">
+
+    <div style="text-align:center;margin:clamp(20px,5vw,32px) 0 clamp(30px,6vw,40px)">
+      <div style="color:#fff;font-weight:800;font-size:13px;letter-spacing:2px;text-transform:uppercase;opacity:.85">{{ t.msgsPage.kicker }}</div>
+      <h1 style="font-family:'Anton';font-size:clamp(28px,6vw,44px);margin:12px 0 0;text-transform:uppercase">{{ t.msgsPage.title }}</h1>
+      <p style="font-size:clamp(15px,2.2vw,16.5px);line-height:1.6;color:rgba(255,255,255,.85);margin:14px auto 0;max-width:560px">{{ t.msgsPage.lead }}</p>
+      <div style="margin-top:14px;font-weight:800;font-size:14px;color:#D4F0DE">{{ count }} {{ t.msgsPage.countSuffix }}</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px">
+      {% for msg in messages %}
+        <div style="min-width:0;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:18px">
+          <div style="font-size:14.5px;line-height:1.5;overflow-wrap:break-word">"{{ msg.message }}"</div>
+          <div style="margin-top:10px;font-weight:800;font-size:13px;color:#D4F0DE">— {{ msg.authorName }}</div>
+          <div style="margin-top:4px;font-size:11.5px;color:rgba(255,255,255,.6)">{{ msg.createdAt|date('d/m/Y H:i') }}</div>
+        </div>
+      {% else %}
+        <p style="color:rgba(255,255,255,.75);grid-column:1/-1;text-align:center">{{ t.msgsPage.empty }}</p>
+      {% endfor %}
+    </div>
+
+    <div style="text-align:center;margin-top:clamp(36px,6vw,48px);display:flex;flex-wrap:wrap;gap:14px;justify-content:center">
+      <a href="{{ path('landing', {lang: lang}) }}" style="display:inline-flex;align-items:center;gap:8px;color:#fff;text-decoration:none;font-weight:800;font-size:15px;border-bottom:2px solid #fff;padding-bottom:2px">{{ t.msgsPage.back }}</a>
+      <a href="{{ path('landing', {lang: lang}) }}#voeux" style="display:inline-flex;align-items:center;gap:8px;background:#E1251B;color:#fff;text-decoration:none;font-weight:800;font-size:15px;padding:10px 20px;border-radius:999px">{{ t.msgsPage.cta }}</a>
+    </div>
+  </main>
+</div>
+{% endblock %}

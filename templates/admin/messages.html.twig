@@ -1,0 +1,42 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Messages — Backoffice{% endblock %}
+
+{% block admin_body %}
+<h1 style="font-family:'Anton';font-size:clamp(24px,5vw,32px);text-transform:uppercase;color:#0E3F51;margin-bottom:6px">Modérer les messages</h1>
+<p style="color:#6a6a60;font-size:14.5px;margin-bottom:24px">{{ messages|length }} message(s) au total. Masquez ou supprimez un message pour le retirer du mur public.</p>
+
+<div style="display:flex;flex-direction:column;gap:10px">
+  {% for m in messages %}
+    <div style="min-width:0;background:#fff;border:1px solid #ece4cf;border-radius:14px;padding:16px 18px;display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;justify-content:space-between;{{ not m.visible ? 'opacity:.5' : '' }}">
+      <div style="min-width:0;flex:1 1 320px;overflow-wrap:break-word">
+        <div style="font-weight:800;color:#0E3F51;font-size:15px">{{ m.authorName }}{% if not m.visible %} <span style="color:#b91c1c;font-weight:700;font-size:12px">(masqué)</span>{% endif %}</div>
+        <div style="font-size:14px;color:#444;margin-top:4px;line-height:1.5">{{ m.message }}</div>
+        <div style="font-size:12px;color:#9a9a8f;margin-top:6px">{{ m.createdAt|date('d/m/Y H:i') }}</div>
+      </div>
+      <div style="display:flex;gap:8px;flex:none">
+        <form method="post" action="{{ path('admin_messages_toggle', {id: m.id}) }}">
+          <input type="hidden" name="_token" value="{{ csrf_token('admin_message_' ~ m.id) }}">
+          <button type="submit" style="background:#F4F2EA;color:#0E3F51;border:1px solid #e2ddcd;padding:8px 14px;border-radius:999px;font-weight:700;font-size:13px;cursor:pointer">{{ m.visible ? 'Masquer' : 'Afficher' }}</button>
+        </form>
+        <form method="post" action="{{ path('admin_messages_delete', {id: m.id}) }}" data-confirm="Supprimer ce message ?">
+          <input type="hidden" name="_token" value="{{ csrf_token('admin_message_' ~ m.id) }}">
+          <button type="submit" style="background:#fdeaea;color:#b91c1c;border:1px solid #f5c9c9;padding:8px 14px;border-radius:999px;font-weight:700;font-size:13px;cursor:pointer">Supprimer</button>
+        </form>
+      </div>
+    </div>
+  {% else %}
+    <p style="color:#9a9a8f;text-align:center;padding:30px 0">Aucun message pour le moment.</p>
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+document.querySelectorAll('form[data-confirm]').forEach(function (form) {
+  form.addEventListener('submit', function (e) {
+    if (!window.confirm(form.getAttribute('data-confirm'))) e.preventDefault();
+  });
+});
+</script>
+{% endblock %}

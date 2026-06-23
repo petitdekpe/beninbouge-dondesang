@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion — Backoffice Bénin Bouge{% endblock %}
+
+{% block extra_css %}
+body{background:#0E3F51}
+{% endblock %}
+
+{% block body %}
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:'Manrope',sans-serif;padding:20px">
+  <div style="background:#fff;border-radius:18px;padding:clamp(28px,6vw,38px);max-width:380px;width:100%;box-shadow:0 18px 40px rgba(0,0,0,.25)">
+    <div style="text-align:center;margin-bottom:24px">
+      <img src="{{ asset('assets/logo-rond.png') }}" alt="Bénin Bouge" style="width:48px;height:48px;border-radius:12px;object-fit:contain"/>
+      <h1 style="font-family:'Anton';font-size:22px;margin-top:14px;color:#0E3F51;text-transform:uppercase">Backoffice</h1>
+    </div>
+
+    {% if error %}
+      <div style="background:#fdeaea;color:#b91c1c;border-radius:10px;padding:12px 14px;margin-bottom:16px;font-weight:700;font-size:14px;text-align:center">Identifiants invalides.</div>
+    {% endif %}
+
+    <form method="post" action="{{ path('admin_login') }}" style="display:flex;flex-direction:column;gap:12px">
+      <input type="text" name="_username" value="{{ lastUsername }}" placeholder="Identifiant" required autofocus style="background:#F4F2EA;border:1px solid #e2ddcd;border-radius:10px;padding:13px 15px;font-family:'Manrope';font-size:15px;outline:none;color:#14160F">
+      <input type="password" name="_password" placeholder="Mot de passe" required style="background:#F4F2EA;border:1px solid #e2ddcd;border-radius:10px;padding:13px 15px;font-family:'Manrope';font-size:15px;outline:none;color:#14160F">
+      <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+      <button type="submit" style="margin-top:6px;background:#0E3F51;color:#fff;border:none;padding:13px;border-radius:10px;font-family:'Manrope';font-weight:800;font-size:15px;cursor:pointer">Se connecter</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

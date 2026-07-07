@@ -1,287 +1,346 @@
-{% extends 'base.html.twig' %}
-{% block title %}Mon cadre — Sang Donné, Vies Sauvées{% endblock %}
+﻿{% extends 'base.html.twig' %}
+{% block title %}Créez votre badge — Sang Donné, Vies Sauvées 2026{% endblock %}
 
 {% block extra_css %}
-#cadre-page {
-  min-height: 100vh;
-  background: #fff;
-  color: #14160F;
-  padding: clamp(32px,6vw,64px) 16px 80px;
+@media(max-width:700px){
+  .jys-hero{grid-template-columns:1fr !important}
+  .jys-frame-col{display:none !important}
+  .jys-tool-grid{grid-template-columns:1fr !important}
+  .jys-why-grid{grid-template-columns:1fr !important}
+  .jys-steps{gap:0 !important}
+  .jys-step-sep{display:none !important}
+  .jys-footer-inner{flex-direction:column !important;text-align:center}
 }
-.cadre-header {
-  text-align: center;
-  margin-bottom: 40px;
-}
-.cadre-kicker {
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: #C83E34;
-  margin-bottom: 10px;
-}
-.cadre-header h1 {
-  font-family: 'Anton', sans-serif;
-  font-size: clamp(24px, 5vw, 40px);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  line-height: 1.1;
-}
-.cadre-header p {
-  color: rgba(0,0,0,.45);
-  font-size: 15px;
-  margin-top: 10px;
-  line-height: 1.5;
-}
-/* Upload zone */
-#upload-zone {
-  max-width: 480px;
-  margin: 0 auto;
-  border: 2px dashed rgba(0,0,0,.15);
-  border-radius: 22px;
-  padding: 56px 24px;
-  text-align: center;
-  cursor: pointer;
-  transition: border-color .2s, background .2s;
-}
-#upload-zone:hover, #upload-zone.drag-over {
-  border-color: #C83E34;
-  background: rgba(200,62,52,.05);
-}
-#upload-zone .up-icon {
-  width: 52px; height: 52px;
-  background: rgba(0,0,0,.05);
-  border-radius: 14px;
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 18px;
-}
-#upload-zone strong { color: #14160F; display: block; font-size: 15px; margin-bottom: 6px; }
-#upload-zone span { color: rgba(0,0,0,.4); font-size: 13px; }
-#file-input { display: none; }
-
-/* Editor */
-#editor {
-  max-width: 660px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-#canvas-wrap {
-  position: relative;
-  width: min(100%, 580px);
-  aspect-ratio: 1 / 1;
-  border-radius: 20px;
-  overflow: hidden;
-  cursor: grab;
-  user-select: none;
-  touch-action: none;
-  box-shadow: 0 24px 80px rgba(0,0,0,.6);
-  background: #222;
-}
-#canvas-wrap.dragging { cursor: grabbing; }
-#cv { width: 100%; height: 100%; display: block; }
-
-/* Controls */
-.ctrl-panel {
-  width: min(100%, 580px);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.zoom-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(0,0,0,.04);
-  border: 1px solid rgba(0,0,0,.08);
-  border-radius: 14px;
-  padding: 13px 16px;
-}
-.zoom-row label {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: rgba(0,0,0,.35);
-  white-space: nowrap;
-}
-#zoom-slider {
-  flex: 1;
-  -webkit-appearance: none;
-  appearance: none;
-  height: 4px;
-  border-radius: 2px;
-  background: rgba(0,0,0,.12);
-  outline: none;
-  cursor: pointer;
-}
-#zoom-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 20px; height: 20px;
-  border-radius: 50%;
-  background: #C83E34;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(200,62,52,.5);
-}
-#zoom-slider::-moz-range-thumb {
-  width: 20px; height: 20px;
-  border-radius: 50%;
-  background: #C83E34;
-  border: none;
-  cursor: pointer;
-}
-.zoom-val {
-  font-size: 13px;
-  font-weight: 700;
-  color: #14160F;
-  min-width: 40px;
-  text-align: right;
-}
-.btn-row {
-  display: flex;
-  gap: 10px;
-}
-.btn-secondary {
-  flex: 1;
-  background: rgba(0,0,0,.04);
-  color: rgba(0,0,0,.65);
-  border: 1px solid rgba(0,0,0,.1);
-  padding: 13px 16px;
-  border-radius: 12px;
-  font-family: 'Manrope', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background .15s, color .15s;
-}
-.btn-secondary:hover { background: rgba(0,0,0,.09); color: #14160F; }
-.btn-dl {
-  width: 100%;
-  background: #C83E34;
-  color: #fff;
-  border: none;
-  padding: 18px 24px;
-  border-radius: 14px;
-  font-family: 'Manrope', sans-serif;
-  font-size: 16px;
-  font-weight: 800;
-  cursor: pointer;
-  transition: background .15s, transform .1s, opacity .15s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  letter-spacing: .2px;
-}
-.btn-dl:hover { background: #b83a31; }
-.btn-dl:active { transform: scale(.98); }
-.btn-dl:disabled { opacity: .6; cursor: not-allowed; transform: none; }
-.ctrl-hint {
-  font-size: 12px;
-  color: rgba(0,0,0,.3);
-  text-align: center;
-  line-height: 1.5;
+@media(max-width:480px){
+  .jys-social-grid{grid-template-columns:repeat(2,1fr) !important}
 }
 {% endblock %}
 
 {% block body %}
-<div id="cadre-page">
+<div style="background:#fff;color:#14160F;font-family:'Manrope',sans-serif;overflow-x:hidden">
 
-  <div class="cadre-header">
-    <div class="cadre-kicker">Sang Donné, Vies Sauvées — 2ème édition · 11 juillet 2026</div>
-    <h1>Crée ton cadre photo</h1>
-    <p>Uploade ta photo, positionne-la dans le cadre et télécharge ton image pour la partager.</p>
-  </div>
-
-  <!-- Upload zone -->
-  <div id="upload-zone">
-    <div class="up-icon">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,.5)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-        <polyline points="17 8 12 3 7 8"/>
-        <line x1="12" y1="3" x2="12" y2="15"/>
-      </svg>
+  <!-- ══ HEADER ════════════════════════════════════════════════ -->
+  <header style="position:sticky;top:0;z-index:40;background:rgba(14,63,81,.97);backdrop-filter:blur(10px);border-bottom:1px solid rgba(14,63,81,.4)">
+    <div style="max-width:1200px;margin:0 auto;padding:13px clamp(16px,4vw,24px);display:flex;align-items:center;gap:14px">
+      <a href="{{ path('landing') }}" style="flex:none;text-decoration:none">
+        <img src="{{ asset('assets/logo-benin-bouge.png') }}" alt="Bénin Bouge" style="height:clamp(32px,5vw,44px);width:auto;display:block"/>
+      </a>
+      <div style="flex:1"></div>
+      <a href="{{ path('landing') }}" style="color:rgba(255,255,255,.65);text-decoration:none;font-size:13px;font-weight:700;display:flex;align-items:center;gap:5px">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Accueil
+      </a>
+      <a href="{{ path('landing') }}" style="background:#C83E34;color:#fff;text-decoration:none;padding:9px 18px;border-radius:999px;font-weight:800;font-size:13px;display:inline-flex;align-items:center;gap:6px;box-shadow:0 4px 14px rgba(200,62,52,.4)">
+        <span>♥</span>Contribuer
+      </a>
     </div>
-    <strong>Clique ou glisse ta photo ici</strong>
-    <span>JPG, PNG, HEIC · Max 20 Mo</span>
-    <input type="file" id="file-input" accept="image/*">
-  </div>
+  </header>
 
-  <!-- Editor (hidden until photo loaded) -->
-  <div id="editor" style="display:none">
-    <div id="canvas-wrap">
-      <canvas id="cv"></canvas>
-    </div>
+  <!-- ══ HERO ══════════════════════════════════════════════════ -->
+  <section style="background:linear-gradient(140deg,#fff5f4 0%,#fff 50%);padding:clamp(48px,8vw,80px) clamp(16px,5vw,24px) clamp(40px,7vw,64px)">
+    <div class="jys-hero" style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(32px,5vw,72px);align-items:center">
 
-    <div class="ctrl-panel">
+      <!-- Left -->
+      <div>
+        <div style="font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#C83E34;margin-bottom:16px">
+          Sang Donné, Vies Sauvées – 2ème édition &nbsp;·&nbsp; 11 juillet 2026
+        </div>
+        <h1 style="font-family:'Anton',sans-serif;font-size:clamp(38px,6.5vw,72px);line-height:1.02;text-transform:uppercase;margin:0 0 20px;letter-spacing:.3px">
+          Je donne<br>mon sang.<br><span style="color:#C83E34">J'affiche<br>mon<br>engagement.</span>
+        </h1>
+        <p style="font-size:clamp(15px,2vw,17.5px);line-height:1.65;color:#55584e;max-width:440px;margin:0 0 26px">
+          Créez gratuitement votre cadre photo officiel et partagez votre engagement pour encourager d'autres personnes à sauver des vies.
+        </p>
 
-      <div class="zoom-row">
-        <label>Zoom</label>
-        <input type="range" id="zoom-slider" min="50" max="300" value="100" step="1">
-        <span class="zoom-val" id="zoom-val">100%</span>
+        <!-- Mini stats -->
+        <div style="display:flex;flex-wrap:wrap;gap:14px 22px;margin-bottom:30px">
+          <div style="display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:#55584e">
+            <span style="width:28px;height:28px;border-radius:8px;background:#fdeaea;display:flex;align-items:center;justify-content:center;font-size:13px;flex:none">♥</span>Plus de 2 500 participants
+          </div>
+          <div style="display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:#55584e">
+            <span style="width:28px;height:28px;border-radius:8px;background:#fdeaea;display:flex;align-items:center;justify-content:center;font-size:13px;flex:none">🩸</span>1 don = 3 vies sauvées
+          </div>
+          <div style="display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:#55584e">
+            <span style="width:28px;height:28px;border-radius:8px;background:#fdeaea;display:flex;align-items:center;justify-content:center;font-size:13px;flex:none">⚡</span>Badge en 30 sec
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <a href="#outil" style="display:inline-flex;align-items:center;gap:10px;background:#C83E34;color:#fff;text-decoration:none;padding:16px 36px;border-radius:999px;font-weight:800;font-size:16.5px;box-shadow:0 12px 30px rgba(200,62,52,.38);text-transform:uppercase;letter-spacing:.3px;animation:bbPulse 3.4s ease-in-out infinite">
+          ♥ &nbsp;Créer mon badge
+        </a>
       </div>
 
-      <div class="btn-row">
-        <button class="btn-secondary" id="btn-reset">↺&ensp;Réinitialiser</button>
-        <button class="btn-secondary" id="btn-change">⇧&ensp;Changer la photo</button>
+      <!-- Right: cadre preview -->
+      <div class="jys-frame-col" style="display:flex;justify-content:center;align-items:center">
+        <img src="{{ asset('assets/cadre-sdvs.png') }}" alt="Cadre J'y serai" style="width:100%;max-width:400px;filter:drop-shadow(0 24px 56px rgba(200,62,52,.22));animation:bbFloat 8s ease-in-out infinite"/>
       </div>
 
-      <button class="btn-dl" id="btn-dl">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-          <polyline points="7 10 12 15 17 10"/>
-          <line x1="12" y1="15" x2="12" y2="3"/>
-        </svg>
-        Télécharger mon image
-      </button>
+    </div>
+  </section>
 
-      <div class="ctrl-hint">Glisse pour repositionner &nbsp;·&nbsp; Molette ou pincement pour zoomer</div>
+  <!-- ══ STEPS ═════════════════════════════════════════════════ -->
+  <section style="background:#fff;padding:clamp(44px,7vw,68px) clamp(16px,5vw,24px)">
+    <div style="max-width:820px;margin:0 auto;text-align:center">
+      <h2 style="font-family:'Anton',sans-serif;font-size:clamp(20px,3.5vw,30px);text-transform:uppercase;letter-spacing:.5px;margin:0 0 8px">Comment ça marche ?</h2>
+      <div style="width:36px;height:3px;background:#C83E34;border-radius:2px;margin:0 auto 40px"></div>
 
+      <div class="jys-steps" style="display:flex;align-items:flex-start;justify-content:center">
+        {% for step in [
+          {'n':'1','svg':'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>','label':'Choisissez une photo'},
+          {'n':'2','svg':'<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>','label':'Ajustez votre portrait'},
+          {'n':'3','svg':'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>','label':'Téléchargez votre badge'},
+          {'n':'4','svg':'<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>','label':'Partagez sur vos réseaux'}
+        ] %}
+          <div style="display:flex;flex-direction:column;align-items:center;flex:1;min-width:0;padding:0 clamp(4px,1.5vw,16px)">
+            <div style="position:relative;width:64px;height:64px;border-radius:50%;background:#fef5f4;border:1.5px solid #fddcd9;display:flex;align-items:center;justify-content:center;margin-bottom:14px;flex:none">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C83E34" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{{ step.svg|raw }}</svg>
+              <div style="position:absolute;top:-5px;left:-5px;width:22px;height:22px;border-radius:50%;background:#C83E34;color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center">{{ step.n }}</div>
+            </div>
+            <div style="font-size:13.5px;font-weight:700;color:#14160F;line-height:1.4;text-align:center">{{ step.label }}</div>
+          </div>
+          {% if not loop.last %}
+            <div class="jys-step-sep" style="flex:none;align-self:flex-start;margin-top:28px;color:#ddd;font-size:14px;letter-spacing:4px;padding:0 2px">·&thinsp;·&thinsp;·&thinsp;·</div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div style="margin-top:28px;display:inline-flex;align-items:center;gap:6px;background:#fff5f4;border:1px solid #fddcd9;border-radius:999px;padding:7px 16px;color:#C83E34;font-size:13px;font-weight:700">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        En 30 secondes <em style="font-style:normal;text-decoration:underline">seulement</em>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ TOOL ══════════════════════════════════════════════════ -->
+  <section id="outil" style="background:#fdf7f6;padding:clamp(40px,7vw,64px) clamp(16px,5vw,24px)">
+    <div class="jys-tool-grid" style="max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,40px);align-items:start">
+
+      <!-- Left: upload + controls -->
+      <div>
+        <div style="font-size:10.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#C83E34;margin-bottom:8px">Étape 1</div>
+        <h3 style="font-family:'Anton',sans-serif;font-size:clamp(16px,2.5vw,22px);text-transform:uppercase;letter-spacing:.3px;margin:0 0 18px">Téléchargez votre photo</h3>
+
+        <!-- Upload drop zone -->
+        <div id="upload-zone" style="border:2px dashed #e2d8d6;border-radius:18px;padding:clamp(24px,4vw,36px) 20px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;background:#fff;margin-bottom:14px">
+          <div style="width:54px;height:54px;border-radius:16px;background:#fef0ef;display:flex;align-items:center;justify-content:center;margin:0 auto 14px">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C83E34" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+          </div>
+          <div style="font-weight:800;font-size:15px;color:#14160F;margin-bottom:5px">Déposez votre photo ici</div>
+          <div style="color:#8a8d7e;font-size:13px;margin-bottom:4px">ou cliquez pour parcourir</div>
+          <div style="color:#bbb;font-size:12px">JPG · PNG · HEIC · Max 20 Mo</div>
+          <input type="file" id="file-input" accept="image/*" style="display:none">
+        </div>
+
+        <!-- Controls (shown after photo loaded) -->
+        <div id="controls" style="display:none;flex-direction:column;gap:10px;margin-bottom:14px">
+          <div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #ede9e8;border-radius:12px;padding:11px 14px">
+            <span style="font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#aaa;white-space:nowrap">Zoom</span>
+            <input type="range" id="zoom-slider" min="50" max="300" value="100" step="1" style="-webkit-appearance:none;flex:1;height:4px;border-radius:2px;background:rgba(200,62,52,.14);outline:none;cursor:pointer">
+            <span id="zoom-val" style="font-size:12px;font-weight:800;color:#C83E34;min-width:38px;text-align:right">100%</span>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button id="btn-reset" style="flex:1;background:#fff;color:#55584e;border:1px solid #ede9e8;padding:10px;border-radius:10px;font-family:'Manrope';font-size:13px;font-weight:700;cursor:pointer;transition:background .15s">↺ Réinitialiser</button>
+            <button id="btn-change" style="flex:1;background:#fff;color:#55584e;border:1px solid #ede9e8;padding:10px;border-radius:10px;font-family:'Manrope';font-size:13px;font-weight:700;cursor:pointer;transition:background .15s">⇧ Changer</button>
+          </div>
+        </div>
+
+        <!-- Notice -->
+        <div style="display:flex;align-items:flex-start;gap:8px;padding:11px 13px;background:#f8f6f5;border-radius:11px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:2px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <p style="font-size:12px;color:#8a8d7e;margin:0;line-height:1.55">
+            En téléchargeant votre badge, vous autorisez <strong style="color:#14160F">Bénin Bouge</strong> à utiliser cette image dans le cadre de la campagne « Sang Donné, Vies Sauvées ».
+          </p>
+        </div>
+      </div>
+
+      <!-- Right: canvas -->
+      <div>
+        <div style="font-size:10.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#C83E34;margin-bottom:8px">Aperçu</div>
+        <h3 style="font-family:'Anton',sans-serif;font-size:clamp(16px,2.5vw,22px);text-transform:uppercase;letter-spacing:.3px;margin:0 0 18px">Aperçu en temps réel</h3>
+        <div id="canvas-wrap" style="position:relative;width:100%;border-radius:18px;overflow:hidden;cursor:crosshair;user-select:none;touch-action:none;box-shadow:0 16px 52px rgba(0,0,0,.1),0 0 0 1px rgba(0,0,0,.04)">
+          <canvas id="cv" style="width:100%;height:auto;display:block"></canvas>
+        </div>
+        <div style="font-size:11.5px;color:#bbb;text-align:center;margin-top:8px">Glisse · Molette ou pincement pour zoomer</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ WHY + SHARE ═══════════════════════════════════════════ -->
+  <section style="background:#fff;padding:clamp(40px,7vw,64px) clamp(16px,5vw,24px)">
+    <div class="jys-why-grid" style="max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,56px)">
+
+      <!-- Left: share + download -->
+      <div>
+        <div style="font-size:10.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#C83E34;margin-bottom:8px">Diffusion</div>
+        <h3 style="font-family:'Anton',sans-serif;font-size:clamp(17px,2.5vw,23px);text-transform:uppercase;letter-spacing:.3px;margin:0 0 6px">Partagez votre badge</h3>
+        <p style="font-size:14px;color:#8a8d7e;margin:0 0 20px">Ensemble, mobilisons plus de donneurs !</p>
+
+        <!-- Social grid -->
+        <div class="jys-social-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px">
+          <a id="share-fb" href="#" target="_blank" rel="noopener" style="display:flex;flex-direction:column;align-items:center;gap:7px;text-decoration:none;padding:13px 8px;background:#f0f3ff;border-radius:14px;transition:transform .15s">
+            <div style="width:40px;height:40px;border-radius:11px;background:#1877F2;display:flex;align-items:center;justify-content:center">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="#fff"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </div>
+            <span style="font-size:11px;font-weight:700;color:#1877F2">Facebook</span>
+          </a>
+          <a id="share-wa" href="#" target="_blank" rel="noopener" style="display:flex;flex-direction:column;align-items:center;gap:7px;text-decoration:none;padding:13px 8px;background:#f0fdf4;border-radius:14px;transition:transform .15s">
+            <div style="width:40px;height:40px;border-radius:11px;background:#25D366;display:flex;align-items:center;justify-content:center">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="#fff"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            </div>
+            <span style="font-size:11px;font-weight:700;color:#25D366">WhatsApp</span>
+          </a>
+          <a id="share-ig" href="#" style="display:flex;flex-direction:column;align-items:center;gap:7px;text-decoration:none;padding:13px 8px;background:#fff0f8;border-radius:14px;transition:transform .15s;cursor:pointer">
+            <div style="width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);display:flex;align-items:center;justify-content:center">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff" stroke="none"/></svg>
+            </div>
+            <span style="font-size:11px;font-weight:700;color:#c13584">Instagram</span>
+          </a>
+          <a id="share-li" href="#" target="_blank" rel="noopener" style="display:flex;flex-direction:column;align-items:center;gap:7px;text-decoration:none;padding:13px 8px;background:#f0f6ff;border-radius:14px;transition:transform .15s">
+            <div style="width:40px;height:40px;border-radius:11px;background:#0A66C2;display:flex;align-items:center;justify-content:center">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="#fff"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </div>
+            <span style="font-size:11px;font-weight:700;color:#0A66C2">LinkedIn</span>
+          </a>
+        </div>
+
+        <!-- Download button -->
+        <button id="btn-dl" disabled style="width:100%;background:#C83E34;color:#fff;border:none;padding:16px;border-radius:14px;font-family:'Manrope';font-size:15px;font-weight:800;cursor:not-allowed;opacity:.5;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 8px 22px rgba(200,62,52,.2);margin-bottom:14px;transition:background .15s,opacity .15s,box-shadow .15s">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Télécharger l'image
+        </button>
+
+        <p style="font-size:12px;color:#aaa;text-align:center;line-height:1.5">Uploadez votre photo pour activer le téléchargement</p>
+
+      </div>
+
+      <!-- Right: why -->
+      <div>
+        <div style="font-size:10.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#C83E34;margin-bottom:8px">Votre impact</div>
+        <h3 style="font-family:'Anton',sans-serif;font-size:clamp(17px,2.5vw,23px);text-transform:uppercase;letter-spacing:.3px;margin:0 0 24px;line-height:1.18">Pourquoi créer et partager votre badge ?</h3>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          {% for r in [
+            {'icon':'♥','t':'Sensibiliser votre entourage à l\'importance du don de sang'},
+            {'icon':'👤','t':'Inspirer d\'autres personnes à faire un geste qui sauve des vies'},
+            {'icon':'📍','t':'Montrer votre engagement et votre solidarité'},
+            {'icon':'✓','t':'Contribuer à sauver des vies dans notre communauté'}
+          ] %}
+            <div style="display:flex;align-items:flex-start;gap:12px">
+              <div style="width:34px;height:34px;border-radius:9px;background:#fef0ef;color:#C83E34;display:flex;align-items:center;justify-content:center;font-size:15px;flex:none;margin-top:1px">{{ r.icon }}</div>
+              <p style="font-size:14.5px;font-weight:600;color:#55584e;margin:0;line-height:1.55;padding-top:7px">{{ r.t }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ GALLERY ════════════════════════════════════════════════ -->
+  {% if participantImages|length > 0 %}
+  <section style="background:#fdf7f6;padding:clamp(40px,7vw,64px) clamp(16px,5vw,24px)">
+    <div style="max-width:1000px;margin:0 auto">
+      <div style="text-align:center;margin-bottom:32px">
+        <h2 style="font-family:'Anton',sans-serif;font-size:clamp(20px,3.5vw,30px);text-transform:uppercase;letter-spacing:.3px;margin:0 0 6px">
+          Ils ont déjà participé <span style="color:#C83E34">❤</span>
+        </h2>
+        <p style="font-size:14.5px;color:#8a8d7e;margin:0">Rejoignez la communauté des donneurs engagés.</p>
+      </div>
+      <div style="position:relative">
+        <div id="gallery-track" style="display:flex;gap:14px;overflow-x:auto;padding:6px 4px 16px;scroll-behavior:smooth;-ms-overflow-style:none;scrollbar-width:none">
+          {% for img in participantImages %}
+            <img src="{{ asset('uploads/cadres/' ~ img) }}" alt="Badge participant" loading="lazy" style="width:clamp(120px,18vw,160px);height:clamp(120px,18vw,160px);object-fit:cover;border-radius:14px;flex:none;box-shadow:0 4px 18px rgba(0,0,0,.1)">
+          {% endfor %}
+        </div>
+        <button onclick="document.getElementById('gallery-track').scrollBy({left:-220,behavior:'smooth'})" style="position:absolute;left:-14px;top:50%;transform:translateY(-60%);width:38px;height:38px;border-radius:50%;background:#fff;border:1px solid #ede9e8;box-shadow:0 2px 10px rgba(0,0,0,.1);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:#555">‹</button>
+        <button onclick="document.getElementById('gallery-track').scrollBy({left:220,behavior:'smooth'})" style="position:absolute;right:-14px;top:50%;transform:translateY(-60%);width:38px;height:38px;border-radius:50%;background:#fff;border:1px solid #ede9e8;box-shadow:0 2px 10px rgba(0,0,0,.1);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:#555">›</button>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- ══ FOOTER CTA ═════════════════════════════════════════════ -->
+  <div style="background:#C83E34;color:#fff;padding:clamp(32px,6vw,50px) clamp(16px,5vw,24px)">
+    <div class="jys-footer-inner" style="max-width:940px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:16px">
+        <div style="width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:24px;flex:none">🩸</div>
+        <div>
+          <div style="font-family:'Anton',sans-serif;font-size:clamp(17px,2.8vw,24px);text-transform:uppercase;letter-spacing:.2px">Chaque goutte compte.</div>
+          <div style="font-size:14.5px;color:rgba(255,255,255,.8);margin-top:2px">Chaque partage peut sauver une vie.</div>
+        </div>
+      </div>
+      <a href="#outil" style="display:inline-flex;align-items:center;gap:9px;background:#fff;color:#C83E34;text-decoration:none;padding:15px 28px;border-radius:999px;font-weight:800;font-size:15px;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,.15);flex:none">
+        ♥ &nbsp;Créer mon badge maintenant
+      </a>
     </div>
   </div>
 
 </div>
 
+<style>
+#upload-zone:hover { border-color:#C83E34; background:#fef9f8; }
+#upload-zone.drag-over { border-color:#C83E34; background:rgba(200,62,52,.04); }
+#canvas-wrap.dragging { cursor:grabbing; }
+#btn-reset:hover, #btn-change:hover { background:#fdf8f7; border-color:rgba(200,62,52,.25); color:#C83E34; }
+#btn-dl:not(:disabled):hover { background:#b83a31; box-shadow:0 10px 28px rgba(200,62,52,.4); }
+#btn-dl:not(:disabled) { cursor:pointer; }
+#zoom-slider::-webkit-slider-thumb { -webkit-appearance:none; width:18px; height:18px; border-radius:50%; background:#C83E34; cursor:pointer; box-shadow:0 1px 6px rgba(200,62,52,.5); }
+#zoom-slider::-moz-range-thumb { width:18px; height:18px; border-radius:50%; background:#C83E34; border:none; cursor:pointer; }
+#gallery-track::-webkit-scrollbar { display:none; }
+.jys-social-grid a:hover { transform:translateY(-2px); }
+</style>
+
 <script>
 (function () {
   'use strict';
 
-  // Canvas resolution = export resolution (1080 × 1080, Instagram-ready)
   var SIZE = 1080;
-
   var canvas = document.getElementById('cv');
-  var ctx = canvas.getContext('2d');
-  canvas.width = SIZE;
+  var ctx    = canvas.getContext('2d');
+  canvas.width  = SIZE;
   canvas.height = SIZE;
 
-  var photo = null;
-  var baseScale = 1;   // scale to cover the canvas
-  var userScale = 1;   // user zoom multiplier
-  var offsetX = 0;     // pan (in canvas pixels)
-  var offsetY = 0;
+  var photo     = null;
+  var baseScale = 1;
+  var userScale = 1;
+  var offsetX   = 0;
+  var offsetY   = 0;
 
-  // Overlay frame
   var overlay = new Image();
-  overlay.onload = function () { if (photo) draw(); };
+  overlay.onload = function () { draw(); };
   overlay.src = '{{ asset('assets/cadre-sdvs.png') }}';
 
   function computeBase() {
-    baseScale = Math.max(SIZE / photo.naturalWidth, SIZE / photo.naturalHeight);
+    baseScale = Math.min(SIZE / photo.naturalWidth, SIZE / photo.naturalHeight);
   }
 
   function draw() {
     ctx.clearRect(0, 0, SIZE, SIZE);
-    ctx.fillStyle = '#fff';
-    ctx.fillRect(0, 0, SIZE, SIZE);
 
     if (photo) {
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(0, 0, SIZE, SIZE);
       ctx.save();
       ctx.translate(SIZE / 2 + offsetX, SIZE / 2 + offsetY);
       ctx.scale(baseScale * userScale, baseScale * userScale);
       ctx.drawImage(photo, -photo.naturalWidth / 2, -photo.naturalHeight / 2);
       ctx.restore();
+    } else {
+      // Placeholder
+      ctx.fillStyle = '#e8e3db';
+      ctx.fillRect(0, 0, SIZE, SIZE);
+      ctx.fillStyle = '#cec8c0';
+      ctx.beginPath();
+      ctx.arc(SIZE * .375, SIZE * .41, SIZE * .087, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(SIZE * .375, SIZE * .60, SIZE * .115, Math.PI, 0);
+      ctx.fill();
     }
 
     if (overlay.complete && overlay.naturalWidth > 0) {
@@ -289,184 +348,148 @@
     }
   }
 
-  // ── Photo loading ─────────────────────────────────────────────
+  // ── Photo loading ─────────────────────────────────────────
   function loadPhoto(file) {
     if (!file || !file.type.startsWith('image/')) return;
     var url = URL.createObjectURL(file);
     var img = new Image();
     img.onload = function () {
       if (photo && photo._url) URL.revokeObjectURL(photo._url);
-      img._url = url;
-      photo = img;
+      img._url  = url;
+      photo     = img;
       computeBase();
-      userScale = 1;
-      offsetX = 0;
-      offsetY = 0;
+      userScale = 1; offsetX = 0; offsetY = 0;
       document.getElementById('zoom-slider').value = 100;
       document.getElementById('zoom-val').textContent = '100%';
-      document.getElementById('upload-zone').style.display = 'none';
-      document.getElementById('editor').style.display = 'flex';
+      // Show controls
+      document.getElementById('controls').style.display = 'flex';
+      // Enable download
+      var dl = document.getElementById('btn-dl');
+      dl.disabled = false;
+      dl.style.opacity = '1';
+      dl.style.cursor  = 'pointer';
+      // Hide help text
+      var hint = dl.nextElementSibling;
+      if (hint) hint.style.display = 'none';
+      // Update canvas cursor
+      document.getElementById('canvas-wrap').style.cursor = 'grab';
       draw();
+      // Scroll to canvas on mobile
+      if (window.innerWidth < 700) {
+        setTimeout(function () { document.getElementById('outil').scrollIntoView({ behavior:'smooth', block:'start' }); }, 80);
+      }
     };
     img.src = url;
   }
 
-  // ── Upload zone ───────────────────────────────────────────────
-  var uploadZone = document.getElementById('upload-zone');
-  var fileInput  = document.getElementById('file-input');
+  // ── Upload zone ───────────────────────────────────────────
+  var zone      = document.getElementById('upload-zone');
+  var fileInput = document.getElementById('file-input');
+  zone.addEventListener('click', function () { fileInput.click(); });
+  zone.addEventListener('dragover',  function (e) { e.preventDefault(); zone.classList.add('drag-over'); });
+  zone.addEventListener('dragleave', function ()  { zone.classList.remove('drag-over'); });
+  zone.addEventListener('drop', function (e) { e.preventDefault(); zone.classList.remove('drag-over'); loadPhoto(e.dataTransfer.files[0]); });
+  fileInput.addEventListener('change', function (e) { loadPhoto(e.target.files[0]); e.target.value = ''; });
 
-  uploadZone.addEventListener('click', function () { fileInput.click(); });
-
-  uploadZone.addEventListener('dragover', function (e) {
-    e.preventDefault();
-    uploadZone.classList.add('drag-over');
-  });
-  uploadZone.addEventListener('dragleave', function () {
-    uploadZone.classList.remove('drag-over');
-  });
-  uploadZone.addEventListener('drop', function (e) {
-    e.preventDefault();
-    uploadZone.classList.remove('drag-over');
-    loadPhoto(e.dataTransfer.files[0]);
-  });
-  fileInput.addEventListener('change', function (e) {
-    loadPhoto(e.target.files[0]);
-    e.target.value = '';
-  });
-
-  // ── Buttons ───────────────────────────────────────────────────
-  document.getElementById('btn-change').addEventListener('click', function () {
-    fileInput.click();
-  });
-
+  // ── Controls ──────────────────────────────────────────────
+  document.getElementById('btn-change').addEventListener('click', function () { fileInput.click(); });
   document.getElementById('btn-reset').addEventListener('click', function () {
-    userScale = 1;
-    offsetX = 0;
-    offsetY = 0;
+    userScale = 1; offsetX = 0; offsetY = 0;
     document.getElementById('zoom-slider').value = 100;
     document.getElementById('zoom-val').textContent = '100%';
     draw();
   });
-
   document.getElementById('zoom-slider').addEventListener('input', function () {
     userScale = Number(this.value) / 100;
     document.getElementById('zoom-val').textContent = this.value + '%';
     draw();
   });
 
-  // ── Download ──────────────────────────────────────────────────
+  // ── Download ──────────────────────────────────────────────
   document.getElementById('btn-dl').addEventListener('click', function () {
     if (!photo) return;
-    var btn = this;
-    btn.textContent = 'Génération en cours…';
-    btn.disabled = true;
-
-    // Small timeout so the UI updates before the heavy toDataURL call
+    var btn = this, orig = btn.innerHTML;
+    btn.textContent = 'Génération…'; btn.disabled = true;
     setTimeout(function () {
       var dataUrl = canvas.toDataURL('image/jpeg', 0.95);
-      var link = document.createElement('a');
-      link.download = 'je-participe-sdvs.jpg';
-      link.href = dataUrl;
-      link.click();
-
-      btn.innerHTML =
-        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
-        '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>' +
-        '<polyline points="7 10 12 15 17 10"/>' +
-        '<line x1="12" y1="15" x2="12" y2="3"/></svg>' +
-        ' Télécharger mon image';
-      btn.disabled = false;
+      var a = document.createElement('a');
+      a.download = 'jyserai-sdvs-2026.jpg'; a.href = dataUrl; a.click();
+      fetch('{{ path('cadre_save') }}', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image: dataUrl })
+      }).catch(function () {});
+      btn.innerHTML = orig; btn.disabled = false;
     }, 60);
   });
 
-  // ── Mouse drag ────────────────────────────────────────────────
-  var wrap     = document.getElementById('canvas-wrap');
-  var dragging = false;
-  var dragX = 0, dragY = 0;
-
-  wrap.addEventListener('mousedown', function (e) {
-    if (e.button !== 0) return;
-    dragging = true;
-    dragX = e.clientX;
-    dragY = e.clientY;
-    wrap.classList.add('dragging');
+  // ── Social share ──────────────────────────────────────────
+  var pageUrl  = window.location.href;
+  var shareMsg = encodeURIComponent('Je serai au don de sang le 11 juillet 2026 ! Rejoignez-moi → ' + pageUrl);
+  document.getElementById('share-fb').href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(pageUrl);
+  document.getElementById('share-wa').href = 'https://wa.me/?text=' + shareMsg;
+  document.getElementById('share-li').href = 'https://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(pageUrl);
+  document.getElementById('share-ig').addEventListener('click', function (e) {
     e.preventDefault();
+    if (photo) { document.getElementById('btn-dl').click(); }
+    else { document.getElementById('outil').scrollIntoView({ behavior: 'smooth' }); }
+  });
+
+  // ── Mouse drag ────────────────────────────────────────────
+  var wrap = document.getElementById('canvas-wrap');
+  var dragging = false, dragX = 0, dragY = 0;
+  wrap.addEventListener('mousedown', function (e) {
+    if (e.button !== 0 || !photo) return;
+    dragging = true; dragX = e.clientX; dragY = e.clientY;
+    wrap.classList.add('dragging'); e.preventDefault();
   });
   window.addEventListener('mousemove', function (e) {
     if (!dragging) return;
-    var rect  = canvas.getBoundingClientRect();
-    var ratio = SIZE / rect.width;
-    offsetX += (e.clientX - dragX) * ratio;
-    offsetY += (e.clientY - dragY) * ratio;
-    dragX = e.clientX;
-    dragY = e.clientY;
-    draw();
+    var r = canvas.getBoundingClientRect();
+    offsetX += (e.clientX - dragX) * (SIZE / r.width);
+    offsetY += (e.clientY - dragY) * (SIZE / r.height);
+    dragX = e.clientX; dragY = e.clientY; draw();
   });
-  window.addEventListener('mouseup', function () {
-    dragging = false;
-    wrap.classList.remove('dragging');
-  });
+  window.addEventListener('mouseup', function () { dragging = false; wrap.classList.remove('dragging'); });
 
-  // ── Mouse wheel zoom ──────────────────────────────────────────
+  // ── Wheel zoom ────────────────────────────────────────────
   wrap.addEventListener('wheel', function (e) {
+    if (!photo) return;
     e.preventDefault();
-    var delta = e.deltaY < 0 ? 0.06 : -0.06;
-    userScale = Math.max(0.5, Math.min(3, userScale + delta));
+    userScale = Math.max(.5, Math.min(3, userScale + (e.deltaY < 0 ? .06 : -.06)));
     var pct = Math.round(userScale * 100);
     document.getElementById('zoom-slider').value = Math.min(300, Math.max(50, pct));
     document.getElementById('zoom-val').textContent = pct + '%';
     draw();
   }, { passive: false });
 
-  // ── Touch: drag + pinch zoom ──────────────────────────────────
-  var lastTouches = null;
-
-  wrap.addEventListener('touchstart', function (e) {
-    e.preventDefault();
-    lastTouches = Array.from(e.touches);
-  }, { passive: false });
-
+  // ── Touch ─────────────────────────────────────────────────
+  var lastT = null;
+  wrap.addEventListener('touchstart',  function (e) { e.preventDefault(); lastT = Array.from(e.touches); }, { passive: false });
   wrap.addEventListener('touchmove', function (e) {
+    if (!photo) return;
     e.preventDefault();
-    var touches = Array.from(e.touches);
-    var rect    = canvas.getBoundingClientRect();
-    var ratio   = SIZE / rect.width;
-
-    if (touches.length === 1 && lastTouches && lastTouches.length === 1) {
-      offsetX += (touches[0].clientX - lastTouches[0].clientX) * ratio;
-      offsetY += (touches[0].clientY - lastTouches[0].clientY) * ratio;
-
-    } else if (touches.length === 2 && lastTouches && lastTouches.length >= 2) {
-      var prevDist = Math.hypot(
-        lastTouches[1].clientX - lastTouches[0].clientX,
-        lastTouches[1].clientY - lastTouches[0].clientY
-      );
-      var newDist = Math.hypot(
-        touches[1].clientX - touches[0].clientX,
-        touches[1].clientY - touches[0].clientY
-      );
-      if (prevDist > 0) {
-        userScale = Math.max(0.5, Math.min(3, userScale * (newDist / prevDist)));
+    var t = Array.from(e.touches);
+    var r = canvas.getBoundingClientRect();
+    var rx = SIZE / r.width, ry = SIZE / r.height;
+    if (t.length === 1 && lastT && lastT.length === 1) {
+      offsetX += (t[0].clientX - lastT[0].clientX) * rx;
+      offsetY += (t[0].clientY - lastT[0].clientY) * ry;
+    } else if (t.length === 2 && lastT && lastT.length >= 2) {
+      var pd = Math.hypot(lastT[1].clientX - lastT[0].clientX, lastT[1].clientY - lastT[0].clientY);
+      var nd = Math.hypot(t[1].clientX - t[0].clientX, t[1].clientY - t[0].clientY);
+      if (pd > 0) {
+        userScale = Math.max(.5, Math.min(3, userScale * (nd / pd)));
         var pct = Math.round(userScale * 100);
         document.getElementById('zoom-slider').value = Math.min(300, Math.max(50, pct));
         document.getElementById('zoom-val').textContent = pct + '%';
       }
-      // Pan by midpoint
-      var prevMidX = (lastTouches[0].clientX + lastTouches[1].clientX) / 2;
-      var prevMidY = (lastTouches[0].clientY + lastTouches[1].clientY) / 2;
-      var newMidX  = (touches[0].clientX + touches[1].clientX) / 2;
-      var newMidY  = (touches[0].clientY + touches[1].clientY) / 2;
-      offsetX += (newMidX - prevMidX) * ratio;
-      offsetY += (newMidY - prevMidY) * ratio;
+      offsetX += ((t[0].clientX + t[1].clientX) / 2 - (lastT[0].clientX + lastT[1].clientX) / 2) * rx;
+      offsetY += ((t[0].clientY + t[1].clientY) / 2 - (lastT[0].clientY + lastT[1].clientY) / 2) * ry;
     }
-
-    lastTouches = touches;
-    draw();
+    lastT = t; draw();
   }, { passive: false });
-
-  wrap.addEventListener('touchend', function (e) {
-    lastTouches = Array.from(e.touches);
-  }, { passive: false });
+  wrap.addEventListener('touchend', function (e) { lastT = Array.from(e.touches); }, { passive: false });
 
 })();
 </script>

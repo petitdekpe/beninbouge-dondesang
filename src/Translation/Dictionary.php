@@ -12,7 +12,7 @@ final class Dictionary
     private static function fr(): array
     {
         return [
-            'nav' => ['donate' => 'Faire un don', 'campaign' => 'La campagne', 'partners' => 'Partenaires', 'info' => 'Infos pratiques'],
+            'nav' => ['donate' => 'Contribuer', 'campaign' => 'La campagne', 'partners' => 'Partenaires', 'info' => 'Infos pratiques'],
             'hero' => [
                 'badge' => '2 ans de Bénin Bouge',
                 't1' => 'Deux ans à', 't2' => 'faire bouger', 't3' => 'le Bénin.',
@@ -87,13 +87,13 @@ final class Dictionary
             'footerTagline' => 'Bénin Bouge, le média du Bénin qui se transforme et qui bouge.',
             'footerRights' => 'Tous droits réservés.',
             'm' => [
-                'title' => 'Faire un don', 'step1' => 'Montant', 'step2' => 'Vous', 'step3' => 'Paiement',
+                'title' => 'Contribuer', 'step1' => 'Montant', 'step2' => 'Vous', 'step3' => 'Paiement',
                 'amountTitle' => 'Quel montant ?', 'continue' => 'Continuer', 'back' => 'Retour',
                 'infoTitle' => 'Vos coordonnées',
                 'nameLabel' => 'Nom complet', 'namePh' => 'Ex. Awa Koudjo',
                 'emailLabel' => 'Email', 'emailPh' => 'vous@email.com',
                 'phoneLabel' => 'Téléphone', 'phonePh' => '+229 ...',
-                'anon' => 'Faire un don anonyme',
+                'anon' => 'Contribuer anonymement',
                 'payTitle' => 'Mode de paiement', 'youGive' => 'Vous donnez',
                 'fedaSecured' => 'Sécurisé par FedaPay', 'payNow' => 'Payer',
                 'thanksTitle' => 'Merci infiniment !', 'thanksLead' => 'Votre don a bien été pris en compte. Un reçu vous sera envoyé par email. Ensemble, on sauve des vies.',
@@ -122,7 +122,7 @@ final class Dictionary
                 'empty' => 'Aucun don confirmé pour le moment. Soyez le premier !',
                 'back' => "Retour à l'accueil",
                 'amountCol' => 'Montant', 'donorCol' => 'Donateur', 'dateCol' => 'Date',
-                'cta' => 'Faire un don',
+                'cta' => 'Contribuer',
             ],
             'msgsPage' => [
                 'kicker' => 'Joyeux anniversaire',

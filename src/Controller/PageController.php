@@ -52,12 +52,6 @@ final class PageController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
         ]);
     }
 
-    #[Route('/jyserai', name: 'cadre', methods: ['GET'])]
-    public function cadre(): Response
-    {
-        return $this->render('cadre.html.twig');
-    }
-
     #[Route('/merci', name: 'merci', methods: ['GET'])]
     public function merci(Request $request): Response
     {

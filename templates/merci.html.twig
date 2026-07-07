@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+﻿{% extends 'base.html.twig' %}
 
 {% block title %}{{ lang == 'fr' ? 'Merci !' : 'Thank you!' }} — Bénin Bouge{% endblock %}
 
@@ -41,9 +41,9 @@ body{background:#FBF7EC}
 
       <h1 style="font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(34px,9vw,62px);line-height:1;margin:18px 0 0;text-transform:uppercase;letter-spacing:.5px">
         {% if lang == 'fr' %}
-          <span style="color:#0E3F51">Merci</span> <span style="color:#E1251B">infiniment !</span>
+          <span style="color:#0E3F51">Merci</span> <span style="color:#C83E34">infiniment !</span>
         {% else %}
-          <span style="color:#0E3F51">Thank</span> <span style="color:#E1251B">you so much!</span>
+          <span style="color:#0E3F51">Thank</span> <span style="color:#C83E34">you so much!</span>
         {% endif %}
       </h1>
 
@@ -59,20 +59,20 @@ body{background:#FBF7EC}
       <div style="background:#fff;border:1px solid #ece4cf;border-radius:18px;box-shadow:0 14px 36px rgba(0,0,0,.07);padding:24px;margin-top:30px;text-align:left">
         <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px dashed #e6ddc8;padding-bottom:16px">
           <div>
-            <div style="font-size:12px;font-weight:800;color:#9a9a8f;text-transform:uppercase;letter-spacing:.6px">{{ lang == 'fr' ? 'Montant du don' : 'Donation amount' }}</div>
-            <div style="font-family:'Anton';font-size:clamp(24px,6vw,34px);color:#E1251B;line-height:1.05;margin-top:3px">{{ amount|number_format(0, ',', ' ') }} <span style="font-size:17px;color:#0E3F51">FCFA</span></div>
+            <div style="font-size:12px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:.6px">{{ lang == 'fr' ? 'Montant du don' : 'Donation amount' }}</div>
+            <div style="font-family:'Anton';font-size:clamp(24px,6vw,34px);color:#C83E34;line-height:1.05;margin-top:3px">{{ amount|number_format(0, ',', ' ') }} <span style="font-size:17px;color:#0E3F51">FCFA</span></div>
           </div>
           <span style="flex:none;width:50px;height:58px;display:flex;align-items:center;justify-content:center;position:relative">
-            <span style="position:absolute;inset:0;background:#E1251B;clip-path:polygon(50% 0,100% 100%,0 100%);border-radius:0 50% 50% 50%"></span>
+            <span style="position:absolute;inset:0;background:#C83E34;clip-path:polygon(50% 0,100% 100%,0 100%);border-radius:0 50% 50% 50%"></span>
             <span style="position:relative;color:#fff;font-size:18px;z-index:1">♥</span>
           </span>
         </div>
         <div style="display:flex;justify-content:space-between;gap:12px;margin-top:14px;font-size:14.5px">
-          <span style="color:#9a9a8f;font-weight:600">{{ lang == 'fr' ? 'Donateur' : 'Donor' }}</span>
+          <span style="color:#fff;font-weight:600">{{ lang == 'fr' ? 'Donateur' : 'Donor' }}</span>
           <span style="font-weight:800;color:#0E3F51;text-align:right">{{ donorName }}</span>
         </div>
         <div style="display:flex;justify-content:space-between;gap:12px;margin-top:9px;font-size:14.5px">
-          <span style="color:#9a9a8f;font-weight:600">{{ lang == 'fr' ? 'Référence' : 'Reference' }}</span>
+          <span style="color:#fff;font-weight:600">{{ lang == 'fr' ? 'Référence' : 'Reference' }}</span>
           <span style="font-weight:800;color:#0E3F51;font-variant-numeric:tabular-nums">{{ reference }}</span>
         </div>
         <div style="display:flex;align-items:center;gap:8px;margin-top:16px;background:#f4f8f0;border-radius:10px;padding:11px 13px;font-size:13.5px;color:#295D3C;font-weight:600">
@@ -82,7 +82,7 @@ body{background:#FBF7EC}
 
       <!-- share -->
       <div style="margin-top:30px">
-        <div style="font-size:13px;font-weight:800;color:#9a9a8f;text-transform:uppercase;letter-spacing:1px">{{ lang == 'fr' ? 'Partagez la générosité' : 'Share the generosity' }}</div>
+        <div style="font-size:13px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:1px">{{ lang == 'fr' ? 'Partagez la générosité' : 'Share the generosity' }}</div>
         <div style="display:flex;gap:11px;justify-content:center;margin-top:14px;flex-wrap:wrap">
           <button type="button" data-share="whatsapp" style="display:inline-flex;align-items:center;gap:8px;background:#3A8556;color:#fff;border:none;padding:12px 18px;border-radius:999px;font-family:'Manrope';font-weight:800;font-size:14px;cursor:pointer">WhatsApp</button>
           <button type="button" data-share="facebook" style="display:inline-flex;align-items:center;gap:8px;background:#1877F2;color:#fff;border:none;padding:12px 18px;border-radius:999px;font-family:'Manrope';font-weight:800;font-size:14px;cursor:pointer">Facebook</button>

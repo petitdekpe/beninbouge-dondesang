@@ -1,4 +1,4 @@
-{% extends 'admin/base.html.twig' %}
+﻿{% extends 'admin/base.html.twig' %}
 
 {% block title %}Messages — Backoffice{% endblock %}
 
@@ -12,7 +12,7 @@
       <div style="min-width:0;flex:1 1 320px;overflow-wrap:break-word">
         <div style="font-weight:800;color:#0E3F51;font-size:15px">{{ m.authorName }}{% if not m.visible %} <span style="color:#b91c1c;font-weight:700;font-size:12px">(masqué)</span>{% endif %}</div>
         <div style="font-size:14px;color:#444;margin-top:4px;line-height:1.5">{{ m.message }}</div>
-        <div style="font-size:12px;color:#9a9a8f;margin-top:6px">{{ m.createdAt|date('d/m/Y H:i') }}</div>
+        <div style="font-size:12px;color:#fff;margin-top:6px">{{ m.createdAt|date('d/m/Y H:i') }}</div>
       </div>
       <div style="display:flex;gap:8px;flex:none">
         <form method="post" action="{{ path('admin_messages_toggle', {id: m.id}) }}">
@@ -26,7 +26,7 @@
       </div>
     </div>
   {% else %}
-    <p style="color:#9a9a8f;text-align:center;padding:30px 0">Aucun message pour le moment.</p>
+    <p style="color:#fff;text-align:center;padding:30px 0">Aucun message pour le moment.</p>
   {% endfor %}
 </div>
 {% endblock %}

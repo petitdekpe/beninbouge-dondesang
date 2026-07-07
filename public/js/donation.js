@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   'use strict';
 
   var cfg = window.BB_CONFIG || {};
@@ -35,8 +35,8 @@
         var active = !state.custom && parseInt(btn.getAttribute('data-amount'), 10) === state.amount;
         if (light) {
           btn.style.background = active ? '#fdeaea' : '#f6f5ef';
-          btn.style.borderColor = active ? '#E1251B' : '#e6e3d7';
-          btn.style.color = active ? '#E1251B' : '#14160F';
+          btn.style.borderColor = active ? '#C83E34' : '#e6e3d7';
+          btn.style.color = active ? '#C83E34' : '#14160F';
         } else {
           btn.style.background = active ? 'rgba(255,255,255,.22)' : 'rgba(255,255,255,.06)';
           btn.style.borderColor = active ? '#fff' : 'rgba(255,255,255,.18)';
@@ -83,7 +83,7 @@
       panel.hidden = parseInt(panel.getAttribute('data-step-panel'), 10) !== n;
     });
     modal.querySelectorAll('[data-step-tab]').forEach(function (tab) {
-      tab.style.color = parseInt(tab.getAttribute('data-step-tab'), 10) <= n ? '#E1251B' : '#bdbdb4';
+      tab.style.color = parseInt(tab.getAttribute('data-step-tab'), 10) <= n ? '#C83E34' : '#bdbdb4';
     });
     var bar = modal.querySelector('[data-progress-bar]');
     if (bar) bar.style.width = (Math.min(100, (Math.min(n, 3) / 3) * 100)) + '%';
@@ -130,7 +130,7 @@
     var valid = state.name.trim().length > 0 && state.email.trim().length > 0;
     if (nextStep2Btn) {
       nextStep2Btn.disabled = !valid;
-      nextStep2Btn.style.background = valid ? '#E1251B' : '#e9c4c2';
+      nextStep2Btn.style.background = valid ? '#C83E34' : '#e9c4c2';
       nextStep2Btn.style.cursor = valid ? 'pointer' : 'not-allowed';
     }
     return valid;
@@ -147,8 +147,8 @@
   if (anonBtn) {
     anonBtn.addEventListener('click', function () {
       state.anonymous = !state.anonymous;
-      anonBtn.style.borderColor = state.anonymous ? '#E1251B' : '#cfcdc2';
-      anonBtn.style.background = state.anonymous ? '#E1251B' : '#fff';
+      anonBtn.style.borderColor = state.anonymous ? '#C83E34' : '#cfcdc2';
+      anonBtn.style.background = state.anonymous ? '#C83E34' : '#fff';
       anonBtn.textContent = state.anonymous ? '✓' : '';
     });
   }
@@ -160,11 +160,11 @@
       modal.querySelectorAll('[data-method]').forEach(function (b) {
         var active = b === btn;
         b.style.background = active ? '#fdeaea' : '#fff';
-        b.style.borderColor = active ? '#E1251B' : '#e6e3d7';
+        b.style.borderColor = active ? '#C83E34' : '#e6e3d7';
         var radio = b.querySelector('[data-method-radio]');
         if (radio) {
-          radio.style.borderColor = active ? '#E1251B' : '#cfcdc2';
-          radio.style.background = active ? 'radial-gradient(circle,#E1251B 0 5px,transparent 6px)' : 'transparent';
+          radio.style.borderColor = active ? '#C83E34' : '#cfcdc2';
+          radio.style.background = active ? 'radial-gradient(circle,#C83E34 0 5px,transparent 6px)' : 'transparent';
         }
       });
     });
@@ -178,7 +178,7 @@
     toggle.addEventListener('click', function () {
       var open = body.style.maxHeight && body.style.maxHeight !== '0px';
       body.style.maxHeight = open ? '0' : '220px';
-      sign.style.background = open ? '#f4f2ea' : '#E1251B';
+      sign.style.background = open ? '#f4f2ea' : '#C83E34';
       sign.style.color = open ? '#14160F' : '#fff';
       sign.style.transform = open ? 'rotate(0deg)' : 'rotate(45deg)';
     });

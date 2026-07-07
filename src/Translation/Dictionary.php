@@ -16,8 +16,8 @@ final class Dictionary
             'hero' => [
                 'badge' => '2 ans de Bénin Bouge',
                 't1' => 'Deux ans à', 't2' => 'faire bouger', 't3' => 'le Bénin.',
-                'lead' => 'Pour souffler nos 2 bougies, Bénin Bouge transforme l’énergie en solidarité. Soutenez la 2ᵉ édition de « Sang Donné, Vies Sauvées » et aidez-nous à sauver des vies.',
-                'cta' => 'Je fais un don', 'cta2' => 'Découvrir la campagne',
+                'lead' => 'Pour célébrer nos 2 ans, Bénin Bouge transforme l’énergie en solidarité. Participez à la nouvelle édition de « Sang Donné, Vies Sauvées » et aidez-nous à sauver des vies.',
+                'cta' => 'Je donne mon sang', 'cta2' => 'Découvrir la campagne',
                 'dateLabel' => 'Date', 'date' => 'Sam. 11 juillet 2026',
                 'placeLabel' => 'Lieu', 'place' => 'EYA Centre, Akpakpa',
                 'edition' => '2ᵉ édition · en partenariat avec l’ANTS & l’ADSBB',
@@ -26,13 +26,21 @@ final class Dictionary
             'stats' => [
                 'kicker' => 'Le média',
                 'title' => 'Pourquoi Bénin Bouge ?',
-                'lead' => 'Bénin Bouge est le média qui raconte un Bénin qui avance : actualités, portraits, mobilisation citoyenne et grands rendez-vous solidaires comme « Sang Donné, Vies Sauvées ».',
+                'lead' => 'Bénin Bouge est bien plus qu’un simple média. C’est le miroir d’un Bénin qui se transforme, raconté par ceux qui le font bouger. De l’actualité aux portraits inspirants, en passant par la mobilisation citoyenne, nous donnons une voix à tous ceux qui s’engagent.',
             ],
             'camp' => [
                 'kicker' => 'Sang Donné, Vies Sauvées',
                 'title' => 'Et si vous deveniez donneur ?',
                 'lead' => 'Au Bénin, les besoins en sang sont constants et les réserves trop souvent insuffisantes. Avec l’ANTS et l’ADSBB, nous mobilisons la communauté pour une collecte qui compte.',
-                'cta' => 'Soutenir la collecte',
+                'cta' => 'Je soutiens le don de sang',
+            ],
+            'campIntro' => [
+                'kicker' => '2ᵉ édition · 11 juillet 2026',
+                'title' => 'La collecte de sang',
+                'lead' => 'Face à l’urgence des besoins de santé publique au Bénin, l’initiative citoyenne « Sang Donné, Vies Sauvées » se mobilise pour faire une réelle différence. Ce grand rassemblement solidaire unit d’un même élan donneurs volontaires, bénévoles engagés et partenaires institutionnels. Notre mission commune est claire et vitale : consolider durablement les réserves de sang de notre pays et offrir un espoir concret aux centres de santé. En participant à cette dynamique, chaque geste devient un maillon fort d’une chaîne de solidarité nationale dédiée à préserver la vie.',
+                'goal' => '+300',
+                'goalLabel' => 'poches de sang à collecter',
+                'goalSub' => 'Samedi 11 juillet 2026 · EYA Centre, Akpakpa',
             ],
             'give' => [
                 'kicker' => 'Collecte de fonds',
@@ -54,7 +62,10 @@ final class Dictionary
                 'kicker' => 'Ils nous accompagnent',
                 'title' => 'Partenaires officiels',
                 'lead' => 'La campagne est menée main dans la main avec les acteurs de référence de la transfusion sanguine au Bénin.',
+                'technicalTitle' => 'Partenaires techniques',
+                'generalTitle' => 'Partenaires',
                 'sponsorsLabel' => 'Avec le soutien de',
+                'empty' => 'Aucun partenaire pour le moment.',
             ],
             'info' => [
                 'kicker' => 'Rendez-vous',
@@ -127,10 +138,6 @@ final class Dictionary
                 ['icon' => '⏱', 't' => '10 minutes pour sauver une vie', 'd' => 'Un don rapide, encadré par des professionnels de l’ANTS, peut sauver jusqu’à 3 vies.'],
                 ['icon' => '🤝', 't' => 'Une mobilisation collective', 'd' => 'Donneurs, bénévoles, partenaires et donateurs : chacun a un rôle dans cette chaîne de solidarité.'],
             ],
-            'partnersList' => [
-                ['abbr' => 'ANTS', 'logo' => 'ANTS.jpg', 'name' => 'Agence Nationale pour la Transfusion Sanguine', 'role' => 'Encadrement médical et collecte du sang.'],
-                ['abbr' => 'ADSBB', 'logo' => 'ADSBB.png', 'name' => 'Association des Donneurs de Sang Bénévoles du Bénin', 'role' => 'Mobilisation et sensibilisation des donneurs.'],
-            ],
         ];
     }
 
@@ -141,8 +148,8 @@ final class Dictionary
             'hero' => [
                 'badge' => '2 years of Bénin Bouge',
                 't1' => 'Two years', 't2' => 'moving', 't3' => 'Benin forward.',
-                'lead' => 'To blow out our 2 candles, Bénin Bouge is turning energy into solidarity. Support the 2nd edition of "Blood Given, Lives Saved" and help us save lives.',
-                'cta' => 'Donate now', 'cta2' => 'Discover the campaign',
+                'lead' => 'To celebrate our 2nd anniversary, Bénin Bouge is turning energy into solidarity. Join the new edition of « Blood Given, Lives Saved » and help us save lives.',
+                'cta' => 'Donate blood', 'cta2' => 'Discover the campaign',
                 'dateLabel' => 'Date', 'date' => 'Sat. July 11, 2026',
                 'placeLabel' => 'Venue', 'place' => 'EYA Center, Akpakpa',
                 'edition' => '2nd edition · with ANTS & ADSBB',
@@ -157,7 +164,15 @@ final class Dictionary
                 'kicker' => 'Blood Given, Lives Saved',
                 'title' => 'What if you became a donor?',
                 'lead' => 'In Benin, the need for blood is constant and reserves too often run low. With ANTS and ADSBB, we mobilize the community for a collection that matters.',
-                'cta' => 'Support the drive',
+                'cta' => 'I support blood donation',
+            ],
+            'campIntro' => [
+                'kicker' => '2nd edition · July 11, 2026',
+                'title' => 'The blood drive',
+                'lead' => 'Faced with the urgency of public health needs in Benin, the civic initiative « Blood Given, Lives Saved » is mobilizing to make a real difference. This great solidarity gathering unites voluntary donors, committed volunteers and institutional partners in a shared momentum. Our common mission is clear and vital: to sustainably strengthen our country’s blood reserves and offer concrete hope to health centers. By joining this movement, every gesture becomes a strong link in a chain of national solidarity dedicated to preserving life.',
+                'goal' => '+300',
+                'goalLabel' => 'blood bags to collect',
+                'goalSub' => 'Saturday, July 11, 2026 · EYA Centre, Akpakpa',
             ],
             'give' => [
                 'kicker' => 'Fundraising',
@@ -179,7 +194,10 @@ final class Dictionary
                 'kicker' => 'They support us',
                 'title' => 'Official partners',
                 'lead' => 'The campaign is run hand in hand with Benin’s leading blood transfusion stakeholders.',
+                'technicalTitle' => 'Technical partners',
+                'generalTitle' => 'Partners',
                 'sponsorsLabel' => 'With the support of',
+                'empty' => 'No partners yet.',
             ],
             'info' => [
                 'kicker' => 'Save the date',
@@ -251,10 +269,6 @@ final class Dictionary
                 ['icon' => '✚', 't' => 'A vital need', 'd' => 'Blood cannot be manufactured: only donations can treat accident victims, mothers in labor and patients.'],
                 ['icon' => '⏱', 't' => '10 minutes to save a life', 'd' => 'A quick donation, supervised by ANTS professionals, can save up to 3 lives.'],
                 ['icon' => '🤝', 't' => 'A collective effort', 'd' => 'Donors, volunteers, partners and contributors: everyone has a role in this chain of solidarity.'],
-            ],
-            'partnersList' => [
-                ['abbr' => 'ANTS', 'logo' => 'ANTS.jpg', 'name' => 'National Agency for Blood Transfusion', 'role' => 'Medical supervision and blood collection.'],
-                ['abbr' => 'ADSBB', 'logo' => 'ADSBB.png', 'name' => 'Benin Voluntary Blood Donors Association', 'role' => 'Donor mobilization and awareness.'],
             ],
         ];
     }

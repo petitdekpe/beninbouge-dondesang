@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+﻿{% extends 'base.html.twig' %}
 
 {% block title %}{{ t.tracking.title }} — Bénin Bouge{% endblock %}
 
@@ -50,20 +50,20 @@ body{background:#FBF7EC}
               <span style="flex:none;width:38px;height:38px;border-radius:50%;background:rgba(58,133,86,.14);color:#3A8556;display:flex;align-items:center;justify-content:center;font-size:16px">♥</span>
               <div style="min-width:0;overflow-wrap:break-word">
                 <div style="font-weight:800;color:#0E3F51;font-size:15px">{{ d.anonymous or not d.donorName ? t.tracking.anonymous : d.donorName }}</div>
-                <div style="font-size:12.5px;color:#9a9a8f;margin-top:2px">{{ d.confirmedAt ? d.confirmedAt|date('d/m/Y H:i') : d.createdAt|date('d/m/Y H:i') }}</div>
+                <div style="font-size:12.5px;color:#fff;margin-top:2px">{{ d.confirmedAt ? d.confirmedAt|date('d/m/Y H:i') : d.createdAt|date('d/m/Y H:i') }}</div>
               </div>
             </div>
-            <div style="font-family:'Anton';font-size:clamp(17px,3vw,21px);color:#E1251B;flex:none">{{ d.amount|number_format(0, ',', ' ') }} <span style="font-size:13px;color:#0E3F51">FCFA</span></div>
+            <div style="font-family:'Anton';font-size:clamp(17px,3vw,21px);color:#C83E34;flex:none">{{ d.amount|number_format(0, ',', ' ') }} <span style="font-size:13px;color:#0E3F51">FCFA</span></div>
           </div>
         {% else %}
-          <p style="text-align:center;color:#9a9a8f;padding:30px 0">{{ t.tracking.empty }}</p>
+          <p style="text-align:center;color:#fff;padding:30px 0">{{ t.tracking.empty }}</p>
         {% endfor %}
       </div>
     </div>
 
     <div style="text-align:center;margin-top:clamp(36px,6vw,48px);display:flex;flex-wrap:wrap;gap:14px;justify-content:center">
       <a href="{{ path('landing', {lang: lang}) }}" style="display:inline-flex;align-items:center;gap:8px;color:#0E3F51;text-decoration:none;font-weight:800;font-size:15px;border-bottom:2px solid #3A8556;padding-bottom:2px">{{ t.tracking.back }}</a>
-      <a href="{{ path('landing', {lang: lang}) }}#don" style="display:inline-flex;align-items:center;gap:8px;background:#E1251B;color:#fff;text-decoration:none;font-weight:800;font-size:15px;padding:10px 20px;border-radius:999px">{{ t.tracking.cta }}</a>
+      <a href="{{ path('landing', {lang: lang}) }}#don" style="display:inline-flex;align-items:center;gap:8px;background:#C83E34;color:#fff;text-decoration:none;font-weight:800;font-size:15px;padding:10px 20px;border-radius:999px">{{ t.tracking.cta }}</a>
     </div>
   </main>
 </div>

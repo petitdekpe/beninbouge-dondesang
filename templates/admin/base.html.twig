@@ -12,6 +12,7 @@ body{background:#F4F2EA}
       <nav style="display:flex;gap:16px">
         <a href="{{ path('admin_messages') }}" style="color:{{ app.request.attributes.get('_route') starts with 'admin_messages' ? '#fff' : '#9fb3bc' }};text-decoration:none;font-weight:700;font-size:14px">Messages</a>
         <a href="{{ path('admin_donations') }}" style="color:{{ app.request.attributes.get('_route') starts with 'admin_donations' ? '#fff' : '#9fb3bc' }};text-decoration:none;font-weight:700;font-size:14px">Dons</a>
+        <a href="{{ path('admin_partners') }}" style="color:{{ app.request.attributes.get('_route') starts with 'admin_partners' ? '#fff' : '#9fb3bc' }};text-decoration:none;font-weight:700;font-size:14px">Partenaires</a>
         <a href="{{ path('admin_sponsors') }}" style="color:{{ app.request.attributes.get('_route') starts with 'admin_sponsors' ? '#fff' : '#9fb3bc' }};text-decoration:none;font-weight:700;font-size:14px">Sponsors</a>
       </nav>
     </div>

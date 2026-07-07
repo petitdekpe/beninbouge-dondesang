@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\BirthdayMessageRepository;
+use App\Repository\PartnerRepository;
 use App\Repository\SponsorRepository;
 use App\Translation\Dictionary;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,6 +22,7 @@ final class PageController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
 
     public function __construct(
         private readonly BirthdayMessageRepository $messages,
+        private readonly PartnerRepository $partnerRepository,
         private readonly SponsorRepository $sponsors,
     ) {
     }
@@ -44,8 +46,16 @@ final class PageController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
             'methods' => array_merge(self::PAYMENT_METHODS, [$cardMethod]),
             'fedapayPublicKey' => $_ENV['FEDAPAY_PUBLIC_KEY'] ?? 'pk_sandbox_XXXXXXXXXXXXXXXXXXXXXXXXXXXX',
             'birthdayMessages' => $this->messages->findLatest(12),
+            'technicalPartners' => $this->partnerRepository->findByCategory('technique'),
+            'partners' => $this->partnerRepository->findByCategory('partenaire'),
             'sponsors' => $this->sponsors->findAllOrdered(),
         ]);
+    }
+
+    #[Route('/jyserai', name: 'cadre', methods: ['GET'])]
+    public function cadre(): Response
+    {
+        return $this->render('cadre.html.twig');
     }
 
     #[Route('/merci', name: 'merci', methods: ['GET'])]

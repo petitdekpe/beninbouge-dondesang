@@ -1,0 +1,473 @@
+{% extends 'base.html.twig' %}
+{% block title %}Mon cadre — Sang Donné, Vies Sauvées{% endblock %}
+
+{% block extra_css %}
+#cadre-page {
+  min-height: 100vh;
+  background: #fff;
+  color: #14160F;
+  padding: clamp(32px,6vw,64px) 16px 80px;
+}
+.cadre-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.cadre-kicker {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #C83E34;
+  margin-bottom: 10px;
+}
+.cadre-header h1 {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(24px, 5vw, 40px);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.1;
+}
+.cadre-header p {
+  color: rgba(0,0,0,.45);
+  font-size: 15px;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+/* Upload zone */
+#upload-zone {
+  max-width: 480px;
+  margin: 0 auto;
+  border: 2px dashed rgba(0,0,0,.15);
+  border-radius: 22px;
+  padding: 56px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color .2s, background .2s;
+}
+#upload-zone:hover, #upload-zone.drag-over {
+  border-color: #C83E34;
+  background: rgba(200,62,52,.05);
+}
+#upload-zone .up-icon {
+  width: 52px; height: 52px;
+  background: rgba(0,0,0,.05);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 18px;
+}
+#upload-zone strong { color: #14160F; display: block; font-size: 15px; margin-bottom: 6px; }
+#upload-zone span { color: rgba(0,0,0,.4); font-size: 13px; }
+#file-input { display: none; }
+
+/* Editor */
+#editor {
+  max-width: 660px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+#canvas-wrap {
+  position: relative;
+  width: min(100%, 580px);
+  aspect-ratio: 1 / 1;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  box-shadow: 0 24px 80px rgba(0,0,0,.6);
+  background: #222;
+}
+#canvas-wrap.dragging { cursor: grabbing; }
+#cv { width: 100%; height: 100%; display: block; }
+
+/* Controls */
+.ctrl-panel {
+  width: min(100%, 580px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.zoom-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0,0,0,.04);
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 14px;
+  padding: 13px 16px;
+}
+.zoom-row label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.35);
+  white-space: nowrap;
+}
+#zoom-slider {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(0,0,0,.12);
+  outline: none;
+  cursor: pointer;
+}
+#zoom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: #C83E34;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(200,62,52,.5);
+}
+#zoom-slider::-moz-range-thumb {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: #C83E34;
+  border: none;
+  cursor: pointer;
+}
+.zoom-val {
+  font-size: 13px;
+  font-weight: 700;
+  color: #14160F;
+  min-width: 40px;
+  text-align: right;
+}
+.btn-row {
+  display: flex;
+  gap: 10px;
+}
+.btn-secondary {
+  flex: 1;
+  background: rgba(0,0,0,.04);
+  color: rgba(0,0,0,.65);
+  border: 1px solid rgba(0,0,0,.1);
+  padding: 13px 16px;
+  border-radius: 12px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.btn-secondary:hover { background: rgba(0,0,0,.09); color: #14160F; }
+.btn-dl {
+  width: 100%;
+  background: #C83E34;
+  color: #fff;
+  border: none;
+  padding: 18px 24px;
+  border-radius: 14px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background .15s, transform .1s, opacity .15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  letter-spacing: .2px;
+}
+.btn-dl:hover { background: #b83a31; }
+.btn-dl:active { transform: scale(.98); }
+.btn-dl:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+.ctrl-hint {
+  font-size: 12px;
+  color: rgba(0,0,0,.3);
+  text-align: center;
+  line-height: 1.5;
+}
+{% endblock %}
+
+{% block body %}
+<div id="cadre-page">
+
+  <div class="cadre-header">
+    <div class="cadre-kicker">Sang Donné, Vies Sauvées — 2ème édition · 11 juillet 2026</div>
+    <h1>Crée ton cadre photo</h1>
+    <p>Uploade ta photo, positionne-la dans le cadre et télécharge ton image pour la partager.</p>
+  </div>
+
+  <!-- Upload zone -->
+  <div id="upload-zone">
+    <div class="up-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,.5)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="17 8 12 3 7 8"/>
+        <line x1="12" y1="3" x2="12" y2="15"/>
+      </svg>
+    </div>
+    <strong>Clique ou glisse ta photo ici</strong>
+    <span>JPG, PNG, HEIC · Max 20 Mo</span>
+    <input type="file" id="file-input" accept="image/*">
+  </div>
+
+  <!-- Editor (hidden until photo loaded) -->
+  <div id="editor" style="display:none">
+    <div id="canvas-wrap">
+      <canvas id="cv"></canvas>
+    </div>
+
+    <div class="ctrl-panel">
+
+      <div class="zoom-row">
+        <label>Zoom</label>
+        <input type="range" id="zoom-slider" min="50" max="300" value="100" step="1">
+        <span class="zoom-val" id="zoom-val">100%</span>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-secondary" id="btn-reset">↺&ensp;Réinitialiser</button>
+        <button class="btn-secondary" id="btn-change">⇧&ensp;Changer la photo</button>
+      </div>
+
+      <button class="btn-dl" id="btn-dl">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Télécharger mon image
+      </button>
+
+      <div class="ctrl-hint">Glisse pour repositionner &nbsp;·&nbsp; Molette ou pincement pour zoomer</div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  // Canvas resolution = export resolution (1080 × 1080, Instagram-ready)
+  var SIZE = 1080;
+
+  var canvas = document.getElementById('cv');
+  var ctx = canvas.getContext('2d');
+  canvas.width = SIZE;
+  canvas.height = SIZE;
+
+  var photo = null;
+  var baseScale = 1;   // scale to cover the canvas
+  var userScale = 1;   // user zoom multiplier
+  var offsetX = 0;     // pan (in canvas pixels)
+  var offsetY = 0;
+
+  // Overlay frame
+  var overlay = new Image();
+  overlay.onload = function () { if (photo) draw(); };
+  overlay.src = '{{ asset('assets/cadre-sdvs.png') }}';
+
+  function computeBase() {
+    baseScale = Math.max(SIZE / photo.naturalWidth, SIZE / photo.naturalHeight);
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, SIZE, SIZE);
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0, 0, SIZE, SIZE);
+
+    if (photo) {
+      ctx.save();
+      ctx.translate(SIZE / 2 + offsetX, SIZE / 2 + offsetY);
+      ctx.scale(baseScale * userScale, baseScale * userScale);
+      ctx.drawImage(photo, -photo.naturalWidth / 2, -photo.naturalHeight / 2);
+      ctx.restore();
+    }
+
+    if (overlay.complete && overlay.naturalWidth > 0) {
+      ctx.drawImage(overlay, 0, 0, SIZE, SIZE);
+    }
+  }
+
+  // ── Photo loading ─────────────────────────────────────────────
+  function loadPhoto(file) {
+    if (!file || !file.type.startsWith('image/')) return;
+    var url = URL.createObjectURL(file);
+    var img = new Image();
+    img.onload = function () {
+      if (photo && photo._url) URL.revokeObjectURL(photo._url);
+      img._url = url;
+      photo = img;
+      computeBase();
+      userScale = 1;
+      offsetX = 0;
+      offsetY = 0;
+      document.getElementById('zoom-slider').value = 100;
+      document.getElementById('zoom-val').textContent = '100%';
+      document.getElementById('upload-zone').style.display = 'none';
+      document.getElementById('editor').style.display = 'flex';
+      draw();
+    };
+    img.src = url;
+  }
+
+  // ── Upload zone ───────────────────────────────────────────────
+  var uploadZone = document.getElementById('upload-zone');
+  var fileInput  = document.getElementById('file-input');
+
+  uploadZone.addEventListener('click', function () { fileInput.click(); });
+
+  uploadZone.addEventListener('dragover', function (e) {
+    e.preventDefault();
+    uploadZone.classList.add('drag-over');
+  });
+  uploadZone.addEventListener('dragleave', function () {
+    uploadZone.classList.remove('drag-over');
+  });
+  uploadZone.addEventListener('drop', function (e) {
+    e.preventDefault();
+    uploadZone.classList.remove('drag-over');
+    loadPhoto(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener('change', function (e) {
+    loadPhoto(e.target.files[0]);
+    e.target.value = '';
+  });
+
+  // ── Buttons ───────────────────────────────────────────────────
+  document.getElementById('btn-change').addEventListener('click', function () {
+    fileInput.click();
+  });
+
+  document.getElementById('btn-reset').addEventListener('click', function () {
+    userScale = 1;
+    offsetX = 0;
+    offsetY = 0;
+    document.getElementById('zoom-slider').value = 100;
+    document.getElementById('zoom-val').textContent = '100%';
+    draw();
+  });
+
+  document.getElementById('zoom-slider').addEventListener('input', function () {
+    userScale = Number(this.value) / 100;
+    document.getElementById('zoom-val').textContent = this.value + '%';
+    draw();
+  });
+
+  // ── Download ──────────────────────────────────────────────────
+  document.getElementById('btn-dl').addEventListener('click', function () {
+    if (!photo) return;
+    var btn = this;
+    btn.textContent = 'Génération en cours…';
+    btn.disabled = true;
+
+    // Small timeout so the UI updates before the heavy toDataURL call
+    setTimeout(function () {
+      var dataUrl = canvas.toDataURL('image/jpeg', 0.95);
+      var link = document.createElement('a');
+      link.download = 'je-participe-sdvs.jpg';
+      link.href = dataUrl;
+      link.click();
+
+      btn.innerHTML =
+        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
+        '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>' +
+        '<polyline points="7 10 12 15 17 10"/>' +
+        '<line x1="12" y1="15" x2="12" y2="3"/></svg>' +
+        ' Télécharger mon image';
+      btn.disabled = false;
+    }, 60);
+  });
+
+  // ── Mouse drag ────────────────────────────────────────────────
+  var wrap     = document.getElementById('canvas-wrap');
+  var dragging = false;
+  var dragX = 0, dragY = 0;
+
+  wrap.addEventListener('mousedown', function (e) {
+    if (e.button !== 0) return;
+    dragging = true;
+    dragX = e.clientX;
+    dragY = e.clientY;
+    wrap.classList.add('dragging');
+    e.preventDefault();
+  });
+  window.addEventListener('mousemove', function (e) {
+    if (!dragging) return;
+    var rect  = canvas.getBoundingClientRect();
+    var ratio = SIZE / rect.width;
+    offsetX += (e.clientX - dragX) * ratio;
+    offsetY += (e.clientY - dragY) * ratio;
+    dragX = e.clientX;
+    dragY = e.clientY;
+    draw();
+  });
+  window.addEventListener('mouseup', function () {
+    dragging = false;
+    wrap.classList.remove('dragging');
+  });
+
+  // ── Mouse wheel zoom ──────────────────────────────────────────
+  wrap.addEventListener('wheel', function (e) {
+    e.preventDefault();
+    var delta = e.deltaY < 0 ? 0.06 : -0.06;
+    userScale = Math.max(0.5, Math.min(3, userScale + delta));
+    var pct = Math.round(userScale * 100);
+    document.getElementById('zoom-slider').value = Math.min(300, Math.max(50, pct));
+    document.getElementById('zoom-val').textContent = pct + '%';
+    draw();
+  }, { passive: false });
+
+  // ── Touch: drag + pinch zoom ──────────────────────────────────
+  var lastTouches = null;
+
+  wrap.addEventListener('touchstart', function (e) {
+    e.preventDefault();
+    lastTouches = Array.from(e.touches);
+  }, { passive: false });
+
+  wrap.addEventListener('touchmove', function (e) {
+    e.preventDefault();
+    var touches = Array.from(e.touches);
+    var rect    = canvas.getBoundingClientRect();
+    var ratio   = SIZE / rect.width;
+
+    if (touches.length === 1 && lastTouches && lastTouches.length === 1) {
+      offsetX += (touches[0].clientX - lastTouches[0].clientX) * ratio;
+      offsetY += (touches[0].clientY - lastTouches[0].clientY) * ratio;
+
+    } else if (touches.length === 2 && lastTouches && lastTouches.length >= 2) {
+      var prevDist = Math.hypot(
+        lastTouches[1].clientX - lastTouches[0].clientX,
+        lastTouches[1].clientY - lastTouches[0].clientY
+      );
+      var newDist = Math.hypot(
+        touches[1].clientX - touches[0].clientX,
+        touches[1].clientY - touches[0].clientY
+      );
+      if (prevDist > 0) {
+        userScale = Math.max(0.5, Math.min(3, userScale * (newDist / prevDist)));
+        var pct = Math.round(userScale * 100);
+        document.getElementById('zoom-slider').value = Math.min(300, Math.max(50, pct));
+        document.getElementById('zoom-val').textContent = pct + '%';
+      }
+      // Pan by midpoint
+      var prevMidX = (lastTouches[0].clientX + lastTouches[1].clientX) / 2;
+      var prevMidY = (lastTouches[0].clientY + lastTouches[1].clientY) / 2;
+      var newMidX  = (touches[0].clientX + touches[1].clientX) / 2;
+      var newMidY  = (touches[0].clientY + touches[1].clientY) / 2;
+      offsetX += (newMidX - prevMidX) * ratio;
+      offsetY += (newMidY - prevMidY) * ratio;
+    }
+
+    lastTouches = touches;
+    draw();
+  }, { passive: false });
+
+  wrap.addEventListener('touchend', function (e) {
+    lastTouches = Array.from(e.touches);
+  }, { passive: false });
+
+})();
+</script>
+{% endblock %}

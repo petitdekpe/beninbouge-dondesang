@@ -1,10 +1,10 @@
-{% extends 'admin/base.html.twig' %}
+﻿{% extends 'admin/base.html.twig' %}
 
 {% block title %}Dons — Backoffice{% endblock %}
 
 {% block admin_body %}
 <h1 style="font-family:'Anton';font-size:clamp(24px,5vw,32px);text-transform:uppercase;color:#0E3F51;margin-bottom:6px">Gérer les dons</h1>
-<p style="color:#6a6a60;font-size:14.5px;margin-bottom:24px">Total confirmé : <strong style="color:#E1251B">{{ total|number_format(0, ',', ' ') }} FCFA</strong> · {{ donations|length }} don(s) enregistré(s) au total.</p>
+<p style="color:#6a6a60;font-size:14.5px;margin-bottom:24px">Total confirmé : <strong style="color:#C83E34">{{ total|number_format(0, ',', ' ') }} FCFA</strong> · {{ donations|length }} don(s) enregistré(s) au total.</p>
 
 <!-- manual add form -->
 <div style="background:#fff;border:1px solid #ece4cf;border-radius:16px;padding:clamp(18px,4vw,24px);margin-bottom:30px">
@@ -49,14 +49,14 @@
   {% for d in donations %}
     <div style="min-width:0;background:#fff;border:1px solid #ece4cf;border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:space-between;{{ not d.visible ? 'opacity:.5' : '' }}">
       <div style="min-width:0;display:flex;align-items:center;gap:12px">
-        <span style="flex:none;width:8px;height:8px;border-radius:50%;background:{{ d.status == 'approved' ? '#3A8556' : (d.status == 'declined' ? '#b91c1c' : '#9a9a8f') }}"></span>
+        <span style="flex:none;width:8px;height:8px;border-radius:50%;background:{{ d.status == 'approved' ? '#3A8556' : (d.status == 'declined' ? '#b91c1c' : '#fff') }}"></span>
         <div style="min-width:0;overflow-wrap:break-word">
-          <div style="font-weight:800;color:#0E3F51;font-size:15px">{{ d.anonymous or not d.donorName ? 'Anonyme' : d.donorName }} <span style="color:#9a9a8f;font-weight:600;font-size:12px">· {{ d.status }}</span>{% if not d.visible %} <span style="color:#b91c1c;font-weight:700;font-size:12px">(masqué)</span>{% endif %}</div>
-          <div style="font-size:12.5px;color:#9a9a8f;margin-top:2px">{{ d.method ? (method_labels[d.method] ?? d.method) : '—' }} · {{ d.createdAt|date('d/m/Y H:i') }}{% if d.fedapayTransactionId %} · FedaPay #{{ d.fedapayTransactionId }}{% endif %}</div>
+          <div style="font-weight:800;color:#0E3F51;font-size:15px">{{ d.anonymous or not d.donorName ? 'Anonyme' : d.donorName }} <span style="color:#fff;font-weight:600;font-size:12px">· {{ d.status }}</span>{% if not d.visible %} <span style="color:#b91c1c;font-weight:700;font-size:12px">(masqué)</span>{% endif %}</div>
+          <div style="font-size:12.5px;color:#fff;margin-top:2px">{{ d.method ? (method_labels[d.method] ?? d.method) : '—' }} · {{ d.createdAt|date('d/m/Y H:i') }}{% if d.fedapayTransactionId %} · FedaPay #{{ d.fedapayTransactionId }}{% endif %}</div>
         </div>
       </div>
       <div style="display:flex;align-items:center;gap:14px;flex:none">
-        <div style="font-family:'Anton';font-size:18px;color:#E1251B">{{ d.amount|number_format(0, ',', ' ') }} <span style="font-size:12px;color:#0E3F51">FCFA</span></div>
+        <div style="font-family:'Anton';font-size:18px;color:#C83E34">{{ d.amount|number_format(0, ',', ' ') }} <span style="font-size:12px;color:#0E3F51">FCFA</span></div>
         <form method="post" action="{{ path('admin_donations_toggle', {id: d.id}) }}">
           <input type="hidden" name="_token" value="{{ csrf_token('admin_donation_' ~ d.id) }}">
           <button type="submit" style="background:#F4F2EA;color:#0E3F51;border:1px solid #e2ddcd;padding:7px 13px;border-radius:999px;font-weight:700;font-size:12.5px;cursor:pointer">{{ d.visible ? 'Masquer' : 'Afficher' }}</button>
@@ -64,7 +64,7 @@
       </div>
     </div>
   {% else %}
-    <p style="color:#9a9a8f;text-align:center;padding:30px 0">Aucun don enregistré.</p>
+    <p style="color:#fff;text-align:center;padding:30px 0">Aucun don enregistré.</p>
   {% endfor %}
 </div>
 {% endblock %}

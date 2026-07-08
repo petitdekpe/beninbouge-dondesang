@@ -10,7 +10,6 @@
     custom: '',
     name: '',
     email: '',
-    phone: '',
     anonymous: false,
     method: 'mtn',
     submitting: false,
@@ -219,7 +218,6 @@
       customer: {
         firstname: donorName,
         email: state.email.trim(),
-        phone_number: state.phone.trim() ? { number: state.phone.trim(), country: 'bj' } : undefined,
       },
       currency: { iso: 'XOF' },
       onComplete: function (resp) {
@@ -251,7 +249,6 @@
           amount: effectiveAmount(),
           name: state.anonymous ? '' : state.name.trim(),
           email: state.email.trim(),
-          phone: state.phone.trim(),
           anonymous: state.anonymous,
           method: state.method,
         }),

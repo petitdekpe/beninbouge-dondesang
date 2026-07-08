@@ -2,24 +2,26 @@
 
 namespace App\Command;
 
+use App\Entity\AdminUser;
+use App\Repository\AdminUserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Security\Core\User\InMemoryUser;
 
 #[AsCommand(
     name: 'app:create-admin',
-    description: 'Définit le mot de passe du compte admin et met à jour .env.local',
+    description: 'Crée ou met à jour un compte admin en base de données',
 )]
 final class CreateAdminCommand extends Command
 {
     public function __construct(
         private readonly UserPasswordHasherInterface $hasher,
-        #[Autowire('%kernel.project_dir%')] private readonly string $projectDir,
+        private readonly AdminUserRepository $adminUsers,
+        private readonly EntityManagerInterface $em,
     ) {
         parent::__construct();
     }
@@ -28,7 +30,13 @@ final class CreateAdminCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $io->title('Création / mise à jour du compte admin');
+        $io->title('Création / mise à jour d’un compte admin');
+
+        $username = $io->ask('Nom d’utilisateur');
+        if (!$username) {
+            $io->error('Le nom d’utilisateur ne peut pas être vide.');
+            return Command::FAILURE;
+        }
 
         $password = $io->askHidden('Nouveau mot de passe');
         if (!$password) {
@@ -47,26 +55,22 @@ final class CreateAdminCommand extends Command
             return Command::FAILURE;
         }
 
-        $user = new InMemoryUser('admin', null, ['ROLE_ADMIN']);
-        $hash = $this->hasher->hashPassword($user, $password);
-
-        $envFile = $this->projectDir . '/.env.local';
-        $line    = "ADMIN_PASSWORD_HASH='" . $hash . "'";
-
-        if (file_exists($envFile)) {
-            $content = file_get_contents($envFile);
-            if (str_contains($content, 'ADMIN_PASSWORD_HASH=')) {
-                $content = preg_replace('/^ADMIN_PASSWORD_HASH=.*/m', $line, $content);
-            } else {
-                $content = rtrim($content) . "\n" . $line . "\n";
-            }
-        } else {
-            $content = $line . "\n";
+        $user = $this->adminUsers->findOneBy(['username' => $username]);
+        $isNew = $user === null;
+        if ($user === null) {
+            $user = new AdminUser();
+            $user->setUsername($username);
         }
 
-        file_put_contents($envFile, $content);
+        $user->setPassword($this->hasher->hashPassword($user, $password));
 
-        $io->success('Mot de passe admin mis à jour dans .env.local');
+        $this->em->persist($user);
+        $this->em->flush();
+
+        $io->success(sprintf(
+            $isNew ? 'Compte admin "%s" créé.' : 'Mot de passe du compte admin "%s" mis à jour.',
+            $username,
+        ));
         $io->note('Relancez le cache si vous êtes en prod : php bin/console cache:clear --env=prod');
 
         return Command::SUCCESS;

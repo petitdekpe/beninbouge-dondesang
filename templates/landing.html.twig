@@ -277,7 +277,7 @@
       <p style="font-size:16px;color:#6a6a60;margin:14px auto 0;max-width:560px;line-height:1.6">{{ t.partners.lead }}</p>
       {% if technicalPartners|length > 0 or partners|length > 0 %}
         {% if technicalPartners|length > 0 %}
-          <div style="font-size:12px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:1.4px;margin-top:36px;margin-bottom:14px">{{ t.partners.technicalTitle }}</div>
+          <div style="font-size:12px;font-weight:800;color:#000;text-transform:uppercase;letter-spacing:1.4px;margin-top:36px;margin-bottom:14px">{{ t.partners.technicalTitle }}</div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px">
             {% for p in technicalPartners %}
               <div style="background:#fff;border:1px solid #ece9dd;border-radius:16px;padding:22px;text-align:left;box-shadow:0 4px 14px rgba(0,0,0,.04)">
@@ -297,23 +297,16 @@
           </div>
         {% endif %}
         {% if partners|length > 0 %}
-          <div style="font-size:12px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:1.4px;margin-top:30px;margin-bottom:14px">{{ t.partners.generalTitle }}</div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px">
-            {% for p in partners %}
-              <div style="background:#fff;border:1px solid #ece9dd;border-radius:16px;padding:22px;text-align:left;box-shadow:0 4px 14px rgba(0,0,0,.04)">
-                {% if p.websiteUrl %}
-                  <a href="{{ p.websiteUrl }}" target="_blank" rel="noopener" style="display:block;width:52px;height:52px;border-radius:11px;background:#F4F2EA;display:flex;align-items:center;justify-content:center;overflow:hidden;text-decoration:none">
-                    <img src="{{ asset('uploads/partners/' ~ p.logoFilename) }}" alt="{{ p.name }}" style="max-width:100%;max-height:100%;object-fit:contain">
-                  </a>
-                {% else %}
-                  <div style="width:52px;height:52px;border-radius:11px;background:#F4F2EA;display:flex;align-items:center;justify-content:center;overflow:hidden">
-                    <img src="{{ asset('uploads/partners/' ~ p.logoFilename) }}" alt="{{ p.name }}" style="max-width:100%;max-height:100%;object-fit:contain">
-                  </div>
-                {% endif %}
-                <div style="font-weight:800;font-size:15.5px;margin-top:14px;line-height:1.3">{{ p.name }}</div>
-                {% if p.role %}<div style="font-size:13px;color:#6a6a60;margin-top:5px;line-height:1.5">{{ p.role }}</div>{% endif %}
-              </div>
-            {% endfor %}
+          <div style="font-size:12px;font-weight:800;color:#000;text-transform:uppercase;letter-spacing:1.4px;margin-top:30px;margin-bottom:14px">{{ t.partners.generalTitle }}</div>
+          <div style="overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)">
+            <div style="display:flex;width:max-content;gap:40px;align-items:center;animation:bbMarquee 46s linear infinite">
+              {% for p in partners %}
+                {% include 'partials/_partner_logo.html.twig' with {p: p} %}
+              {% endfor %}
+              {% for p in partners %}
+                {% include 'partials/_partner_logo.html.twig' with {p: p} %}
+              {% endfor %}
+            </div>
           </div>
         {% endif %}
       {% else %}
@@ -322,7 +315,7 @@
 
       {% if sponsors|length > 0 %}
         <div style="margin-top:48px">
-          <div style="color:#fff;font-weight:800;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:18px">{{ t.partners.sponsorsLabel }}</div>
+          <div style="color:#000;font-weight:800;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:18px">{{ t.partners.sponsorsLabel }}</div>
           <div style="overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)">
             <div style="display:flex;width:max-content;gap:48px;align-items:center;animation:bbMarquee 26s linear infinite">
               {% for s in sponsors %}

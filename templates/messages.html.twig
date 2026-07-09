@@ -3,23 +3,38 @@
 {% block title %}{{ t.msgsPage.title }} — Bénin Bouge{% endblock %}
 
 {% block extra_css %}
-body{background:#3A8556}
+body{background:#FBF7EC}
+@media (max-width:760px){
+  .bb-nav{display:none !important}
+}
 {% endblock %}
 
 {% block body %}
-<div style="min-height:100vh;background:#3A8556;color:#fff;font-family:'Manrope',sans-serif">
+<div style="min-height:100vh;background:#FBF7EC;color:#0E3F51;font-family:'Manrope',sans-serif">
 
   <!-- header -->
-  <header style="padding:18px clamp(16px,5vw,24px);display:flex;align-items:center;flex-wrap:wrap;gap:12px;justify-content:space-between;max-width:1100px;margin:0 auto;width:100%">
-    <a href="{{ path('landing', {lang: lang}) }}" style="display:flex;align-items:center;gap:10px;text-decoration:none">
-      <span style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:#14160F">
-        <img src="{{ asset('assets/logo-rond.png') }}" alt="Bénin Bouge" style="width:38px;height:38px;object-fit:contain;border-radius:10px"/>
-      </span>
-      <span style="font-weight:800;font-size:15px;color:#fff;letter-spacing:.3px">Bénin Bouge</span>
-    </a>
-    <div style="display:flex;border:1px solid rgba(255,255,255,.3);border-radius:999px;overflow:hidden">
-      <a href="?lang=fr" style="display:inline-block;background:{{ lang == 'fr' ? '#fff' : 'transparent' }};color:{{ lang == 'fr' ? '#3A8556' : '#fff' }};padding:6px 13px;font-family:Manrope;font-weight:800;font-size:13px;text-decoration:none">FR</a>
-      <a href="?lang=en" style="display:inline-block;background:{{ lang == 'en' ? '#fff' : 'transparent' }};color:{{ lang == 'en' ? '#3A8556' : '#fff' }};padding:6px 13px;font-family:Manrope;font-weight:800;font-size:13px;text-decoration:none">EN</a>
+  <header style="position:sticky;top:0;z-index:40;background:rgba(14, 63, 81, 0.96);backdrop-filter:blur(10px);border-bottom:1px solid rgba(14,63,81,.45)">
+    <div class="bb-header-row" style="max-width:1200px;margin:0 auto;padding:14px clamp(16px,4vw,24px);display:flex;align-items:center;flex-wrap:wrap;gap:clamp(10px,2vw,20px)">
+      <a href="{{ path('landing', {lang: lang}) }}#top" style="display:flex;align-items:center;gap:9px;text-decoration:none;flex:none">
+        <img src="{{ asset('assets/mark-coureur.png') }}" alt="Bénin Bouge" style="height:clamp(30px,6vw,42px);width:auto;display:block"/>
+        <img src="{{ asset('assets/logo-sdvs-blanc.png') }}" alt="Sang Donné, Vies Sauvées" style="height:clamp(36px,7vw,50px);width:auto;display:block"/>
+      </a>
+      <nav class="bb-nav" style="display:flex;gap:26px;margin-left:18px;flex:1">
+        <a href="{{ path('landing', {lang: lang}) }}#campagne" style="color:#EFEEE6;text-decoration:none;font-weight:600;font-size:14.5px;letter-spacing:.2px">{{ t.nav.campaign }}</a>
+        <a href="{{ path('landing', {lang: lang}) }}#partenaires" style="color:#EFEEE6;text-decoration:none;font-weight:600;font-size:14.5px;letter-spacing:.2px">{{ t.nav.partners }}</a>
+        <a href="{{ path('landing', {lang: lang}) }}#infos" style="color:#EFEEE6;text-decoration:none;font-weight:600;font-size:14.5px;letter-spacing:.2px">{{ t.nav.info }}</a>
+        <a href="{{ path('donations_track', {lang: lang}) }}" style="color:#EFEEE6;text-decoration:none;font-weight:600;font-size:14.5px;letter-spacing:.2px">{{ t.tracking.title }}</a>
+        <a href="{{ path('messages_list', {lang: lang}) }}" style="color:#EFEEE6;text-decoration:none;font-weight:600;font-size:14.5px;letter-spacing:.2px">Vos messages</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:clamp(8px,2vw,14px);flex:none;margin-left:auto">
+        <div style="display:flex;border:1px solid rgba(255,255,255,.22);border-radius:999px;overflow:hidden">
+          <a href="?lang=fr" style="display:inline-block;background:{{ lang == 'fr' ? '#fff' : 'transparent' }};color:{{ lang == 'fr' ? '#295D3C' : '#EFEEE6' }};padding:6px 13px;font-family:Manrope;font-weight:800;font-size:13px;text-decoration:none">FR</a>
+          <a href="?lang=en" style="display:inline-block;background:{{ lang == 'en' ? '#fff' : 'transparent' }};color:{{ lang == 'en' ? '#295D3C' : '#EFEEE6' }};padding:6px 13px;font-family:Manrope;font-weight:800;font-size:13px;text-decoration:none">EN</a>
+        </div>
+        <a href="{{ path('landing', {lang: lang}) }}#don" style="background:#C83E34;color:#fff;text-decoration:none;padding:clamp(9px,2vw,11px) clamp(14px,4vw,20px);border-radius:999px;font-family:'Manrope';font-weight:800;font-size:clamp(13px,2vw,14.5px);display:flex;align-items:center;gap:8px;box-shadow:0 6px 18px rgba(225,37,27,.35);white-space:nowrap">
+          <span style="font-size:15px">♥</span>{{ t.nav.donate }}
+        </a>
+      </div>
     </div>
   </header>
 
@@ -27,26 +42,26 @@ body{background:#3A8556}
   <main style="max-width:980px;margin:0 auto;padding:clamp(10px,4vw,20px) clamp(16px,5vw,24px) clamp(60px,9vw,90px)">
 
     <div style="text-align:center;margin:clamp(20px,5vw,32px) 0 clamp(30px,6vw,40px)">
-      <div style="color:#fff;font-weight:800;font-size:13px;letter-spacing:2px;text-transform:uppercase;opacity:.85">{{ t.msgsPage.kicker }}</div>
-      <h1 style="font-family:'Anton';font-size:clamp(28px,6vw,44px);margin:12px 0 0;text-transform:uppercase">{{ t.msgsPage.title }}</h1>
-      <p style="font-size:clamp(15px,2.2vw,16.5px);line-height:1.6;color:rgba(255,255,255,.85);margin:14px auto 0;max-width:560px">{{ t.msgsPage.lead }}</p>
-      <div style="margin-top:14px;font-weight:800;font-size:14px;color:#D4F0DE">{{ count }} {{ t.msgsPage.countSuffix }}</div>
+      <div style="color:#3A8556;font-weight:800;font-size:13px;letter-spacing:2px;text-transform:uppercase">{{ t.msgsPage.kicker }}</div>
+      <h1 style="font-family:'Anton';font-size:clamp(28px,6vw,44px);margin:12px 0 0;text-transform:uppercase;color:#0E3F51">{{ t.msgsPage.title }}</h1>
+      <p style="font-size:clamp(15px,2.2vw,16.5px);line-height:1.6;color:#55584e;margin:14px auto 0;max-width:560px">{{ t.msgsPage.lead }}</p>
+      <div style="margin-top:14px;font-weight:800;font-size:14px;color:#3A8556">{{ count }} {{ t.msgsPage.countSuffix }}</div>
     </div>
 
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px">
       {% for msg in messages %}
-        <div style="min-width:0;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:18px">
-          <div style="font-size:14.5px;line-height:1.5;overflow-wrap:break-word">"{{ msg.message }}"</div>
-          <div style="margin-top:10px;font-weight:800;font-size:13px;color:#D4F0DE">— {{ msg.authorName }}</div>
-          <div style="margin-top:4px;font-size:11.5px;color:rgba(255,255,255,.6)">{{ msg.createdAt|date('d/m/Y H:i') }}</div>
+        <div style="min-width:0;background:#fff;border:1px solid #ece4cf;border-radius:14px;padding:18px;box-shadow:0 4px 14px rgba(14,63,81,.05)">
+          <div style="font-size:14.5px;line-height:1.5;overflow-wrap:break-word;color:#3a3a34">"{{ msg.message }}"</div>
+          <div style="margin-top:10px;font-weight:800;font-size:13px;color:#3A8556">— {{ msg.authorName }}</div>
+          <div style="margin-top:4px;font-size:11.5px;color:#9a9a90">{{ msg.createdAt|date('d/m/Y H:i') }}</div>
         </div>
       {% else %}
-        <p style="color:rgba(255,255,255,.75);grid-column:1/-1;text-align:center">{{ t.msgsPage.empty }}</p>
+        <p style="color:#6a6a60;grid-column:1/-1;text-align:center">{{ t.msgsPage.empty }}</p>
       {% endfor %}
     </div>
 
     <div style="text-align:center;margin-top:clamp(36px,6vw,48px);display:flex;flex-wrap:wrap;gap:14px;justify-content:center">
-      <a href="{{ path('landing', {lang: lang}) }}" style="display:inline-flex;align-items:center;gap:8px;color:#fff;text-decoration:none;font-weight:800;font-size:15px;border-bottom:2px solid #fff;padding-bottom:2px">{{ t.msgsPage.back }}</a>
+      <a href="{{ path('landing', {lang: lang}) }}" style="display:inline-flex;align-items:center;gap:8px;color:#0E3F51;text-decoration:none;font-weight:800;font-size:15px;border-bottom:2px solid #3A8556;padding-bottom:2px">{{ t.msgsPage.back }}</a>
       <a href="{{ path('landing', {lang: lang}) }}#voeux" style="display:inline-flex;align-items:center;gap:8px;background:#C83E34;color:#fff;text-decoration:none;font-weight:800;font-size:15px;padding:10px 20px;border-radius:999px">{{ t.msgsPage.cta }}</a>
     </div>
   </main>

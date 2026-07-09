@@ -20,7 +20,7 @@ class BaobabReservation
     #[ORM\Column(length: 40)]
     private string $phone;
 
-    #[ORM\Column(length: 40)]
+    #[ORM\Column(length: 160)]
     private string $departureCity;
 
     #[ORM\Column(length: 10)]

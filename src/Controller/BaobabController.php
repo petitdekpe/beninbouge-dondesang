@@ -14,7 +14,11 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class BaobabController extends AbstractController
 {
-    private const DEPARTURE_CITIES = ['Abomey-Calavi', 'Porto-Novo'];
+    private const DEPARTURE_CITIES = [
+        'Abomey-Calavi (Arconville, à côté du camp militaire)',
+        'Abomey-Calavi (Portail secondaire du campus (UAC))',
+        'Porto-Novo (En face de la piscine municipale, carrefour du Cinquantenaire)',
+    ];
     private const TIME_SLOTS = ['08h00', '11h00'];
 
     public function __construct(private readonly EntityManagerInterface $em)

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\BaobabReservation;
 use App\Repository\BaobabReservationRepository;
+use App\Repository\SettingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -20,22 +21,41 @@ final class BaobabController extends AbstractController
         'Porto-Novo (En face de la piscine municipale, carrefour du Cinquantenaire)',
     ];
     private const TIME_SLOTS = ['08h00', '11h00'];
+    public const MAX_TICKETS_SETTING_KEY = 'baobab_max_tickets';
 
-    public function __construct(private readonly EntityManagerInterface $em)
-    {
+    public function __construct(
+        private readonly EntityManagerInterface $em,
+        private readonly SettingRepository $settings,
+    ) {
     }
 
     #[Route('/baobab', name: 'baobab', methods: ['GET'])]
-    public function index(): Response
+    public function index(BaobabReservationRepository $reservations): Response
     {
-        return $this->render('baobab.html.twig');
+        $maxTickets = $this->settings->getInt(self::MAX_TICKETS_SETTING_KEY, 0);
+        $ticketsUsed = $reservations->countAll();
+        $isFull = $maxTickets > 0 && $ticketsUsed >= $maxTickets;
+
+        return $this->render('baobab.html.twig', [
+            'maxTickets' => $maxTickets,
+            'ticketsUsed' => $ticketsUsed,
+            'ticketsRemaining' => $maxTickets > 0 ? max(0, $maxTickets - $ticketsUsed) : null,
+            'isFull' => $isFull,
+        ]);
     }
 
     #[Route('/baobab/reservation', name: 'baobab_reservation_create', methods: ['POST'])]
-    public function reserve(Request $request): RedirectResponse
+    public function reserve(Request $request, BaobabReservationRepository $reservations): RedirectResponse
     {
         if (!$this->isCsrfTokenValid('baobab_reservation', (string) $request->request->get('_token'))) {
             $this->addFlash('baobab_error', 'Votre session a expiré, merci de réessayer.');
+
+            return $this->redirectToRoute('baobab', ['_fragment' => 'reservation']);
+        }
+
+        $maxTickets = $this->settings->getInt(self::MAX_TICKETS_SETTING_KEY, 0);
+        if ($maxTickets > 0 && $reservations->countAll() >= $maxTickets) {
+            $this->addFlash('baobab_error', 'Désolé, toutes les places ont déjà été réservées.');
 
             return $this->redirectToRoute('baobab', ['_fragment' => 'reservation']);
         }

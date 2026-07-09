@@ -7,7 +7,20 @@
   <h1 style="font-family:'Anton';font-size:clamp(24px,5vw,32px);text-transform:uppercase;color:#0E3F51;margin:0">Réservations Baobab Express</h1>
   <a href="{{ path('admin_baobab_reservations_export') }}" style="background:#3A8556;color:#fff;text-decoration:none;padding:10px 18px;border-radius:999px;font-weight:800;font-size:13.5px;display:inline-flex;align-items:center;gap:6px">⬇ Télécharger (CSV)</a>
 </div>
-<p style="color:#6a6a60;font-size:14.5px;margin-bottom:24px">{{ reservations|length }} réservation(s) · {{ totalPassengers }} passager(s) au total.</p>
+<p style="color:#6a6a60;font-size:14.5px;margin-bottom:24px">
+  {{ reservations|length }} réservation(s) · {{ totalPassengers }} passager(s) au total.
+  {% if maxTickets > 0 %}· Limite actuelle : <strong>{{ maxTickets }}</strong> ticket(s){% endif %}
+</p>
+
+<div style="background:#fff;border:1px solid #ece4cf;border-radius:16px;padding:clamp(16px,4vw,22px);margin-bottom:24px">
+  <h2 style="font-size:15px;font-weight:800;color:#0E3F51;margin-bottom:4px">Limiter le nombre de tickets</h2>
+  <p style="color:#6a6a60;font-size:13.5px;margin-bottom:14px">Une fois cette limite atteinte, le formulaire de réservation sur le site affiche "Complet" et refuse toute nouvelle réservation. Mettre à 0 pour ne pas limiter.</p>
+  <form method="post" action="{{ path('admin_baobab_reservations_max_tickets') }}" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+    <input type="hidden" name="_token" value="{{ csrf_token('admin_baobab_max_tickets') }}">
+    <input type="number" name="max_tickets" min="0" value="{{ maxTickets }}" style="width:140px;background:#F4F2EA;border:1px solid #e2ddcd;border-radius:9px;padding:10px 12px;font-size:14.5px">
+    <button type="submit" style="background:#3A8556;color:#fff;border:none;padding:11px 20px;border-radius:9px;font-weight:800;font-size:14px;cursor:pointer">Enregistrer</button>
+  </form>
+</div>
 
 <div style="display:flex;flex-direction:column;gap:10px">
   {% for r in reservations %}

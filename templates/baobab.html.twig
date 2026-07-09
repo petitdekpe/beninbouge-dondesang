@@ -359,11 +359,20 @@
 <div class="bg-white p-stack-lg md:p-12 rounded-2xl custom-shadow border border-primary/5">
 <div class="text-center mb-stack-lg">
 <h2 class="font-headline-lg text-headline-lg text-primary mb-2">Réserver mon siège</h2>
-<p class="text-on-surface-variant">Gratuit, sécurisé et rapide. Places limitées.</p>
+<p class="text-on-surface-variant">
+Gratuit, sécurisé et rapide.
+{% if ticketsRemaining is not null and not isFull %} Places limitées — {{ ticketsRemaining }} place(s) restante(s).{% else %} Places limitées.{% endif %}
+</p>
 </div>
 {% for msg in app.flashes('baobab_error') %}
 <div class="mb-2 rounded-xl bg-error-container border border-error/20 text-error font-bold text-sm p-4 text-center">{{ msg }}</div>
 {% endfor %}
+{% if isFull %}
+<div class="rounded-xl bg-surface border border-primary/10 text-center p-8">
+<div class="text-headline-md font-bold text-primary mb-2">Complet</div>
+<p class="text-on-surface-variant">Toutes les places gratuites ont été réservées. Merci pour votre engagement, à très bientôt pour une prochaine mobilisation !</p>
+</div>
+{% else %}
 <form class="space-y-6" method="post" action="{{ path('baobab_reservation_create') }}">
 <input type="hidden" name="_token" value="{{ csrf_token('baobab_reservation') }}"/>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
@@ -407,6 +416,7 @@
 <!--span class="text-caption font-bold uppercase tracking-widest">Sécurisé par Baobab Express</span-->
 </div>
 </form>
+{% endif %}
 </div>
 </div>
 </section>

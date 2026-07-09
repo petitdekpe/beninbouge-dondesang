@@ -1,0 +1,189 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Politique de confidentialité — Bénin Bouge{% endblock %}
+
+{% block extra_css %}
+.legal-page a{color:#C83E34}
+.legal-page h2{font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.3px;font-size:clamp(19px,3vw,24px);color:#14160F;margin:40px 0 14px}
+.legal-page h2:first-of-type{margin-top:0}
+.legal-page h3{font-size:15.5px;font-weight:800;color:#14160F;margin:20px 0 8px}
+.legal-page p, .legal-page li{font-size:15.5px;line-height:1.7;color:#3a3a34}
+.legal-page ul{padding-left:20px;margin:10px 0}
+.legal-page li{margin-bottom:6px}
+.legal-page table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14.5px}
+.legal-page th, .legal-page td{text-align:left;padding:10px 12px;border:1px solid #e6e3d7;vertical-align:top}
+.legal-page th{background:#f6f5ef;font-weight:800}
+.legal-page .placeholder{background:#fff4e0;color:#8a5a00;padding:1px 6px;border-radius:4px;font-weight:700}
+.legal-page .callout{background:#fdeaea;border:1px solid #f5c9c9;border-radius:12px;padding:14px 16px;color:#8a1f1f;font-size:14px;margin:16px 0}
+{% endblock %}
+
+{% block body %}
+<div style="background:#FBFAF5;color:#14160F;font-family:'Manrope',sans-serif;overflow-x:hidden;min-height:100vh">
+
+  <header style="position:sticky;top:0;z-index:40;background:rgba(14,63,81,.96);backdrop-filter:blur(10px);border-bottom:1px solid rgba(14,63,81,.45)">
+    <div style="max-width:900px;margin:0 auto;padding:16px clamp(16px,4vw,24px);display:flex;align-items:center;gap:14px">
+      <a href="{{ path('landing') }}" style="flex:none;text-decoration:none">
+        <img src="{{ asset('assets/logo-benin-bouge.png') }}" alt="Bénin Bouge" style="height:36px;width:auto;display:block"/>
+      </a>
+      <div style="flex:1"></div>
+      <a href="{{ path('landing') }}" style="color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:700;display:flex;align-items:center;gap:5px">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Retour au site
+      </a>
+    </div>
+  </header>
+
+  <main class="legal-page" style="max-width:760px;margin:0 auto;padding:clamp(32px,6vw,56px) clamp(16px,5vw,24px) 80px">
+
+    <div style="margin-bottom:8px;color:#C83E34;font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:1.5px">Protection des données personnelles</div>
+    <h1 style="font-family:'Anton',sans-serif;text-transform:uppercase;font-size:clamp(28px,5vw,40px);margin-bottom:8px">Politique de confidentialité</h1>
+    <p style="color:#6a6a60">Dernière mise à jour : 9 juillet 2026</p>
+
+    <p>
+      La présente politique de confidentialité est établie conformément à l'article 415 du livre cinquième de la
+      Loi n°2017-20 du 20 avril 2018 portant Code du numérique en République du Bénin, relatif à la protection des
+      données à caractère personnel. Elle vous informe des données que Bénin Bouge collecte et traite dans le cadre du
+      présent site, des finalités poursuivies, ainsi que des mesures mises en œuvre pour respecter la législation béninoise
+      en matière de protection des données personnelles et de la vie privée.
+    </p>
+    <p>Merci de lire attentivement cette politique, qui nous engage.</p>
+
+    <h2>1. Responsable du traitement</h2>
+    <p>Le responsable du traitement de vos données personnelles est <strong>Bénin Bouge</strong>.</p>
+    <ul>
+      <li>Contact téléphonique : +229 0166 86 86 39</li>
+      <li>Adresse e-mail : <a href="mailto:contact@beninbouge.com">contact@beninbouge.com</a></li>
+      <li>Siège : <span class="placeholder">adresse complète à compléter</span> — Cotonou, République du Bénin</li>
+    </ul>
+
+    <h2>2. Formalités préalables auprès de l'APDP</h2>
+    <p>
+      Conformément à la réglementation béninoise, les traitements décrits dans la présente politique font l'objet des
+      formalités préalables requises auprès de l'Autorité de Protection des Données Personnelles (APDP).
+    </p>
+    <div class="callout">
+      Numéro de récépissé de déclaration (RD) : <span class="placeholder">à compléter dès sa délivrance par l'APDP</span>.
+      Cette page sera mise à jour dès réception du récépissé.
+    </div>
+    <p>
+      Vous pouvez contacter l'APDP et vérifier les termes de la présente politique via les coordonnées suivantes : siège
+      social, Rue 6.076, Aïdjèdo, Cotonou — e-mail : <a href="mailto:contact@apdp.bj">contact@apdp.bj</a> — site :
+      <a href="https://www.apdp.bj" target="_blank" rel="noopener">apdp.bj</a>.
+    </p>
+
+    <h2>3. Données personnelles concernées</h2>
+    <p>Selon le service que vous utilisez sur le Site, nous collectons :</p>
+    <ul>
+      <li><strong>Réservation de navette (Baobab Express)</strong> : nom complet, numéro de téléphone WhatsApp, ville de départ, créneau horaire.</li>
+      <li><strong>Don en ligne</strong> : nom, adresse e-mail, numéro de téléphone, montant du don, méthode de paiement choisie, indication du caractère anonyme ou non du don. Les données de paiement proprement dites (numéro de carte, Mobile Money) sont saisies directement sur l'interface sécurisée de notre prestataire FedaPay et ne sont jamais stockées par Bénin Bouge.</li>
+      <li><strong>Message de soutien</strong> : nom (ou pseudonyme) et contenu du message, publiés sur le mur des messages.</li>
+      <li><strong>Badge personnalisé « J'y serai »</strong> : photographie fournie par l'utilisateur, traitée principalement dans son navigateur ; une version enregistrée peut être conservée sur nos serveurs.</li>
+      <li><strong>Navigation</strong> : un cookie de session technique (nécessaire au fonctionnement du site : sécurité des formulaires, messages de confirmation), ne servant à aucun suivi publicitaire ni statistique tiers.</li>
+    </ul>
+
+    <h2>4. Opérations effectuées sur les données</h2>
+    <p>
+      Bénin Bouge ne collecte des données personnelles que celles relatives à ses donateurs, participants aux navettes
+      gratuites et visiteurs du Site, pour les seuls besoins des services qu'elle propose elle-même. Les informations
+      recueillies font l'objet des opérations suivantes : collecte, enregistrement, conservation, consultation,
+      utilisation, modification, extraction, communication par transmission à nos partenaires opérationnels (voir
+      section 6), et effacement. Ce traitement est réalisé par voie électronique.
+    </p>
+
+    <h2>5. Finalités des traitements</h2>
+    <ul>
+      <li>Organisation et gestion des navettes gratuites Baobab Express (données concernées : nom, téléphone, ville de départ, créneau) ;</li>
+      <li>Traitement des dons et des paiements en ligne (données concernées : nom, e-mail, téléphone, montant) ;</li>
+      <li>Modération et affichage des messages de soutien (données concernées : nom, message) ;</li>
+      <li>Génération du badge personnalisé « J'y serai » (données concernées : photographie) ;</li>
+      <li>Sécurité du Site et prévention de la fraude (données concernées : cookie de session).</li>
+    </ul>
+    <p>
+      Chaque traitement correspond à une finalité précise et déterminée. Vos données ne sont pas réutilisées à d'autres
+      fins que celles pour lesquelles elles ont été collectées.
+    </p>
+
+    <h2>6. Destinataires, communication et transfert des données</h2>
+    <p>Selon le service concerné, vos données peuvent être communiquées aux destinataires suivants :</p>
+    <ul>
+      <li><strong>Équipe Bénin Bouge</strong> : organisation générale de l'événement, gestion des réservations et des dons ;</li>
+      <li><strong>Baobab Express</strong> (partenaire transport) : nom, téléphone, ville de départ et créneau, pour l'organisation logistique des navettes ;</li>
+      <li><strong>FedaPay</strong> (prestataire de paiement en ligne) : nom, e-mail, téléphone et montant, pour le traitement sécurisé du paiement ;</li>
+      <li><strong>Hébergeur technique du Site</strong> : <span class="placeholder">à compléter</span>.</li>
+    </ul>
+    <table>
+      <thead><tr><th>Destinataire</th><th>Pays de traitement / conservation</th></tr></thead>
+      <tbody>
+        <tr><td>Bénin Bouge</td><td>République du Bénin</td></tr>
+        <tr><td>Baobab Express</td><td>République du Bénin</td></tr>
+        <tr><td>FedaPay</td><td>Afrique de l'Ouest (données de paiement traitées selon la politique de confidentialité propre à FedaPay)</td></tr>
+        <tr><td>Hébergeur technique</td><td><span class="placeholder">à compléter</span></td></tr>
+      </tbody>
+    </table>
+
+    <h2>7. Durée de conservation</h2>
+    <ul>
+      <li>Réservations de navettes : conservées jusqu'à la fin de l'événement du 11 juillet 2026 et le temps nécessaire au bilan logistique, puis supprimées ;</li>
+      <li>Dons : conservés pendant la durée requise par les obligations comptables et fiscales applicables en République du Bénin ;</li>
+      <li>Messages de soutien : conservés tant qu'ils sont affichés sur le Site, et supprimables à tout moment sur simple demande ;</li>
+      <li>Photographies du badge « J'y serai » : conservées le temps du service, puis supprimées après l'événement ;</li>
+      <li>Cookie de session : supprimé à la fermeture de la session ou à l'expiration technique de celle-ci.</li>
+    </ul>
+    <p>
+      Les données sont conservées sous forme électronique, dans une base de données sécurisée à accès restreint. Passé
+      le délai indiqué, vos données sont supprimées ou anonymisées. Pour toute précision sur les durées de conservation,
+      contactez-nous à <a href="mailto:contact@beninbouge.com">contact@beninbouge.com</a> ou au +229 0166 86 86 39.
+    </p>
+
+    <h2>8. Vos droits</h2>
+    <p>La loi béninoise vous donne, sur vos données personnelles, les droits suivants :</p>
+    <ul>
+      <li>droit d'accès aux informations collectées ;</li>
+      <li>droit d'interrogation ;</li>
+      <li>droit de modification ;</li>
+      <li>droit de rectification ;</li>
+      <li>droit à la portabilité ;</li>
+      <li>droit d'opposition au traitement ;</li>
+      <li>droit de suppression des données ;</li>
+      <li>droit à l'oubli ;</li>
+      <li>droit à réparation.</li>
+    </ul>
+    <p>
+      Vous pouvez consulter la définition détaillée de ces droits sur le site de l'APDP :
+      <a href="https://www.apdp.bj" target="_blank" rel="noopener">apdp.bj</a>.
+    </p>
+    <p>
+      Vous pouvez exercer vos droits en écrivant à Bénin Bouge par e-mail à
+      <a href="mailto:contact@beninbouge.com">contact@beninbouge.com</a> ou par téléphone au +229 0166 86 86 39.
+      Nous garantissons une réponse à votre demande dans un délai de 30 jours à compter de sa réception.
+    </p>
+
+    <h2>9. Réclamation auprès de l'APDP</h2>
+    <p>
+      Vous avez le droit de déposer une plainte auprès de l'Autorité de Protection des Données Personnelles (APDP) :
+    </p>
+    <ul>
+      <li>au siège de l'institution : Rue 6.076, Aïdjèdo, Cotonou, République du Bénin ;</li>
+      <li>par e-mail, à l'adresse : <a href="mailto:contact@apdp.bj">contact@apdp.bj</a>.</li>
+    </ul>
+    <p>Ceci est sans préjudice d'un recours devant la juridiction compétente.</p>
+
+    <h2>10. Pour en savoir plus</h2>
+    <p>
+      Pour toute autre question ou commentaire concernant le traitement de vos données personnelles, vous pouvez
+      contacter le responsable du suivi des demandes de protection des données au sein de Bénin Bouge :
+    </p>
+    <ul>
+      <li>par e-mail : <a href="mailto:contact@beninbouge.com">contact@beninbouge.com</a> ;</li>
+      <li>par téléphone : +229 0166 86 86 39 ;</li>
+      <li>par courrier : <span class="placeholder">adresse postale à compléter</span>.</li>
+    </ul>
+
+    <p style="margin-top:32px">
+      Pour toute information sur nos conditions d'utilisation du Site, consultez également nos
+      <a href="{{ path('mentions_legales') }}">mentions légales</a>.
+    </p>
+
+  </main>
+</div>
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mentions légales — Bénin Bouge{% endblock %}
+
+{% block extra_css %}
+.legal-page a{color:#C83E34}
+.legal-page h2{font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.3px;font-size:clamp(19px,3vw,24px);color:#14160F;margin:40px 0 14px}
+.legal-page h2:first-of-type{margin-top:0}
+.legal-page p, .legal-page li{font-size:15.5px;line-height:1.7;color:#3a3a34}
+.legal-page ul{padding-left:20px;margin:10px 0}
+.legal-page li{margin-bottom:6px}
+.legal-page .placeholder{background:#fff4e0;color:#8a5a00;padding:1px 6px;border-radius:4px;font-weight:700}
+{% endblock %}
+
+{% block body %}
+<div style="background:#FBFAF5;color:#14160F;font-family:'Manrope',sans-serif;overflow-x:hidden;min-height:100vh">
+
+  <header style="position:sticky;top:0;z-index:40;background:rgba(14,63,81,.96);backdrop-filter:blur(10px);border-bottom:1px solid rgba(14,63,81,.45)">
+    <div style="max-width:900px;margin:0 auto;padding:16px clamp(16px,4vw,24px);display:flex;align-items:center;gap:14px">
+      <a href="{{ path('landing') }}" style="flex:none;text-decoration:none">
+        <img src="{{ asset('assets/logo-benin-bouge.png') }}" alt="Bénin Bouge" style="height:36px;width:auto;display:block"/>
+      </a>
+      <div style="flex:1"></div>
+      <a href="{{ path('landing') }}" style="color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:700;display:flex;align-items:center;gap:5px">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Retour au site
+      </a>
+    </div>
+  </header>
+
+  <main class="legal-page" style="max-width:760px;margin:0 auto;padding:clamp(32px,6vw,56px) clamp(16px,5vw,24px) 80px">
+
+    <div style="margin-bottom:8px;color:#C83E34;font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:1.5px">Informations légales</div>
+    <h1 style="font-family:'Anton',sans-serif;text-transform:uppercase;font-size:clamp(28px,5vw,40px);margin-bottom:8px">Mentions légales</h1>
+    <p style="color:#6a6a60">Dernière mise à jour : 9 juillet 2026</p>
+
+    <h2>1. Édition du site</h2>
+    <p>
+      Le présent site (ci-après « le Site ») est édité par <strong>Bénin Bouge</strong>, dans le cadre de l'initiative citoyenne
+      « Sang Donné, Vies Sauvées » menée en partenariat avec Baobab Express.
+    </p>
+    <ul>
+      <li>Dénomination : Bénin Bouge</li>
+      <li>Forme juridique et n° RCCM/IFU : <span class="placeholder">à compléter</span></li>
+      <li>Siège social : <span class="placeholder">à compléter</span> — Cotonou, République du Bénin</li>
+      <li>Téléphone : +229 0166 86 86 39 / +229 0166 61 78 78</li>
+      <li>E-mail : <a href="mailto:contact@beninbouge.com">contact@beninbouge.com</a></li>
+      <li>Directeur de la publication : <span class="placeholder">à compléter</span></li>
+    </ul>
+
+    <h2>2. Hébergement</h2>
+    <p>
+      Le Site est hébergé par : <span class="placeholder">nom, adresse et contact de l'hébergeur à compléter</span>.
+    </p>
+
+    <h2>3. Propriété intellectuelle</h2>
+    <p>
+      L'ensemble des contenus présents sur le Site (textes, logos, visuels, photographies, mise en page, code source) est,
+      sauf mention contraire, la propriété de Bénin Bouge ou de ses partenaires (notamment Baobab Express et la campagne
+      « Sang Donné, Vies Sauvées ») et est protégé par la législation béninoise et internationale relative à la propriété
+      intellectuelle. Toute reproduction, représentation, modification ou diffusion, totale ou partielle, sans autorisation
+      écrite préalable, est interdite.
+    </p>
+
+    <h2>4. Services proposés sur le site</h2>
+    <p>Le Site permet notamment de :</p>
+    <ul>
+      <li>faire un don en ligne au bénéfice de la campagne « Sang Donné, Vies Sauvées », via le prestataire de paiement FedaPay ;</li>
+      <li>réserver une place gratuite dans les navettes Baobab Express organisées le 11 juillet 2026 ;</li>
+      <li>laisser un message de soutien affiché publiquement sur le mur des messages ;</li>
+      <li>générer un badge personnalisé « J'y serai » à partir d'une photo fournie par l'utilisateur.</li>
+    </ul>
+    <p>
+      Le traitement des données à caractère personnel associé à ces services est détaillé dans notre
+      <a href="{{ path('confidentialite') }}">Politique de confidentialité</a>.
+    </p>
+
+    <h2>5. Liens et services tiers</h2>
+    <p>
+      Le Site fait appel à des prestataires tiers pour certains services : FedaPay (paiement en ligne), WhatsApp (messagerie
+      de contact et de confirmation), ainsi que des polices et icônes hébergées par Google Fonts. L'utilisation de ces
+      services est soumise aux conditions générales et politiques de confidentialité propres à chacun de ces prestataires.
+      Bénin Bouge ne saurait être tenu responsable du contenu ou des pratiques de ces sites et services tiers.
+    </p>
+
+    <h2>6. Responsabilité</h2>
+    <p>
+      Bénin Bouge s'efforce d'assurer l'exactitude et la mise à jour des informations diffusées sur le Site, sans garantir
+      l'exhaustivité ou l'absence d'erreur. Bénin Bouge ne pourra être tenu responsable des dommages directs ou indirects
+      résultant de l'accès au Site ou de son utilisation, notamment en cas d'indisponibilité temporaire, d'interruption du
+      service ou de survenance de bogues ou virus.
+    </p>
+
+    <h2>7. Droit applicable et juridiction</h2>
+    <p>
+      Les présentes mentions légales sont soumises au droit béninois. En cas de litige et à défaut de résolution amiable, les
+      tribunaux compétents de la République du Bénin seront seuls compétents.
+    </p>
+
+    <h2>8. Contact</h2>
+    <p>
+      Pour toute question relative au Site ou aux présentes mentions légales, vous pouvez nous contacter à l'adresse
+      <a href="mailto:contact@beninbouge.com">contact@beninbouge.com</a> ou par téléphone au +229 0166 86 86 39.
+    </p>
+
+  </main>
+</div>
+{% endblock %}

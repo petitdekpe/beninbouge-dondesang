@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ticket de bus N°{{ '%03d'|format(reservation.id) }} — Bénin Bouge x Baobab{% endblock %}
+
+{% block extra_css %}
+body{background:#F4F2EA}
+.ticket-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+@media print{
+  .ticket-actions,.ticket-page-header{display:none !important}
+  body{background:#fff}
+  .ticket-card{box-shadow:none !important;border:none !important}
+}
+{% endblock %}
+
+{% block body %}
+<div style="min-height:100vh;font-family:'Archivo',sans-serif;color:#14160F;padding:clamp(24px,6vw,60px) 20px 60px;display:flex;flex-direction:column;align-items:center">
+
+  <div class="ticket-page-header" style="width:100%;max-width:520px;margin-bottom:20px">
+    <a href="{{ path('baobab') }}" style="color:#14160F;opacity:.6;text-decoration:none;font-weight:700;font-size:14px;display:inline-flex;align-items:center;gap:6px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Retour au site
+    </a>
+  </div>
+
+  <div class="ticket-card" id="ticket-card" style="width:100%;max-width:520px;background:#fff;border-radius:24px;box-shadow:0 4px 32px rgba(20,59,87,.10);border:1px solid rgba(20,59,87,.06);padding:clamp(32px,6vw,56px) clamp(24px,5vw,48px);text-align:center">
+
+    <img alt="Sang Donné, Vies Sauvées" src="{{ asset('assets/logo-sdvs.png') }}" style="height:120px;width:auto;margin:0 auto 32px"/>
+
+    <div style="font-weight:800;font-size:clamp(28px,6vw,40px);letter-spacing:-.01em;margin-bottom:4px">Ticket de bus</div>
+    <div style="font-family:'Anton',sans-serif;font-size:clamp(64px,14vw,96px);line-height:1;margin-bottom:32px">N°{{ '%03d'|format(reservation.id) }}</div>
+
+    <div style="font-weight:800;font-size:clamp(18px,3vw,22px);margin-bottom:6px">Départ&nbsp;: {{ reservation.departureCity }}</div>
+    <div style="font-weight:800;font-size:clamp(18px,3vw,22px);margin-bottom:40px">{{ (reservation.timeSlot starts with '0' ? reservation.timeSlot|slice(1) : reservation.timeSlot)|upper }}</div>
+
+    <div style="display:flex;align-items:center;justify-content:center;gap:20px">
+      <img alt="Bénin Bouge" src="{{ asset('assets/logo-bb-noir.png') }}" style="height:48px;width:auto"/>
+      <img alt="Baobab Express" src="{{ asset('assets/logo-baobab.png') }}" style="height:48px;width:auto"/>
+    </div>
+  </div>
+
+  <div class="ticket-actions">
+    <button id="download-ticket" style="background:#14160F;color:#fff;border:none;padding:13px 26px;border-radius:999px;font-weight:800;font-size:14px;cursor:pointer">Télécharger le ticket (image)</button>
+    <a href="{{ path('baobab') }}" style="background:#fff;color:#14160F;border:1px solid rgba(20,59,87,.15);padding:13px 26px;border-radius:999px;font-weight:800;font-size:14px;text-decoration:none">Retour à l'accueil</a>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+document.getElementById('download-ticket').addEventListener('click', function () {
+  var btn = this;
+  var originalLabel = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Génération…';
+
+  html2canvas(document.getElementById('ticket-card'), {
+    scale: 2,
+    backgroundColor: '#ffffff',
+    useCORS: true
+  }).then(function (canvas) {
+    var link = document.createElement('a');
+    link.download = 'ticket-baobab-n{{ "%03d"|format(reservation.id) }}.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  }).catch(function () {
+    alert("Le téléchargement a échoué, merci de réessayer.");
+  }).finally(function () {
+    btn.disabled = false;
+    btn.textContent = originalLabel;
+  });
+});
+</script>
+{% endblock %}

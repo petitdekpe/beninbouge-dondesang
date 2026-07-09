@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -24,6 +25,35 @@ final class AdminBaobabReservationController extends \Symfony\Bundle\FrameworkBu
             'reservations' => $reservations->findAllForAdmin(),
             'totalPassengers' => $reservations->sumPassengers(),
         ]);
+    }
+
+    #[Route('/admin/baobab-reservations/export', name: 'admin_baobab_reservations_export', methods: ['GET'])]
+    public function export(BaobabReservationRepository $reservations): StreamedResponse
+    {
+        $response = new StreamedResponse(function () use ($reservations): void {
+            $handle = fopen('php://output', 'w+');
+            fwrite($handle, "\xEF\xBB\xBF");
+            fputcsv($handle, ['Nom complet', 'Téléphone', 'Ville de départ', 'Créneau', 'Passagers', 'Date de réservation'], ';');
+
+            foreach ($reservations->findAllForAdmin() as $r) {
+                fputcsv($handle, [
+                    $r->getFullName(),
+                    $r->getPhone(),
+                    $r->getDepartureCity(),
+                    $r->getTimeSlot(),
+                    $r->getPassengers(),
+                    $r->getCreatedAt()->format('d/m/Y H:i'),
+                ], ';');
+            }
+
+            fclose($handle);
+        });
+
+        $filename = 'reservations-baobab-' . (new \DateTimeImmutable())->format('Y-m-d_His') . '.csv';
+        $response->headers->set('Content-Type', 'text/csv; charset=UTF-8');
+        $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '"');
+
+        return $response;
     }
 
     #[Route('/admin/baobab-reservations/{id}/delete', name: 'admin_baobab_reservations_delete', methods: ['POST'])]

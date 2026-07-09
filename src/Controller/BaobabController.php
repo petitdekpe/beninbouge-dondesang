@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\BaobabReservation;
+use App\Repository\BaobabReservationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class BaobabController extends AbstractController
@@ -38,7 +40,6 @@ final class BaobabController extends AbstractController
         $phone = trim((string) $request->request->get('phone', ''));
         $departureCity = trim((string) $request->request->get('departure_city', ''));
         $timeSlot = trim((string) $request->request->get('time_slot', ''));
-        $passengers = (int) $request->request->get('passengers', 1);
         $consent = (bool) $request->request->get('consent', false);
 
         $errors = [];
@@ -53,9 +54,6 @@ final class BaobabController extends AbstractController
         }
         if (!in_array($timeSlot, self::TIME_SLOTS, true)) {
             $errors[] = 'Merci de sélectionner un créneau de départ valide.';
-        }
-        if ($passengers < 1 || $passengers > 5) {
-            $errors[] = 'Le nombre de passagers doit être compris entre 1 et 5.';
         }
         if (!$consent) {
             $errors[] = 'Merci de confirmer votre engagement à respecter les horaires de départ.';
@@ -74,13 +72,23 @@ final class BaobabController extends AbstractController
         $reservation->setPhone(mb_substr($phone, 0, 40));
         $reservation->setDepartureCity($departureCity);
         $reservation->setTimeSlot($timeSlot);
-        $reservation->setPassengers($passengers);
 
         $this->em->persist($reservation);
         $this->em->flush();
 
-        $this->addFlash('baobab_success', 'Votre réservation est confirmée ! Vous recevrez une confirmation par WhatsApp sous 24h.');
+        return $this->redirectToRoute('baobab_ticket', ['id' => $reservation->getId()]);
+    }
 
-        return $this->redirectToRoute('baobab', ['_fragment' => 'reservation']);
+    #[Route('/baobab/ticket/{id}', name: 'baobab_ticket', methods: ['GET'])]
+    public function ticket(int $id, BaobabReservationRepository $reservations): Response
+    {
+        $reservation = $reservations->find($id);
+        if (!$reservation) {
+            throw new NotFoundHttpException('Réservation introuvable.');
+        }
+
+        return $this->render('baobab_ticket.html.twig', [
+            'reservation' => $reservation,
+        ]);
     }
 }

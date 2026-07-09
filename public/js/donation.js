@@ -221,7 +221,7 @@
       },
       currency: { iso: 'XOF' },
       onComplete: function (resp) {
-        if (resp.reason === FedaPay.CHECKOUT_COMPLETE) {
+        if (resp.reason === FedaPay.CHECKOUT_COMPLETED) {
           var params = new URLSearchParams({ amount: String(eff) });
           if (!state.anonymous && state.name.trim()) params.set('name', state.name.trim());
           window.location.href = cfg.merciUrl + '?' + params.toString();

@@ -62,9 +62,15 @@ final class FedaPayWebhookController extends \Symfony\Bundle\FrameworkBundle\Con
 
         // Re-fetch the transaction from FedaPay's API rather than trusting the
         // webhook body's amount/status directly — FedaPay's API is the source of truth.
+        // The API host depends on the key's environment: a sandbox key queried
+        // against the live host resolves to no account ("Modèle V1::Account non
+        // trouvé"), and vice versa.
+        $secretKey = $_ENV['FEDAPAY_SECRET_KEY'] ?? '';
+        $apiHost = str_starts_with($secretKey, 'sk_sandbox_') ? 'https://sandbox-api.fedapay.com' : 'https://api.fedapay.com';
+
         try {
-            $apiResponse = $this->httpClient->request('GET', "https://api.fedapay.com/v1/transactions/{$transactionId}", [
-                'headers' => ['Authorization' => 'Bearer ' . ($_ENV['FEDAPAY_SECRET_KEY'] ?? '')],
+            $apiResponse = $this->httpClient->request('GET', "{$apiHost}/v1/transactions/{$transactionId}", [
+                'headers' => ['Authorization' => 'Bearer ' . $secretKey],
             ]);
             $body = $apiResponse->toArray(false);
             $transaction = $body['v1/transaction'] ?? $body['transaction'] ?? $body;

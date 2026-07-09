@@ -500,6 +500,16 @@
     </div>
   </div>
 
+  <!-- ============ PROMO MODAL: BAOBAB EXPRESS X BÉNIN BOUGE ============ -->
+  <div id="baobab-promo-modal" style="display:none;position:fixed;inset:0;z-index:95;background:rgba(8,9,6,.7);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:clamp(16px,5vw,32px)">
+    <div style="position:relative;width:100%;max-width:420px;animation:bbRise .35s ease">
+      <button type="button" id="baobab-promo-close" aria-label="Fermer" style="position:absolute;top:-14px;right:-14px;width:36px;height:36px;border-radius:50%;background:#fff;border:none;box-shadow:0 6px 18px rgba(0,0,0,.3);cursor:pointer;font-size:16px;line-height:1;font-weight:800;color:#14160F;z-index:2">✕</button>
+      <a href="{{ path('baobab') }}" style="display:block;border-radius:20px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45)">
+        <img src="{{ asset('assets/baobabxbeninboouge.jpeg') }}" alt="Baobab Express x Bénin Bouge — Transport gratuit" style="width:100%;height:auto;display:block"/>
+      </a>
+    </div>
+  </div>
+
 </div>
 {% endblock %}
 
@@ -518,4 +528,33 @@
   };
 </script>
 <script src="{{ asset('js/donation.js') }}"></script>
+<script>
+(function () {
+  var modal = document.getElementById('baobab-promo-modal');
+  if (!modal) return;
+
+  var DISMISS_KEY = 'bb_baobab_promo_dismissed';
+  var alreadyDismissed = false;
+  try { alreadyDismissed = sessionStorage.getItem(DISMISS_KEY) === '1'; } catch (e) {}
+
+  function closePromo() {
+    modal.style.display = 'none';
+    try { sessionStorage.setItem(DISMISS_KEY, '1'); } catch (e) {}
+  }
+
+  if (!alreadyDismissed) {
+    modal.style.display = 'flex';
+  }
+
+  var closeBtn = document.getElementById('baobab-promo-close');
+  if (closeBtn) closeBtn.addEventListener('click', function (e) { e.preventDefault(); closePromo(); });
+
+  modal.addEventListener('click', function (e) {
+    if (e.target === modal) closePromo();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modal.style.display !== 'none') closePromo();
+  });
+})();
+</script>
 {% endblock %}

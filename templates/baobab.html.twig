@@ -1,566 +1,621 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Baobab — Transport gratuit{% endblock %}
+{% block title %}Baobab Express — Navettes gratuites
+{% endblock %}
 
-{% block body_class %}bg-background text-primary font-body-md overflow-x-hidden{% endblock %}
+{% block body_class %}bg-background text-primary font-body-md overflow-x-hidden
+{% endblock %}
 
 {% block stylesheets %}
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        "colors": {
-                "on-tertiary-fixed-variant": "#920214",
-                "background": "#faf9f6",
-                "surface-variant": "#e3e2df",
-                "on-tertiary": "#ffffff",
-                "surface-container-high": "#e9e8e5",
-                "on-surface-variant": "#42474d",
-                "tertiary-fixed-dim": "#ffb3ae",
-                "on-primary": "#ffffff",
-                "on-error": "#ffffff",
-                "surface-container-highest": "#e3e2df",
-                "tertiary-container": "#77000e",
-                "on-primary-fixed-variant": "#254a66",
-                "on-tertiary-container": "#ff7871",
-                "surface-bright": "#faf9f6",
-                "surface-tint": "#3f627f",
-                "secondary-fixed-dim": "#7cd9a6",
-                "primary-container": "#143b57",
-                "on-secondary-container": "#007148",
-                "outline-variant": "#c2c7ce",
-                "on-secondary-fixed": "#002112",
-                "on-secondary-fixed-variant": "#005233",
-                "surface-container-lowest": "#ffffff",
-                "surface-container": "#efeeeb",
-                "inverse-surface": "#2f312f",
-                "primary-fixed-dim": "#a7caed",
-                "inverse-on-surface": "#f2f1ee",
-                "on-tertiary-fixed": "#410004",
-                "error-container": "#ffdad6",
-                "outline": "#72777e",
-                "on-secondary": "#ffffff",
-                "on-error-container": "#93000a",
-                "secondary-container": "#95f3be",
-                "tertiary-fixed": "#ffdad7",
-                "surface-container-low": "#f4f3f0",
-                "on-primary-container": "#82a5c6",
-                "on-surface": "#1a1c1a",
-                "primary": "#00253d",
-                "inverse-primary": "#a7caed",
-                "primary-fixed": "#cde5ff",
-                "surface": "#faf9f6",
-                "surface-dim": "#dbdad7",
-                "secondary": "#006c45",
-                "on-background": "#1a1c1a",
-                "error": "#ba1a1a",
-                "on-primary-fixed": "#001d31",
-                "tertiary": "#4e0006",
-                "secondary-fixed": "#98f6c1",
-                "brand-red": "#D63D3D",
-                "brand-navy": "#143B57"
-        },
-        "borderRadius": {
-                "DEFAULT": "0.25rem",
-                "lg": "0.5rem",
-                "xl": "0.75rem",
-                "2xl": "1.5rem",
-                "full": "9999px"
-        },
-        "spacing": {
-                "stack-lg": "32px",
-                "unit": "8px",
-                "stack-md": "16px",
-                "gutter": "16px",
-                "container-margin": "24px",
-                "stack-sm": "8px",
-                "section-gap": "80px"
-        },
-        "fontFamily": {
-                "headline-md": ["Inter"],
-                "headline-lg": ["Inter"],
-                "body-lg": ["Inter"],
-                "display-lg": ["Inter"],
-                "body-md": ["Inter"],
-                "caption": ["Inter"],
-                "label-md": ["Inter"]
-        },
-        "fontSize": {
-                "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
-                "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                "caption": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
-                "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}]
-        }
-      },
-    },
-  }
-</script>
+	<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+	<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+	<script id="tailwind-config">
+		tailwind.config = {
+darkMode: "class",
+theme: {
+extend: {
+"colors": {
+"on-tertiary-fixed-variant": "#920214",
+"background": "#faf9f6",
+"surface-variant": "#e3e2df",
+"on-tertiary": "#ffffff",
+"surface-container-high": "#e9e8e5",
+"on-surface-variant": "#42474d",
+"tertiary-fixed-dim": "#ffb3ae",
+"on-primary": "#ffffff",
+"on-error": "#ffffff",
+"surface-container-highest": "#e3e2df",
+"tertiary-container": "#77000e",
+"on-primary-fixed-variant": "#254a66",
+"on-tertiary-container": "#ff7871",
+"surface-bright": "#faf9f6",
+"surface-tint": "#3f627f",
+"secondary-fixed-dim": "#7cd9a6",
+"primary-container": "#143b57",
+"on-secondary-container": "#007148",
+"outline-variant": "#c2c7ce",
+"on-secondary-fixed": "#002112",
+"on-secondary-fixed-variant": "#005233",
+"surface-container-lowest": "#ffffff",
+"surface-container": "#efeeeb",
+"inverse-surface": "#2f312f",
+"primary-fixed-dim": "#a7caed",
+"inverse-on-surface": "#f2f1ee",
+"on-tertiary-fixed": "#410004",
+"error-container": "#ffdad6",
+"outline": "#72777e",
+"on-secondary": "#ffffff",
+"on-error-container": "#93000a",
+"secondary-container": "#95f3be",
+"tertiary-fixed": "#ffdad7",
+"surface-container-low": "#f4f3f0",
+"on-primary-container": "#82a5c6",
+"on-surface": "#1a1c1a",
+"primary": "#00253d",
+"inverse-primary": "#a7caed",
+"primary-fixed": "#cde5ff",
+"surface": "#faf9f6",
+"surface-dim": "#dbdad7",
+"secondary": "#006c45",
+"on-background": "#1a1c1a",
+"error": "#ba1a1a",
+"on-primary-fixed": "#001d31",
+"tertiary": "#4e0006",
+"secondary-fixed": "#98f6c1",
+"brand-red": "#D63D3D",
+"brand-navy": "#143B57"
+},
+"borderRadius": {
+"DEFAULT": "0.25rem",
+"lg": "0.5rem",
+"xl": "0.75rem",
+"2xl": "1.5rem",
+"full": "9999px"
+},
+"spacing": {
+"stack-lg": "32px",
+"unit": "8px",
+"stack-md": "16px",
+"gutter": "16px",
+"container-margin": "24px",
+"stack-sm": "8px",
+"section-gap": "80px"
+},
+"fontFamily": {
+"headline-md": ["Inter"],
+"headline-lg": ["Inter"],
+"body-lg": ["Inter"],
+"display-lg": ["Inter"],
+"body-md": ["Inter"],
+"caption": ["Inter"],
+"label-md": ["Inter"]
+},
+"fontSize": {
+"headline-md": [
+"24px", {
+"lineHeight": "32px",
+"letterSpacing": "-0.01em",
+"fontWeight": "600"
+}
+],
+"headline-lg": [
+"32px", {
+"lineHeight": "40px",
+"letterSpacing": "-0.01em",
+"fontWeight": "600"
+}
+],
+"body-lg": [
+"18px", {
+"lineHeight": "28px",
+"fontWeight": "400"
+}
+],
+"display-lg": [
+"48px", {
+"lineHeight": "56px",
+"letterSpacing": "-0.02em",
+"fontWeight": "700"
+}
+],
+"body-md": [
+"16px", {
+"lineHeight": "24px",
+"fontWeight": "400"
+}
+],
+"caption": [
+"12px", {
+"lineHeight": "16px",
+"fontWeight": "500"
+}
+],
+"label-md": [
+"14px", {
+"lineHeight": "20px",
+"letterSpacing": "0.05em",
+"fontWeight": "600"
+}
+]
+}
+}
+}
+}
+	</script>
 {% endblock %}
 
 {% block extra_css %}
-.glass-nav {
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-}
-.material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-}
-.custom-shadow {
-    box-shadow: 0px 4px 24px rgba(20, 59, 87, 0.04);
-}
+	.glass-nav {
+	    backdrop-filter: blur(20px);
+	    -webkit-backdrop-filter: blur(20px);
+	}
+	.material-symbols-outlined {
+	    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+	}
+	.custom-shadow {
+	    box-shadow: 0px 4px 24px rgba(20, 59, 87, 0.04);
+	}
 {% endblock %}
 
 {% block body %}
-<!-- TopNavBar -->
-<nav class="fixed top-0 w-full z-50 bg-surface/80 glass-nav border-b border-on-surface/[0.08]">
-<div class="flex justify-between items-center w-full px-container-margin max-w-[1120px] mx-auto h-20">
-<div class="flex items-center gap-3">
-<img alt="Bénin Bouge" class="h-12 w-auto md:h-14" src="{{ asset('assets/logo-sdvs.png') }}"/>
-<span class="text-on-surface-variant/40 font-light text-xl">×</span>
-<img alt="Baobab Express" class="h-12 w-auto md:h-14" src="{{ asset('assets/logo-baobab.png') }}"/>
-</div>
-<div class="hidden md:flex space-x-stack-lg items-center font-label-md text-label-md">
-<a class="text-on-surface-variant hover:text-primary transition-colors duration-300" href="#trajets">Trajets</a>
-<a class="text-on-surface-variant hover:text-primary transition-colors duration-300" href="#partenariat">Partenariat</a>
-<a class="text-on-surface-variant hover:text-primary transition-colors duration-300" href="#aide">Aide</a>
-<a class="bg-brand-red text-white px-6 py-2 rounded-full font-bold hover:scale-105 transition-transform" href="#reservation">Réserver</a>
-</div>
-<button class="md:hidden text-primary">
-<span class="material-symbols-outlined">menu</span>
-</button>
-</div>
-</nav>
-<!-- Hero Section -->
-<header class="relative min-h-screen flex items-center pt-20 overflow-hidden">
-<div class="absolute inset-0 z-0">
-<div class="absolute inset-0 bg-gradient-to-r from-primary/80 to-transparent z-10"></div>
-<img alt="Hero background" class="w-full h-full object-cover" src="{{ asset('assets/hero-background.jpeg') }}"/>
-</div>
-<div class="relative z-20 max-w-[1120px] mx-auto px-container-margin w-full">
-<div class="max-w-2xl text-white">
-<div class="flex gap-2 mb-stack-md">
-<span class="bg-brand-red text-white text-caption font-bold px-3 py-1 rounded-full uppercase tracking-wider">100% Gratuit</span>
-<span class="bg-secondary text-white text-caption font-bold px-3 py-1 rounded-full uppercase tracking-wider">Places limitées</span>
-<span class="bg-white/20 backdrop-blur-md text-white text-caption font-bold px-3 py-1 rounded-full uppercase tracking-wider">Samedi 11 Juillet 2026</span>
-</div>
-<h1 class="font-display-lg text-display-lg mb-stack-md leading-tight">
-                Baobab Express assure<br/>votre trajet vers la plus grande mobilisation<br/>de don de sang au Bénin
-            </h1>
-<p class="font-body-lg text-body-lg text-white/90 mb-stack-lg">
-                Le samedi 11 juillet 2026, des navettes 100% gratuites sont mises à votre disposition au départ de Calavi et Porto-Novo, avec deux créneaux de départ à 8h et 11h, direction EYA Centre Communautaire (Akpakpa).
-            </p>
-<div class="flex flex-col sm:flex-row gap-gutter">
-<a class="bg-brand-red text-white px-8 py-4 rounded-full font-bold text-lg text-center hover:bg-[#b52a2a] transition-all shadow-lg" href="#reservation">
-                    Réservez gratuitement
-                </a>
-<a class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-full font-bold text-lg text-center hover:bg-white/20 transition-all" href="#trajets">
-                    Voir les points d'embarquement
-                </a>
-</div>
-</div>
-</div>
-</header>
+	<!-- TopNavBar -->
+	<nav class="fixed top-0 w-full z-50 bg-surface/80 glass-nav border-b border-on-surface/[0.08]">
+		<div class="flex justify-between items-center w-full px-container-margin max-w-[1120px] mx-auto h-20">
+			<div class="flex items-center gap-3">
+				<img alt="Bénin Bouge" class="h-12 w-auto md:h-14" src="{{ asset('assets/logo-sdvs.png') }}"/>
+				<span class="text-on-surface-variant/40 font-light text-xl">×</span>
+				<img alt="Baobab Express" class="h-12 w-auto md:h-14" src="{{ asset('assets/logo-baobab.png') }}"/>
+			</div>
+			<div class="hidden md:flex space-x-stack-lg items-center font-label-md text-label-md">
+				<a class="text-on-surface-variant hover:text-primary transition-colors duration-300" href="#trajets">Trajets</a>
+				<a class="text-on-surface-variant hover:text-primary transition-colors duration-300" href="#partenariat">Partenariat</a>
+				<a class="text-on-surface-variant hover:text-primary transition-colors duration-300" href="#aide">Aide</a>
+				<a class="bg-brand-red text-white px-6 py-2 rounded-full font-bold hover:scale-105 transition-transform" href="#reservation">Réserver</a>
+			</div>
+			<button class="md:hidden text-primary">
+				<span class="material-symbols-outlined">menu</span>
+			</button>
+		</div>
+	</nav>
+	<!-- Hero Section -->
+	<header class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+		<div class="absolute inset-0 z-0">
+			<div class="absolute inset-0 bg-gradient-to-r from-primary/80 to-transparent z-10"></div>
+			<img alt="Hero background" class="w-full h-full object-cover" src="{{ asset('assets/hero-background.jpeg') }}"/>
+		</div>
+		<div class="relative z-20 max-w-[1120px] mx-auto px-container-margin w-full">
+			<div class="max-w-2xl text-white">
+				<div class="flex gap-2 mb-stack-md">
+					<span class="bg-brand-red text-white text-caption font-bold px-3 py-1 rounded-full uppercase tracking-wider">100% Gratuit</span>
+					<span class="bg-secondary text-white text-caption font-bold px-3 py-1 rounded-full uppercase tracking-wider">Places limitées</span>
+					<span class="bg-white/20 backdrop-blur-md text-white text-caption font-bold px-3 py-1 rounded-full uppercase tracking-wider">Samedi 11 Juillet 2026</span>
+				</div>
+				<h1 class="font-display-lg text-display-lg mb-stack-md leading-tight">
+					Baobab Express assure<br/>votre trajet vers la plus grande mobilisation<br/>de don de sang au Bénin
+				</h1>
+				<p class="font-body-lg text-body-lg text-white/90 mb-stack-lg">
+					Le samedi 11 juillet 2026, des navettes 100% gratuites sont mises à votre disposition au départ de Calavi et Porto-Novo, avec deux créneaux de départ à 8h et 11h, direction EYA Centre Communautaire (Akpakpa).
+				</p>
+				<div class="flex flex-col sm:flex-row gap-gutter">
+					<a class="bg-brand-red text-white px-8 py-4 rounded-full font-bold text-lg text-center hover:bg-[#b52a2a] transition-all shadow-lg" href="#reservation">
+						Réservez gratuitement
+					</a>
+					<a class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-full font-bold text-lg text-center hover:bg-white/20 transition-all" href="#trajets">
+						Voir les points d'embarquement
+					</a>
+				</div>
+			</div>
+		</div>
+	</header>
 
-<!-- Detailed Partners Section -->
-<section class="py-section-gap bg-white" id="partenariat">
-<div class="max-w-[1120px] mx-auto px-container-margin">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-section-gap items-center mb-16">
-<div class="relative">
-<div class="absolute -inset-4 bg-primary/5 rounded-full blur-3xl"></div>
-<div class="relative flex items-center justify-center gap-6 md:justify-start">
-<img alt="Bénin Bouge" class="h-20 md:h-24 w-auto drop-shadow-sm" src="{{ asset('assets/logo-bb-noir.png') }}"/>
-<span class="text-on-surface-variant/40 font-light text-3xl">×</span>
-<img alt="Baobab Express" class="h-20 md:h-24 w-auto drop-shadow-sm" src="{{ asset('assets/logo-baobab.png') }}"/>
-</div>
-</div>
-<div>
-<h2 class="font-headline-lg text-headline-lg mb-stack-md text-primary">Une alliance pour l'avenir</h2>
-<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-stack-md">
-                    À l'occasion du deuxième anniversaire de Bénin Bouge, nous scellons un partenariat stratégique avec Baobab Express pour promouvoir la mobilité citoyenne.
-                </p>
-<p class="font-body-md text-body-lg text-on-surface-variant leading-relaxed mb-8">
-                    Cette alliance vise à faciliter l'accès des jeunes aux opportunités d'engagement social. Baobab Express met à disposition son expertise logistique et sa flotte moderne pour soutenir la vision de Bénin Bouge.
-                </p>
-<div class="p-6 bg-surface-container rounded-2xl flex items-center justify-between gap-4">
-<p class="text-label-md font-bold text-primary">Vous souhaitez soutenir l'initiative ?</p>
-<a class="bg-primary text-white px-6 py-2 rounded-full text-sm font-bold hover:bg-brand-navy transition-all" href="mailto:partenariats@beninbouge.bj">Rejoindre le mouvement</a>
-</div>
-</div>
-</div>
-</div>
-</div-->
+	<!-- Detailed Partners Section -->
+	<section class="py-section-gap bg-white" id="partenariat">
+		<div class="max-w-[1120px] mx-auto px-container-margin">
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-section-gap items-center mb-16">
+				<div class="relative">
+					<div class="absolute -inset-4 bg-primary/5 rounded-full blur-3xl"></div>
+					<div class="relative flex items-center justify-center gap-6 md:justify-start">
+						<img alt="Bénin Bouge" class="h-20 md:h-24 w-auto drop-shadow-sm" src="{{ asset('assets/logo-bb-noir.png') }}"/>
+						<span class="text-on-surface-variant/40 font-light text-3xl">×</span>
+						<img alt="Baobab Express" class="h-20 md:h-24 w-auto drop-shadow-sm" src="{{ asset('assets/logo-baobab.png') }}"/>
+					</div>
+				</div>
+				<div>
+					<h2 class="font-headline-lg text-headline-lg mb-stack-md text-primary">Une alliance pour l'avenir</h2>
+					<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-stack-md">
+						À l'occasion du deuxième anniversaire de Bénin Bouge, nous scellons un partenariat stratégique avec Baobab Express pour promouvoir la mobilité citoyenne.
+					</p>
+					<p class="font-body-md text-body-lg text-on-surface-variant leading-relaxed mb-8">
+						Cette alliance vise à faciliter l'accès des jeunes aux opportunités d'engagement social. Baobab Express met à disposition son expertise logistique et sa flotte moderne pour soutenir la vision de Bénin Bouge.
+					</p>
+					<div class="p-6 bg-surface-container rounded-2xl flex items-center justify-between gap-4">
+						<p class="text-label-md font-bold text-primary">Vous souhaitez soutenir l'initiative ?</p>
+						<a class="bg-primary text-white px-6 py-2 rounded-full text-sm font-bold hover:bg-brand-navy transition-all" href="mailto:partenariats@beninbouge.bj">Rejoindre le mouvement</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div-->
 </section>
 <!-- Timeline / Déroulement de la journée -->
 <section class="py-section-gap bg-surface-container-low" id="programme">
-<div class="max-w-[1120px] mx-auto px-container-margin">
-<div class="text-center mb-16">
-<h2 class="font-headline-lg text-headline-lg text-primary mb-4">Le parcours de votre journée</h2>
-<p class="text-on-surface-variant max-w-xl mx-auto">Une organisation millimétrée pour une expérience sereine.</p>
-</div>
-<div class="relative">
-<!-- Desktop Line -->
-<div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-outline-variant/30 -translate-y-1/2"></div>
-<div class="grid grid-cols-1 md:grid-cols-5 gap-8">
-<!-- Step 1 -->
-<div class="relative flex flex-col items-center text-center group">
-<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center border-4 border-primary z-10 mb-6 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined text-primary text-sm">groups</span>
-</div>
-<div class="md:min-h-[100px]">
-<h4 class="font-bold text-primary mb-2">08:00</h4>
-<p class="font-label-md text-label-md uppercase mb-2">1er Départ</p>
-<p class="text-caption text-on-surface-variant">Rassemblement puis départ du premier convoi depuis Calavi et Porto-Novo.</p>
-</div>
-</div>
-<!-- Step 2 -->
-<div class="relative flex flex-col items-center text-center group">
-<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center border-4 border-brand-red z-10 mb-6 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined text-brand-red text-sm">departure_board</span>
-</div>
-<div class="md:min-h-[100px]">
-<h4 class="font-bold text-primary mb-2">11:00</h4>
-<p class="font-label-md text-label-md uppercase mb-2">2e Départ</p>
-<p class="text-caption text-on-surface-variant">Second convoi Baobab Express pour les places restantes.</p>
-</div>
-</div>
-<!-- Step 3 -->
-<div class="relative flex flex-col items-center text-center group">
-<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center border-4 border-primary z-10 mb-6 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined text-primary text-sm">location_on</span>
-</div>
-<div class="md:min-h-[100px]">
-<h4 class="font-bold text-primary mb-2">Arrivée</h4>
-<p class="font-label-md text-label-md uppercase mb-2">EYA Centre</p>
-<p class="text-caption text-on-surface-variant">Arrivée au Centre Communautaire EYA, Akpakpa.</p>
-</div>
-</div>
-<!-- Step 4 -->
-<div class="relative flex flex-col items-center text-center group">
-<div class="w-12 h-12 bg-brand-red rounded-full flex items-center justify-center border-4 border-white z-10 mb-6 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined text-white text-sm">bloodtype</span>
-</div>
-<div class="md:min-h-[100px]">
-<h4 class="font-bold text-primary mb-2">Sang Donné</h4>
-<p class="font-label-md text-label-md uppercase mb-2">Vies Sauvées</p>
-<p class="text-caption text-on-surface-variant">Collecte de sang, 2ème édition, au Centre Communautaire EYA.</p>
-</div>
-</div>
-<!-- Step 5 -->
-<div class="relative flex flex-col items-center text-center group">
-<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center border-4 border-primary z-10 mb-6 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined text-primary text-sm">keyboard_return</span>
-</div>
-<div class="md:min-h-[100px]">
-<h4 class="font-bold text-primary mb-2">Retour</h4>
-<p class="font-label-md text-label-md uppercase mb-2">Fin de journée</p>
-<p class="text-caption text-on-surface-variant">Départ des bus retour vers Calavi et Porto-Novo.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
+	<div class="max-w-[1120px] mx-auto px-container-margin">
+		<div class="text-center mb-16">
+			<h2 class="font-headline-lg text-headline-lg text-primary mb-4">Le parcours de votre journée</h2>
+			<p class="text-on-surface-variant max-w-xl mx-auto">Une organisation millimétrée pour une expérience sereine.</p>
+		</div>
+		<div
+			class="relative">
+			<!-- Desktop Line -->
+			<div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-outline-variant/30 -translate-y-1/2"></div>
+			<div
+				class="grid grid-cols-1 md:grid-cols-5 gap-8">
+				<!-- Step 1 -->
+				<div class="relative flex flex-col items-center text-center group">
+					<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center border-4 border-primary z-10 mb-6 group-hover:scale-110 transition-transform">
+						<span class="material-symbols-outlined text-primary text-sm">groups</span>
+					</div>
+					<div class="md:min-h-[100px]">
+						<h4 class="font-bold text-primary mb-2">08:00</h4>
+						<p class="font-label-md text-label-md uppercase mb-2">1er Départ</p>
+						<p class="text-caption text-on-surface-variant">Rassemblement puis départ du premier convoi depuis Calavi et Porto-Novo.</p>
+					</div>
+				</div>
+				<!-- Step 2 -->
+				<div class="relative flex flex-col items-center text-center group">
+					<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center border-4 border-brand-red z-10 mb-6 group-hover:scale-110 transition-transform">
+						<span class="material-symbols-outlined text-brand-red text-sm">departure_board</span>
+					</div>
+					<div class="md:min-h-[100px]">
+						<h4 class="font-bold text-primary mb-2">11:00</h4>
+						<p class="font-label-md text-label-md uppercase mb-2">2e Départ</p>
+						<p class="text-caption text-on-surface-variant">Second convoi Baobab Express pour les places restantes.</p>
+					</div>
+				</div>
+				<!-- Step 3 -->
+				<div class="relative flex flex-col items-center text-center group">
+					<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center border-4 border-primary z-10 mb-6 group-hover:scale-110 transition-transform">
+						<span class="material-symbols-outlined text-primary text-sm">location_on</span>
+					</div>
+					<div class="md:min-h-[100px]">
+						<h4 class="font-bold text-primary mb-2">Arrivée</h4>
+						<p class="font-label-md text-label-md uppercase mb-2">EYA Centre</p>
+						<p class="text-caption text-on-surface-variant">Arrivée au Centre Communautaire EYA, Akpakpa.</p>
+					</div>
+				</div>
+				<!-- Step 4 -->
+				<div class="relative flex flex-col items-center text-center group">
+					<div class="w-12 h-12 bg-brand-red rounded-full flex items-center justify-center border-4 border-white z-10 mb-6 group-hover:scale-110 transition-transform">
+						<span class="material-symbols-outlined text-white text-sm">bloodtype</span>
+					</div>
+					<div class="md:min-h-[100px]">
+						<h4 class="font-bold text-primary mb-2">Sang Donné</h4>
+						<p class="font-label-md text-label-md uppercase mb-2">Vies Sauvées</p>
+						<p class="text-caption text-on-surface-variant">Collecte de sang, 2ème édition, au Centre Communautaire EYA.</p>
+					</div>
+				</div>
+				<!-- Step 5 -->
+				<div class="relative flex flex-col items-center text-center group">
+					<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center border-4 border-primary z-10 mb-6 group-hover:scale-110 transition-transform">
+						<span class="material-symbols-outlined text-primary text-sm">keyboard_return</span>
+					</div>
+					<div class="md:min-h-[100px]">
+						<h4 class="font-bold text-primary mb-2">Retour</h4>
+						<p class="font-label-md text-label-md uppercase mb-2">Fin de journée</p>
+						<p class="text-caption text-on-surface-variant">Départ des bus retour vers Calavi et Porto-Novo.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 <!-- Trajets Details (Existing) -->
 <section class="py-section-gap bg-surface-container-low" id="trajets">
-<div class="max-w-[1120px] mx-auto px-container-margin text-center mb-section-gap">
-<h2 class="font-headline-lg text-headline-lg text-primary mb-4">Itinéraires &amp; Horaires</h2>
-<p class="text-on-surface-variant max-w-xl mx-auto">Sélectionnez votre ville de départ et consultez les horaires précis de nos navettes.</p>
-</div>
-<div class="max-w-[1120px] mx-auto px-container-margin grid grid-cols-1 md:grid-cols-2 gap-gutter">
-<!-- Calavi Card -->
-<div class="bg-white p-8 rounded-2xl border border-primary/5 custom-shadow flex flex-col h-full">
-<div class="flex items-center gap-4 mb-8">
-<div class="w-14 h-14 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
-<span class="material-symbols-outlined text-3xl">directions_bus</span>
-</div>
-<div>
-<h3 class="font-headline-md text-headline-md">Abomey-Calavi</h3>
-<p class="text-caption text-secondary font-bold uppercase">Destination: EYA Centre (Akpakpa)</p>
-</div>
-</div>
-<div class="space-y-6 flex-grow">
-<div class="flex gap-4">
-<div class="flex flex-col items-center">
-<div class="w-2 h-2 rounded-full bg-primary mt-2"></div>
-<div class="w-0.5 h-12 bg-outline-variant my-1"></div>
-<div class="w-2 h-2 rounded-full border-2 border-primary"></div>
-</div>
-<div>
-<p class="font-bold text-primary">08:00 — 1er Départ</p>
-<p class="text-on-surface-variant mb-4">Tous les points d'embarquement</p>
-<p class="font-bold text-primary">11:00 — 2e Départ</p>
-<p class="text-on-surface-variant">Ponctualité Baobab Express</p>
-</div>
-</div>
-<div class="bg-surface p-6 rounded-xl space-y-4">
-<p class="font-label-md text-label-md text-primary uppercase tracking-wider">Points d'embarquement</p>
-<div class="space-y-3">
-<div class="flex items-start gap-2">
-<span class="material-symbols-outlined text-primary text-sm mt-1">location_on</span>
-<span class="text-body-md">Arconville, à côté du camp militaire</span>
-</div>
-<div class="flex items-start gap-2">
-<span class="material-symbols-outlined text-primary text-sm mt-1">location_on</span>
-<span class="text-body-md">Portail secondaire du campus (UAC)</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Porto-Novo Card -->
-<div class="bg-white p-8 rounded-2xl border border-primary/5 custom-shadow flex flex-col h-full">
-<div class="flex items-center gap-4 mb-8">
-<div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-<span class="material-symbols-outlined text-3xl">directions_bus</span>
-</div>
-<div>
-<h3 class="font-headline-md text-headline-md">Porto-Novo</h3>
-<p class="text-caption text-primary font-bold uppercase">Destination: EYA Centre (Akpakpa)</p>
-</div>
-</div>
-<div class="space-y-6 flex-grow">
-<div class="flex gap-4">
-<div class="flex flex-col items-center">
-<div class="w-2 h-2 rounded-full bg-primary mt-2"></div>
-<div class="w-0.5 h-12 bg-outline-variant my-1"></div>
-<div class="w-2 h-2 rounded-full border-2 border-primary"></div>
-</div>
-<div>
-<p class="font-bold text-primary">08:00 — 1er Départ</p>
-<p class="text-on-surface-variant mb-4">Convoi spécial Baobab Express</p>
-<p class="font-bold text-primary">11:00 — 2e Départ</p>
-<p class="text-on-surface-variant">Convoi spécial Baobab Express</p>
-</div>
-</div>
-<div class="bg-surface p-6 rounded-xl space-y-4">
-<p class="font-label-md text-label-md text-primary uppercase tracking-wider">Points d'embarquement</p>
-<div class="space-y-3">
-<div class="flex items-start gap-2">
-<span class="material-symbols-outlined text-primary text-sm mt-1">location_on</span>
-<span class="text-body-md">En face de la piscine municipale, carrefour du Cinquantenaire</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+	<div class="max-w-[1120px] mx-auto px-container-margin text-center mb-section-gap">
+		<h2 class="font-headline-lg text-headline-lg text-primary mb-4">Itinéraires &amp; Horaires</h2>
+		<p class="text-on-surface-variant max-w-xl mx-auto">Sélectionnez votre ville de départ et consultez les horaires précis de nos navettes.</p>
+	</div>
+	<div
+		class="max-w-[1120px] mx-auto px-container-margin grid grid-cols-1 md:grid-cols-2 gap-gutter">
+		<!-- Calavi Card -->
+		<div class="bg-white p-8 rounded-2xl border border-primary/5 custom-shadow flex flex-col h-full">
+			<div class="flex items-center gap-4 mb-8">
+				<div class="w-14 h-14 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
+					<span class="material-symbols-outlined text-3xl">directions_bus</span>
+				</div>
+				<div>
+					<h3 class="font-headline-md text-headline-md">Abomey-Calavi</h3>
+					<p class="text-caption text-secondary font-bold uppercase">Destination: EYA Centre (Akpakpa)</p>
+				</div>
+			</div>
+			<div class="space-y-6 flex-grow">
+				<div class="flex gap-4">
+					<div class="flex flex-col items-center">
+						<div class="w-2 h-2 rounded-full bg-primary mt-2"></div>
+						<div class="w-0.5 h-12 bg-outline-variant my-1"></div>
+						<div class="w-2 h-2 rounded-full border-2 border-primary"></div>
+					</div>
+					<div>
+						<p class="font-bold text-primary">08:00 — 1er Départ</p>
+						<p class="text-on-surface-variant mb-4">Tous les points d'embarquement</p>
+						<p class="font-bold text-primary">11:00 — 2e Départ</p>
+						<p class="text-on-surface-variant">Ponctualité Baobab Express</p>
+					</div>
+				</div>
+				<div class="bg-surface p-6 rounded-xl space-y-4">
+					<p class="font-label-md text-label-md text-primary uppercase tracking-wider">Points d'embarquement</p>
+					<div class="space-y-3">
+						<div class="flex items-start gap-2">
+							<span class="material-symbols-outlined text-primary text-sm mt-1">location_on</span>
+							<span class="text-body-md">Arconville, à côté du camp militaire</span>
+						</div>
+						<div class="flex items-start gap-2">
+							<span class="material-symbols-outlined text-primary text-sm mt-1">location_on</span>
+							<span class="text-body-md">Portail secondaire du campus (UAC)</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Porto-Novo Card -->
+		<div class="bg-white p-8 rounded-2xl border border-primary/5 custom-shadow flex flex-col h-full">
+			<div class="flex items-center gap-4 mb-8">
+				<div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+					<span class="material-symbols-outlined text-3xl">directions_bus</span>
+				</div>
+				<div>
+					<h3 class="font-headline-md text-headline-md">Porto-Novo</h3>
+					<p class="text-caption text-primary font-bold uppercase">Destination: EYA Centre (Akpakpa)</p>
+				</div>
+			</div>
+			<div class="space-y-6 flex-grow">
+				<div class="flex gap-4">
+					<div class="flex flex-col items-center">
+						<div class="w-2 h-2 rounded-full bg-primary mt-2"></div>
+						<div class="w-0.5 h-12 bg-outline-variant my-1"></div>
+						<div class="w-2 h-2 rounded-full border-2 border-primary"></div>
+					</div>
+					<div>
+						<p class="font-bold text-primary">08:00 — 1er Départ</p>
+						<p class="text-on-surface-variant mb-4">Convoi spécial Baobab Express</p>
+						<p class="font-bold text-primary">11:00 — 2e Départ</p>
+						<p class="text-on-surface-variant">Convoi spécial Baobab Express</p>
+					</div>
+				</div>
+				<div class="bg-surface p-6 rounded-xl space-y-4">
+					<p class="font-label-md text-label-md text-primary uppercase tracking-wider">Points d'embarquement</p>
+					<div class="space-y-3">
+						<div class="flex items-start gap-2">
+							<span class="material-symbols-outlined text-primary text-sm mt-1">location_on</span>
+							<span class="text-body-md">En face de la piscine municipale, carrefour du Cinquantenaire</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 <!-- Registration Form -->
 <section class="py-section-gap relative" id="reservation">
-<div class="absolute inset-0 bg-primary-container z-0 opacity-5"></div>
-<div class="max-w-[800px] mx-auto px-container-margin relative z-10">
-<div class="bg-white p-stack-lg md:p-12 rounded-2xl custom-shadow border border-primary/5">
-<div class="text-center mb-stack-lg">
-<h2 class="font-headline-lg text-headline-lg text-primary mb-2">Réserver mon siège</h2>
-<p class="text-on-surface-variant">
-Gratuit, sécurisé et rapide.
-{% if ticketsRemaining is not null and not isFull %} Places limitées — {{ ticketsRemaining }} place(s) restante(s).{% else %} Places limitées.{% endif %}
-</p>
-</div>
-{% for msg in app.flashes('baobab_error') %}
-<div class="mb-2 rounded-xl bg-error-container border border-error/20 text-error font-bold text-sm p-4 text-center">{{ msg }}</div>
-{% endfor %}
-{% if isFull %}
-<div class="rounded-xl bg-surface border border-primary/10 text-center p-8">
-<div class="text-headline-md font-bold text-primary mb-2">Complet</div>
-<p class="text-on-surface-variant">Toutes les places gratuites ont été réservées. Merci pour votre engagement, à très bientôt pour une prochaine mobilisation !</p>
-</div>
-{% else %}
-<form class="space-y-6" method="post" action="{{ path('baobab_reservation_create') }}">
-<input type="hidden" name="_token" value="{{ csrf_token('baobab_reservation') }}"/>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
-<div class="space-y-2">
-<label class="font-label-md text-label-md text-on-surface-variant uppercase">Nom complet</label>
-<input class="w-full p-4 rounded-xl bg-surface border-none focus:ring-2 focus:ring-brand-navy transition-all" name="full_name" placeholder="Ex: Stevy Walliou" required type="text"/>
-</div>
-<div class="space-y-2">
-<label class="font-label-md text-label-md text-on-surface-variant uppercase">Téléphone WhatsApp</label>
-<input class="w-full p-4 rounded-xl bg-surface border-none focus:ring-2 focus:ring-brand-navy transition-all" name="phone" placeholder="+229 01 XX XX XX XX" required type="tel"/>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
-<div class="space-y-2">
-<label class="font-label-md text-label-md text-on-surface-variant uppercase">Lieu de départ</label>
-<select class="w-full p-4 rounded-xl bg-surface border-none focus:ring-2 focus:ring-brand-navy transition-all appearance-none" name="departure_city" required>
-<option value="">Sélectionnez un lieu de départ</option>
-<option value="Abomey-Calavi (Arconville, à côté du camp militaire)">Abomey-Calavi (Arconville, à côté du camp militaire)</option>
-<option value="Abomey-Calavi (Portail secondaire du campus (UAC))">Abomey-Calavi (Portail secondaire du campus (UAC))</option>
-<option value="Porto-Novo (En face de la piscine municipale, carrefour du Cinquantenaire)">Porto-Novo (En face de la piscine municipale, carrefour du Cinquantenaire)</option>
-</select>
-</div>
-<div class="space-y-2">
-<label class="font-label-md text-label-md text-on-surface-variant uppercase">Créneau de départ</label>
-<select class="w-full p-4 rounded-xl bg-surface border-none focus:ring-2 focus:ring-brand-navy transition-all appearance-none" name="time_slot" required>
-<option value="">Sélectionnez un créneau</option>
-<option value="08h00">08h00</option>
-<option value="11h00">11h00</option>
-</select>
-</div>
-</div>
-<div class="flex items-start gap-3">
-<input class="mt-1 rounded text-brand-red focus:ring-brand-red" name="consent" required type="checkbox" value="1"/>
-<p class="text-caption text-on-surface-variant">Je confirme ma présence, m'engage à prendre le bus uniquement pour le don de sang et à respecter les heures de départ. Une non-présentation prive un autre citoyen de ce service gratuit.</p>
-</div>
-<button class="w-full py-4 bg-brand-red text-white font-bold text-lg rounded-full hover:bg-[#b52a2a] transition-all shadow-md transform hover:-translate-y-1 active:translate-y-0" type="submit">
-                    Valider ma réservation
-                </button>
-<div class="flex items-center justify-center gap-2 text-on-surface-variant/60">
-<span class="material-symbols-outlined text-sm">lock</span>
-<!--span class="text-caption font-bold uppercase tracking-widest">Sécurisé par Baobab Express</span-->
-</div>
-</form>
-{% endif %}
-</div>
-</div>
+	<div class="absolute inset-0 bg-primary-container z-0 opacity-5"></div>
+	<div class="max-w-[800px] mx-auto px-container-margin relative z-10">
+		<div class="bg-white p-stack-lg md:p-12 rounded-2xl custom-shadow border border-primary/5">
+			<div class="text-center mb-stack-lg">
+				<h2 class="font-headline-lg text-headline-lg text-primary mb-2">Réserver mon siège</h2>
+				<p class="text-on-surface-variant">
+					Gratuit, sécurisé et rapide.
+					{% if ticketsRemaining is not null and not isFull %}
+						Places limitées —
+						{{ ticketsRemaining }}
+						place(s) restante(s).
+					{% else %}
+						Places limitées.
+					{% endif %}
+				</p>
+			</div>
+			{% for msg in app.flashes('baobab_error') %}
+				<div class="mb-2 rounded-xl bg-error-container border border-error/20 text-error font-bold text-sm p-4 text-center">{{ msg }}</div>
+			{% endfor %}
+			{% if isFull %}
+				<div class="rounded-xl bg-surface border border-primary/10 text-center p-8">
+					<div class="text-headline-md font-bold text-primary mb-2">Complet</div>
+					<p class="text-on-surface-variant">Toutes les places gratuites ont été réservées. Merci pour votre engagement, à très bientôt pour une prochaine mobilisation !</p>
+				</div>
+			{% else %}
+				<form class="space-y-6" method="post" action="{{ path('baobab_reservation_create') }}">
+					<input type="hidden" name="_token" value="{{ csrf_token('baobab_reservation') }}"/>
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+						<div class="space-y-2">
+							<label class="font-label-md text-label-md text-on-surface-variant uppercase">Nom complet</label>
+							<input class="w-full p-4 rounded-xl bg-surface border-none focus:ring-2 focus:ring-brand-navy transition-all" name="full_name" placeholder="Ex: Stevy Walliou" required type="text"/>
+						</div>
+						<div class="space-y-2">
+							<label class="font-label-md text-label-md text-on-surface-variant uppercase">Téléphone WhatsApp</label>
+							<input class="w-full p-4 rounded-xl bg-surface border-none focus:ring-2 focus:ring-brand-navy transition-all" name="phone" placeholder="+229 01 XX XX XX XX" required type="tel"/>
+						</div>
+					</div>
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+						<div class="space-y-2">
+							<label class="font-label-md text-label-md text-on-surface-variant uppercase">Lieu de départ</label>
+							<select class="w-full p-4 rounded-xl bg-surface border-none focus:ring-2 focus:ring-brand-navy transition-all appearance-none" name="departure_city" required>
+								<option value="">Sélectionnez un lieu de départ</option>
+								<option value="Abomey-Calavi (Arconville, à côté du camp militaire)">Abomey-Calavi (Arconville, à côté du camp militaire)</option>
+								<option value="Abomey-Calavi (Portail secondaire du campus (UAC))">Abomey-Calavi (Portail secondaire du campus (UAC))</option>
+								<option value="Porto-Novo (En face de la piscine municipale, carrefour du Cinquantenaire)">Porto-Novo (En face de la piscine municipale, carrefour du Cinquantenaire)</option>
+							</select>
+						</div>
+						<div class="space-y-2">
+							<label class="font-label-md text-label-md text-on-surface-variant uppercase">Créneau de départ</label>
+							<select class="w-full p-4 rounded-xl bg-surface border-none focus:ring-2 focus:ring-brand-navy transition-all appearance-none" name="time_slot" required>
+								<option value="">Sélectionnez un créneau</option>
+								<option value="08h00">08h00</option>
+								<option value="11h00">11h00</option>
+							</select>
+						</div>
+					</div>
+					<div class="flex items-start gap-3">
+						<input class="mt-1 rounded text-brand-red focus:ring-brand-red" name="consent" required type="checkbox" value="1"/>
+						<p class="text-caption text-on-surface-variant">Je confirme ma présence, m'engage à prendre le bus uniquement pour le don de sang et à respecter les heures de départ. Une non-présentation prive un autre citoyen de ce service gratuit.</p>
+					</div>
+					<button class="w-full py-4 bg-brand-red text-white font-bold text-lg rounded-full hover:bg-[#b52a2a] transition-all shadow-md transform hover:-translate-y-1 active:translate-y-0" type="submit">
+						Valider ma réservation
+					</button>
+					<div class="flex items-center justify-center gap-2 text-on-surface-variant/60">
+						<span class="material-symbols-outlined text-sm">lock</span>
+						<!--span class="text-caption font-bold uppercase tracking-widest">Sécurisé par Baobab Express</span-->
+					</div>
+				</form>
+			{% endif %}
+		</div>
+	</div>
 </section>
 <!-- Enhanced FAQ -->
 <section class="py-section-gap bg-surface" id="aide">
-<div class="max-w-[750px] mx-auto px-container-margin">
-<h2 class="font-headline-lg text-headline-lg text-primary text-center mb-section-gap">Questions fréquentes &amp; Aide</h2>
-<div class="space-y-4">
-<details class="group bg-white rounded-xl border border-primary/5 custom-shadow overflow-hidden">
-<summary class="flex items-center justify-between p-6 cursor-pointer list-none">
-<span class="font-headline-md text-body-lg text-primary">Est-ce vraiment gratuit ?</span>
-<span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
-</summary>
-<div class="px-6 pb-6 text-on-surface-variant">
-                    Oui, absolument. Le transport est entièrement pris en charge par le partenariat Bénin Bouge x Baobab Express pour Sang Donné, Vies Sauvées — 2ème édition, le samedi 11 juillet 2026. Aucun frais ne vous sera demandé.
-                </div>
-</details>
-<details class="group bg-white rounded-xl border border-primary/5 custom-shadow overflow-hidden">
-<summary class="flex items-center justify-between p-6 cursor-pointer list-none">
-<span class="font-headline-md text-body-lg text-primary">Que se passe-t-il si le bus est plein ?</span>
-<span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
-</summary>
-<div class="px-6 pb-6 text-on-surface-variant">
-                    Nous gérons les réservations en temps réel. Une fois la capacité maximale atteinte, le formulaire sera fermé. Les personnes sans réservation confirmée ne pourront malheureusement pas embarquer le jour J.
-                </div>
-</details>
-<details class="group bg-white rounded-xl border border-primary/5 custom-shadow overflow-hidden">
-<summary class="flex items-center justify-between p-6 cursor-pointer list-none">
-<span class="font-headline-md text-body-lg text-primary">Quels documents apporter pour l'embarquement ?</span>
-<span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
-</summary>
-<div class="px-6 pb-6 text-on-surface-variant">
-                    Vous devez présenter votre confirmation WhatsApp (sur votre téléphone) et une pièce d'identité valide (CIP, Carte d'identité ou Carte Étudiante). Ces documents sont nécessaires pour la gestion de l'assurance voyage.
-                </div>
-</details>
-<details class="group bg-white rounded-xl border border-primary/5 custom-shadow overflow-hidden">
-<summary class="flex items-center justify-between p-6 cursor-pointer list-none">
-<span class="font-headline-md text-body-lg text-primary">Puis-je modifier ma réservation ?</span>
-<span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
-</summary>
-<div class="px-6 pb-6 text-on-surface-variant">
-                    Oui, vous pouvez modifier votre ville de départ ou annuler votre place jusqu'à 48h avant l'événement en répondant directement au message de confirmation WhatsApp que vous recevrez.
-                </div>
-</details>
-<details class="group bg-white rounded-xl border border-primary/5 custom-shadow overflow-hidden">
-<summary class="flex items-center justify-between p-6 cursor-pointer list-none">
-<span class="font-headline-md text-body-lg text-primary">Comment vais-je recevoir ma confirmation ?</span>
-<span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
-</summary>
-<div class="px-6 pb-6 text-on-surface-variant">
-                    Dès validation de votre formulaire, une confirmation vous sera envoyée par WhatsApp sous 24h avec votre numéro de réservation et le rappel précis de votre point d'embarquement.
-                </div>
-</details>
-</div>
-<div class="mt-12 p-8 bg-primary-container/10 rounded-2xl text-center border border-primary/10">
-<h4 class="font-bold text-primary mb-2">Encore besoin d'aide ?</h4>
-<p class="text-on-surface-variant mb-6">Notre équipe support est disponible par téléphone et WhatsApp pour toutes vos questions logistiques.</p>
-<a class="inline-flex items-center justify-center gap-2 text-brand-navy font-bold hover:underline" href="https://wa.me/2290195834022">
-<span class="material-symbols-outlined">support_agent</span>
-                Contacter l'assistance WhatsApp
-            </a>
-<div class="flex items-center justify-center gap-4 mt-4 flex-wrap">
-<a class="inline-flex items-center gap-2 text-on-surface-variant font-bold hover:text-primary transition-colors" href="tel:+2290195834022">
-<span class="material-symbols-outlined text-sm">call</span>
-                01 95 83 40 22
-            </a>
-<a class="inline-flex items-center gap-2 text-on-surface-variant font-bold hover:text-primary transition-colors" href="tel:+2290198948133">
-<span class="material-symbols-outlined text-sm">call</span>
-                01 98 94 81 33
-            </a>
-</div>
-</div>
-</div>
+	<div class="max-w-[750px] mx-auto px-container-margin">
+		<h2 class="font-headline-lg text-headline-lg text-primary text-center mb-section-gap">Questions fréquentes &amp; Aide</h2>
+		<div class="space-y-4">
+			<details class="group bg-white rounded-xl border border-primary/5 custom-shadow overflow-hidden">
+				<summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+					<span class="font-headline-md text-body-lg text-primary">Est-ce vraiment gratuit ?</span>
+					<span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+				</summary>
+				<div class="px-6 pb-6 text-on-surface-variant">
+					Oui, absolument. Le transport est entièrement pris en charge par le partenariat Bénin Bouge x Baobab Express pour Sang Donné, Vies Sauvées — 2ème édition, le samedi 11 juillet 2026. Aucun frais ne vous sera demandé.
+				</div>
+			</details>
+			<details class="group bg-white rounded-xl border border-primary/5 custom-shadow overflow-hidden">
+				<summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+					<span class="font-headline-md text-body-lg text-primary">Que se passe-t-il si le bus est plein ?</span>
+					<span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+				</summary>
+				<div class="px-6 pb-6 text-on-surface-variant">
+					Nous gérons les réservations en temps réel. Une fois la capacité maximale atteinte, le formulaire sera fermé. Les personnes sans réservation confirmée ne pourront malheureusement pas embarquer le jour J.
+				</div>
+			</details>
+			<details class="group bg-white rounded-xl border border-primary/5 custom-shadow overflow-hidden">
+				<summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+					<span class="font-headline-md text-body-lg text-primary">Quels documents apporter pour l'embarquement ?</span>
+					<span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+				</summary>
+				<div class="px-6 pb-6 text-on-surface-variant">
+					Vous devez présenter votre confirmation WhatsApp (sur votre téléphone) et une pièce d'identité valide (CIP, Carte d'identité ou Carte Étudiante). Ces documents sont nécessaires pour la gestion de l'assurance voyage.
+				</div>
+			</details>
+			<details class="group bg-white rounded-xl border border-primary/5 custom-shadow overflow-hidden">
+				<summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+					<span class="font-headline-md text-body-lg text-primary">Puis-je modifier ma réservation ?</span>
+					<span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+				</summary>
+				<div class="px-6 pb-6 text-on-surface-variant">
+					Oui, vous pouvez modifier votre ville de départ ou annuler votre place jusqu'à 48h avant l'événement en répondant directement au message de confirmation WhatsApp que vous recevrez.
+				</div>
+			</details>
+			<details class="group bg-white rounded-xl border border-primary/5 custom-shadow overflow-hidden">
+				<summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+					<span class="font-headline-md text-body-lg text-primary">Comment vais-je recevoir ma confirmation ?</span>
+					<span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+				</summary>
+				<div class="px-6 pb-6 text-on-surface-variant">
+					Dès validation de votre formulaire, une confirmation vous sera envoyée par WhatsApp sous 24h avec votre numéro de réservation et le rappel précis de votre point d'embarquement.
+				</div>
+			</details>
+		</div>
+		<div class="mt-12 p-8 bg-primary-container/10 rounded-2xl text-center border border-primary/10">
+			<h4 class="font-bold text-primary mb-2">Encore besoin d'aide ?</h4>
+			<p class="text-on-surface-variant mb-6">Notre équipe support est disponible par téléphone et WhatsApp pour toutes vos questions logistiques.</p>
+			<a class="inline-flex items-center justify-center gap-2 text-brand-navy font-bold hover:underline" href="https://wa.me/2290195834022">
+				<span class="material-symbols-outlined">support_agent</span>
+				Contacter l'assistance WhatsApp
+			</a>
+			<div class="flex items-center justify-center gap-4 mt-4 flex-wrap">
+				<a class="inline-flex items-center gap-2 text-on-surface-variant font-bold hover:text-primary transition-colors" href="tel:+2290195834022">
+					<span class="material-symbols-outlined text-sm">call</span>
+					01 95 83 40 22
+				</a>
+				<a class="inline-flex items-center gap-2 text-on-surface-variant font-bold hover:text-primary transition-colors" href="tel:+2290198948133">
+					<span class="material-symbols-outlined text-sm">call</span>
+					01 98 94 81 33
+				</a>
+			</div>
+		</div>
+	</div>
 </section>
 <!-- Footer -->
 <footer class="bg-surface-container-low w-full py-section-gap">
-<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter px-container-margin max-w-[1120px] mx-auto">
-<div class="md:col-span-5 space-y-stack-md">
-<div class="flex items-center gap-3">
-<img alt="Bénin Bouge" class="h-10 w-auto" src="{{ asset('assets/logo-bb-noir.png') }}"/>
-<span class="text-on-surface-variant/40 font-light text-xl">×</span>
-<img alt="Baobab Express" class="h-10 w-auto" src="{{ asset('assets/logo-baobab.png') }}"/>
-</div>
-<p class="text-on-surface-variant font-body-md text-body-md max-w-sm">
-                Une initiative citoyenne pour la jeunesse béninoise, propulsée par le réseau de transport leader au Bénin.
-            </p>
-</div>
-<div class="md:col-span-2">
-<h5 class="text-primary font-bold mb-4 uppercase text-caption tracking-widest">Navigation</h5>
-<ul class="space-y-2 text-on-surface-variant font-body-md text-body-md">
-<li><a class="hover:text-secondary transition-colors" href="#trajets">Trajets</a></li>
-<li><a class="hover:text-secondary transition-colors" href="#partenariat">Partenariat</a></li>
-</ul>
-</div>
-<div class="md:col-span-2">
-<h5 class="text-primary font-bold mb-4 uppercase text-caption tracking-widest">Légal</h5>
-<ul class="space-y-2 text-on-surface-variant font-body-md text-body-md">
-<li><a class="hover:text-secondary transition-colors" href="{{ path('mentions_legales') }}">Mentions Légales</a></li>
-<li><a class="hover:text-secondary transition-colors" href="mailto:contact@beninbouge.com">Contact</a></li>
-<li><a class="hover:text-secondary transition-colors" href="{{ path('confidentialite') }}">Confidentialité</a></li>
-</ul>
-</div>
-<div class="md:col-span-3">
-<h5 class="text-primary font-bold mb-4 uppercase text-caption tracking-widest">Suivez-nous</h5>
-<div class="flex gap-4">
-<a class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
-<span class="material-symbols-outlined text-body-md">share</span>
-</a>
-<a class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
-<span class="material-symbols-outlined text-body-md">mail</span>
-</a>
-</div>
-</div>
-<div class="md:col-span-12 pt-section-gap border-t border-outline-variant/20 flex flex-col md:flex-row justify-between items-center gap-stack-md">
-<p class="text-on-surface-variant font-body-md text-body-md">© 2026 Partenariat Bénin Bouge &amp; Baobab Express. Tous droits réservés.</p>
-<div class="flex gap-stack-lg text-caption uppercase tracking-tighter font-bold">
-<!--span>Communauté</span-->
-<!--span>Logos Partenaires</span-->
-</div>
-</div>
-</div>
-</footer>
-{% endblock %}
-
-{% block javascripts %}
+	<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter px-container-margin max-w-[1120px] mx-auto">
+		<div class="md:col-span-5 space-y-stack-md">
+			<div class="flex items-center gap-3">
+				<img alt="Bénin Bouge" class="h-10 w-auto" src="{{ asset('assets/logo-bb-noir.png') }}"/>
+				<span class="text-on-surface-variant/40 font-light text-xl">×</span>
+				<img alt="Baobab Express" class="h-10 w-auto" src="{{ asset('assets/logo-baobab.png') }}"/>
+			</div>
+			<p class="text-on-surface-variant font-body-md text-body-md max-w-sm">
+				Une initiative citoyenne pour la jeunesse béninoise, propulsée par le réseau de transport leader au Bénin.
+			</p>
+		</div>
+		<div class="md:col-span-2">
+			<h5 class="text-primary font-bold mb-4 uppercase text-caption tracking-widest">Navigation</h5>
+			<ul class="space-y-2 text-on-surface-variant font-body-md text-body-md">
+				<li>
+					<a class="hover:text-secondary transition-colors" href="#trajets">Trajets</a>
+				</li>
+				<li>
+					<a class="hover:text-secondary transition-colors" href="#partenariat">Partenariat</a>
+				</li>
+			</ul>
+		</div>
+		<div class="md:col-span-2">
+			<h5 class="text-primary font-bold mb-4 uppercase text-caption tracking-widest">Légal</h5>
+			<ul class="space-y-2 text-on-surface-variant font-body-md text-body-md">
+				<li>
+					<a class="hover:text-secondary transition-colors" href="{{ path('mentions_legales') }}">Mentions Légales</a>
+				</li>
+				<li>
+					<a class="hover:text-secondary transition-colors" href="mailto:contact@beninbouge.com">Contact</a>
+				</li>
+				<li>
+					<a class="hover:text-secondary transition-colors" href="{{ path('confidentialite') }}">Confidentialité</a>
+				</li>
+			</ul>
+		</div>
+		<div class="md:col-span-3">
+			<h5 class="text-primary font-bold mb-4 uppercase text-caption tracking-widest">Suivez-nous</h5>
+			<div class="flex gap-4">
+				<a class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
+					<span class="material-symbols-outlined text-body-md">share</span>
+				</a>
+				<a class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
+					<span class="material-symbols-outlined text-body-md">mail</span>
+				</a>
+			</div>
+		</div>
+		<div class="md:col-span-12 pt-section-gap border-t border-outline-variant/20 flex flex-col md:flex-row justify-between items-center gap-stack-md">
+			<p class="text-on-surface-variant font-body-md text-body-md">© 2026 Partenariat Bénin Bouge &amp; Baobab Express. Tous droits réservés.</p>
+			<div class="flex gap-stack-lg text-caption uppercase tracking-tighter font-bold"><!--span>Communauté</span-->
+				<!--span>Logos Partenaires</span-->
+			</div>
+		</div>
+	</div>
+</footer>{% endblock %}{% block javascripts %}
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const observerOptions = {
-            threshold: 0.1
-        };
+	document.addEventListener('DOMContentLoaded', () => {
+const observerOptions = {
+threshold: 0.1
+};
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('opacity-100', 'translate-y-0');
-                    entry.target.classList.remove('opacity-0', 'translate-y-10');
-                }
-            });
-        }, observerOptions);
+const observer = new IntersectionObserver((entries) => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+entry.target.classList.add('opacity-100', 'translate-y-0');
+entry.target.classList.remove('opacity-0', 'translate-y-10');
+}
+});
+}, observerOptions);
 
-        document.querySelectorAll('section').forEach(section => {
-            section.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
-            observer.observe(section);
-        });
-    });
-</script>
-{% endblock %}
+document.querySelectorAll('section').forEach(section => {
+section.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
+observer.observe(section);
+});
+});
+</script>{% endblock %}

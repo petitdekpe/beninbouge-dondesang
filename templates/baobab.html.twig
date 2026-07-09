@@ -348,7 +348,7 @@ extend: {
 					<div class="space-y-3">
 						<div class="flex items-start gap-2">
 							<span class="material-symbols-outlined text-primary text-sm mt-1">location_on</span>
-							<span class="text-body-md">Arconville, à côté du camp militaire</span>
+							<span class="text-body-md">Arconville, à côté du camp militaire <span class="text-caption text-brand-red font-bold">(8h00 uniquement)</span></span>
 						</div>
 						<div class="flex items-start gap-2">
 							<span class="material-symbols-outlined text-primary text-sm mt-1">location_on</span>
@@ -438,16 +438,16 @@ extend: {
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
 						<div class="space-y-2">
 							<label class="font-label-md text-label-md text-on-surface-variant uppercase">Lieu de départ</label>
-							<select class="w-full p-4 rounded-xl bg-surface border-none focus:ring-2 focus:ring-brand-navy transition-all appearance-none" name="departure_city" required>
+							<select id="departure-city-select" class="w-full p-4 rounded-xl bg-surface border-none focus:ring-2 focus:ring-brand-navy transition-all appearance-none" name="departure_city" required>
 								<option value="">Sélectionnez un lieu de départ</option>
-								<option value="Abomey-Calavi (Arconville, à côté du camp militaire)">Abomey-Calavi (Arconville, à côté du camp militaire)</option>
+								<option value="Abomey-Calavi (Arconville, à côté du camp militaire)">Abomey-Calavi (Arconville, à côté du camp militaire) — 8h00 uniquement</option>
 								<option value="Abomey-Calavi (Portail secondaire du campus (UAC))">Abomey-Calavi (Portail secondaire du campus (UAC))</option>
 								<option value="Porto-Novo (En face de la piscine municipale, carrefour du Cinquantenaire)">Porto-Novo (En face de la piscine municipale, carrefour du Cinquantenaire)</option>
 							</select>
 						</div>
 						<div class="space-y-2">
 							<label class="font-label-md text-label-md text-on-surface-variant uppercase">Créneau de départ</label>
-							<select class="w-full p-4 rounded-xl bg-surface border-none focus:ring-2 focus:ring-brand-navy transition-all appearance-none" name="time_slot" required>
+							<select id="time-slot-select" class="w-full p-4 rounded-xl bg-surface border-none focus:ring-2 focus:ring-brand-navy transition-all appearance-none" name="time_slot" required>
 								<option value="">Sélectionnez un créneau</option>
 								<option value="08h00">08h00</option>
 								<option value="11h00">11h00</option>
@@ -618,4 +618,26 @@ section.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-
 observer.observe(section);
 });
 });
-</script>{% endblock %}
+</script>
+<script>
+(function () {
+	var restrictedTimeSlots = {{ restrictedTimeSlots|default({})|json_encode|raw }};
+	var citySelect = document.getElementById('departure-city-select');
+	var slotSelect = document.getElementById('time-slot-select');
+	if (!citySelect || !slotSelect) return;
+
+	function applyRestriction() {
+		var forcedSlot = restrictedTimeSlots[citySelect.value];
+		Array.prototype.forEach.call(slotSelect.options, function (opt) {
+			opt.disabled = !!forcedSlot && opt.value !== '' && opt.value !== forcedSlot;
+		});
+		if (forcedSlot) {
+			slotSelect.value = forcedSlot;
+		}
+	}
+
+	citySelect.addEventListener('change', applyRestriction);
+	applyRestriction();
+})();
+</script>
+{% endblock %}

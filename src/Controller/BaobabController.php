@@ -23,6 +23,11 @@ final class BaobabController extends AbstractController
     private const TIME_SLOTS = ['08h00', '11h00'];
     public const MAX_TICKETS_SETTING_KEY = 'baobab_max_tickets';
 
+    /** Departure points only served by a single time slot (e.g. Arconville only runs at 8h). */
+    private const RESTRICTED_TIME_SLOTS = [
+        'Abomey-Calavi (Arconville, à côté du camp militaire)' => '08h00',
+    ];
+
     public function __construct(
         private readonly EntityManagerInterface $em,
         private readonly SettingRepository $settings,
@@ -41,6 +46,7 @@ final class BaobabController extends AbstractController
             'ticketsUsed' => $ticketsUsed,
             'ticketsRemaining' => $maxTickets > 0 ? max(0, $maxTickets - $ticketsUsed) : null,
             'isFull' => $isFull,
+            'restrictedTimeSlots' => self::RESTRICTED_TIME_SLOTS,
         ]);
     }
 
@@ -78,6 +84,10 @@ final class BaobabController extends AbstractController
         }
         if (!in_array($timeSlot, self::TIME_SLOTS, true)) {
             $errors[] = 'Merci de sélectionner un créneau de départ valide.';
+        }
+        $restrictedSlot = self::RESTRICTED_TIME_SLOTS[$departureCity] ?? null;
+        if ($restrictedSlot !== null && $timeSlot !== $restrictedSlot) {
+            $errors[] = "Ce point de départ n'est desservi qu'au créneau de {$restrictedSlot}.";
         }
         if (!$consent) {
             $errors[] = 'Merci de confirmer votre engagement à respecter les horaires de départ.';

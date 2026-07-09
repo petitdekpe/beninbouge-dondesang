@@ -504,9 +504,14 @@
   <div id="baobab-promo-modal" style="display:none;position:fixed;inset:0;z-index:95;background:rgba(8,9,6,.7);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:clamp(16px,5vw,32px)">
     <div style="position:relative;width:100%;max-width:420px;animation:bbRise .35s ease">
       <button type="button" id="baobab-promo-close" aria-label="Fermer" style="position:absolute;top:-14px;right:-14px;width:36px;height:36px;border-radius:50%;background:#fff;border:none;box-shadow:0 6px 18px rgba(0,0,0,.3);cursor:pointer;font-size:16px;line-height:1;font-weight:800;color:#14160F;z-index:2">✕</button>
-      <a href="{{ path('baobab') }}" style="display:block;border-radius:20px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45)">
-        <img src="{{ asset('assets/baobabxbeninboouge.jpeg') }}" alt="Baobab Express x Bénin Bouge — Transport gratuit" style="width:100%;height:auto;display:block"/>
-      </a>
+      <div style="background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45)">
+        <a href="{{ path('baobab') }}" style="display:block">
+          <img src="{{ asset('assets/baobabxbeninboouge.jpeg') }}" alt="Baobab Express x Bénin Bouge — Transport gratuit" style="width:100%;height:auto;display:block"/>
+        </a>
+        <div style="padding:18px">
+          <a href="{{ path('baobab') }}" style="display:block;text-align:center;background:#C83E34;color:#fff;text-decoration:none;padding:15px;border-radius:12px;font-family:'Manrope';font-weight:800;font-size:16px;box-shadow:0 12px 30px rgba(200,62,52,.35)">S'inscrire</a>
+        </div>
+      </div>
     </div>
   </div>
 

@@ -14,6 +14,7 @@ body{background:#F4F2EA}
         <a href="{{ path('admin_donations') }}" style="color:{{ app.request.attributes.get('_route') starts with 'admin_donations' ? '#fff' : '#9fb3bc' }};text-decoration:none;font-weight:700;font-size:14px">Dons</a>
         <a href="{{ path('admin_partners') }}" style="color:{{ app.request.attributes.get('_route') starts with 'admin_partners' ? '#fff' : '#9fb3bc' }};text-decoration:none;font-weight:700;font-size:14px">Partenaires</a>
         <a href="{{ path('admin_sponsors') }}" style="color:{{ app.request.attributes.get('_route') starts with 'admin_sponsors' ? '#fff' : '#9fb3bc' }};text-decoration:none;font-weight:700;font-size:14px">Sponsors</a>
+        <a href="{{ path('admin_baobab_reservations') }}" style="color:{{ app.request.attributes.get('_route') starts with 'admin_baobab_reservations' ? '#fff' : '#9fb3bc' }};text-decoration:none;font-weight:700;font-size:14px">Réservations Baobab</a>
       </nav>
     </div>
     <a href="{{ path('admin_logout') }}" style="color:#fff;background:rgba(255,255,255,.12);padding:7px 14px;border-radius:999px;text-decoration:none;font-weight:700;font-size:13px">Déconnexion</a>

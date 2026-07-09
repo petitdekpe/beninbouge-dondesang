@@ -32,7 +32,7 @@ body{background:#F4F2EA}
     <div style="font-weight:800;font-size:clamp(26px,5.5vw,36px);letter-spacing:-.01em;margin-bottom:4px">Ticket de bus</div>
     <div style="font-family:'Anton',sans-serif;font-size:clamp(56px,12vw,84px);line-height:1;margin-bottom:28px">N°{{ '%03d'|format(reservation.id) }}</div>
 
-    <div style="font-weight:800;font-size:clamp(17px,2.8vw,20px);margin-bottom:8px">{{ reservation.fullName }}</div>
+    <div style="font-weight:800;font-size:clamp(17px,2.8vw,20px);margin-bottom:8px;color:#C83E34">{{ reservation.fullName }}</div>
     <div style="font-weight:800;font-size:clamp(16px,2.6vw,19px);line-height:1.4;margin-bottom:8px">Départ&nbsp;: {{ reservation.departureCity }}</div>
     <div style="font-weight:800;font-size:clamp(17px,2.8vw,20px);margin-bottom:36px">{{ (reservation.timeSlot starts with '0' ? reservation.timeSlot|slice(1) : reservation.timeSlot)|upper }}</div>
 

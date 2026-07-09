@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mentions légales — Bénin Bouge{% endblock %}
+{% block title %}Mentions légales{% endblock %}
 
 {% block extra_css %}
 .legal-page a{color:#C83E34}
@@ -17,8 +17,9 @@
 
   <header style="position:sticky;top:0;z-index:40;background:rgba(14,63,81,.96);backdrop-filter:blur(10px);border-bottom:1px solid rgba(14,63,81,.45)">
     <div style="max-width:900px;margin:0 auto;padding:16px clamp(16px,4vw,24px);display:flex;align-items:center;gap:14px">
-      <a href="{{ path('landing') }}" style="flex:none;text-decoration:none">
-        <img src="{{ asset('assets/logo-benin-bouge.png') }}" alt="Bénin Bouge" style="height:36px;width:auto;display:block"/>
+      <a href="{{ path('landing') }}" style="flex:none;text-decoration:none;display:flex;align-items:center;gap:8px">
+        <img src="{{ asset('assets/mark-coureur.png') }}" alt="Bénin Bouge" style="height:26px;width:auto;display:block"/>
+        <img src="{{ asset('assets/logo-sdvs-blanc.png') }}" alt="Sang Donné, Vies Sauvées" style="height:36px;width:auto;display:block"/>
       </a>
       <div style="flex:1"></div>
       <a href="{{ path('landing') }}" style="color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:700;display:flex;align-items:center;gap:5px">
@@ -36,28 +37,27 @@
 
     <h2>1. Édition du site</h2>
     <p>
-      Le présent site (ci-après « le Site ») est édité par <strong>Bénin Bouge</strong>, dans le cadre de l'initiative citoyenne
-      « Sang Donné, Vies Sauvées » menée en partenariat avec Baobab Express.
+      Le présent site (ci-après « le Site ») est édité par <strong>Agence Procom</strong>, dans le cadre de l'initiative citoyenne
+      « Sang Donné, Vies Sauvées » menée par le média Bénin Bouge.
     </p>
     <ul>
-      <li>Dénomination : Bénin Bouge</li>
-      <li>Forme juridique et n° RCCM/IFU : <span class="placeholder">à compléter</span></li>
-      <li>Siège social : <span class="placeholder">à compléter</span> — Cotonou, République du Bénin</li>
+      <li>Dénomination : Agence Procom</li>
+      <li>Forme juridique et n° RCCM : <span class="placeholder">RB/COT/18B21281</span></li>
+      <li>Siège social : <span class="placeholder">Akpakpa</span> — Cotonou, République du Bénin</li>
       <li>Téléphone : +229 0166 86 86 39 / +229 0166 61 78 78</li>
       <li>E-mail : <a href="mailto:contact@beninbouge.com">contact@beninbouge.com</a></li>
-      <li>Directeur de la publication : <span class="placeholder">à compléter</span></li>
+      <li>Directeur de la publication : <span class="placeholder">-</span></li>
     </ul>
 
     <h2>2. Hébergement</h2>
     <p>
-      Le Site est hébergé par : <span class="placeholder">nom, adresse et contact de l'hébergeur à compléter</span>.
+      Le Site est hébergé par : <span class="placeholder">LWS</span>.
     </p>
 
     <h2>3. Propriété intellectuelle</h2>
     <p>
       L'ensemble des contenus présents sur le Site (textes, logos, visuels, photographies, mise en page, code source) est,
-      sauf mention contraire, la propriété de Bénin Bouge ou de ses partenaires (notamment Baobab Express et la campagne
-      « Sang Donné, Vies Sauvées ») et est protégé par la législation béninoise et internationale relative à la propriété
+      sauf mention contraire, la propriété de Agence Procom ou de ses partenaires et est protégé par la législation béninoise et internationale relative à la propriété
       intellectuelle. Toute reproduction, représentation, modification ou diffusion, totale ou partielle, sans autorisation
       écrite préalable, est interdite.
     </p>
@@ -65,7 +65,7 @@
     <h2>4. Services proposés sur le site</h2>
     <p>Le Site permet notamment de :</p>
     <ul>
-      <li>faire un don en ligne au bénéfice de la campagne « Sang Donné, Vies Sauvées », via le prestataire de paiement FedaPay ;</li>
+      <li>faire contribuer à la campagne « Sang Donné, Vies Sauvées », via le prestataire de paiement FedaPay ;</li>
       <li>réserver une place gratuite dans les navettes Baobab Express organisées le 11 juillet 2026 ;</li>
       <li>laisser un message de soutien affiché publiquement sur le mur des messages ;</li>
       <li>générer un badge personnalisé « J'y serai » à partir d'une photo fournie par l'utilisateur.</li>
@@ -80,13 +80,13 @@
       Le Site fait appel à des prestataires tiers pour certains services : FedaPay (paiement en ligne), WhatsApp (messagerie
       de contact et de confirmation), ainsi que des polices et icônes hébergées par Google Fonts. L'utilisation de ces
       services est soumise aux conditions générales et politiques de confidentialité propres à chacun de ces prestataires.
-      Bénin Bouge ne saurait être tenu responsable du contenu ou des pratiques de ces sites et services tiers.
+      Agence Procom ne saurait être tenu responsable du contenu ou des pratiques de ces sites et services tiers.
     </p>
 
     <h2>6. Responsabilité</h2>
     <p>
-      Bénin Bouge s'efforce d'assurer l'exactitude et la mise à jour des informations diffusées sur le Site, sans garantir
-      l'exhaustivité ou l'absence d'erreur. Bénin Bouge ne pourra être tenu responsable des dommages directs ou indirects
+      Agence Procom s'efforce d'assurer l'exactitude et la mise à jour des informations diffusées sur le Site, sans garantir
+      l'exhaustivité ou l'absence d'erreur. Agence Procom ne pourra être tenu responsable des dommages directs ou indirects
       résultant de l'accès au Site ou de son utilisation, notamment en cas d'indisponibilité temporaire, d'interruption du
       service ou de survenance de bogues ou virus.
     </p>

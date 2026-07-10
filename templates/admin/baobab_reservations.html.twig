@@ -5,10 +5,15 @@
 {% block admin_body %}
 <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:6px">
   <h1 style="font-family:'Anton';font-size:clamp(24px,5vw,32px);text-transform:uppercase;color:#0E3F51;margin:0">Réservations Baobab Express</h1>
-  <a href="{{ path('admin_baobab_reservations_export') }}" style="background:#3A8556;color:#fff;text-decoration:none;padding:10px 18px;border-radius:999px;font-weight:800;font-size:13.5px;display:inline-flex;align-items:center;gap:6px">⬇ Télécharger (CSV)</a>
+  <a href="{{ path('admin_baobab_reservations_export', {city: filterCity, time_slot: filterTimeSlot, q: filterSearch}) }}" style="background:#3A8556;color:#fff;text-decoration:none;padding:10px 18px;border-radius:999px;font-weight:800;font-size:13.5px;display:inline-flex;align-items:center;gap:6px">⬇ Télécharger (CSV)</a>
 </div>
 <p style="color:#6a6a60;font-size:14.5px;margin-bottom:24px">
-  {{ reservations|length }} réservation(s) · {{ totalPassengers }} passager(s) au total.
+  {% if filterCity or filterTimeSlot or filterSearch %}
+    <strong>{{ reservations|length }}</strong> réservation(s) affichée(s) sur {{ totalCount }} au total
+  {% else %}
+    {{ totalCount }} réservation(s) au total
+  {% endif %}
+  · {{ totalPassengers }} passager(s) {{ (filterCity or filterTimeSlot or filterSearch) ? 'affiché(s)' : 'au total' }}.
   {% if maxTickets > 0 %}· Limite actuelle : <strong>{{ maxTickets }}</strong> ticket(s){% endif %}
 </p>
 
@@ -22,20 +27,55 @@
   </form>
 </div>
 
+<div style="background:#fff;border:1px solid #ece4cf;border-radius:16px;padding:clamp(16px,4vw,22px);margin-bottom:24px">
+  <h2 style="font-size:15px;font-weight:800;color:#0E3F51;margin-bottom:14px">Filtrer les réservations</h2>
+  <form method="get" action="{{ path('admin_baobab_reservations') }}" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+    <input type="text" name="q" value="{{ filterSearch }}" placeholder="Nom ou téléphone…" style="flex:1;min-width:200px;background:#F4F2EA;border:1px solid #e2ddcd;border-radius:9px;padding:10px 12px;font-size:14.5px">
+    <select name="city" style="background:#F4F2EA;border:1px solid #e2ddcd;border-radius:9px;padding:10px 12px;font-size:14.5px;max-width:280px">
+      <option value="">Tous les lieux de départ</option>
+      {% for c in cities %}
+        <option value="{{ c }}" {{ filterCity == c ? 'selected' : '' }}>{{ c }}</option>
+      {% endfor %}
+    </select>
+    <select name="time_slot" style="background:#F4F2EA;border:1px solid #e2ddcd;border-radius:9px;padding:10px 12px;font-size:14.5px">
+      <option value="">Tous les créneaux</option>
+      {% for s in timeSlots %}
+        <option value="{{ s }}" {{ filterTimeSlot == s ? 'selected' : '' }}>{{ s }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit" style="background:#0E3F51;color:#fff;border:none;padding:11px 20px;border-radius:9px;font-weight:800;font-size:14px;cursor:pointer">Filtrer</button>
+    {% if filterCity or filterTimeSlot or filterSearch %}
+      <a href="{{ path('admin_baobab_reservations') }}" style="color:#6a6a60;font-weight:700;font-size:13.5px;text-decoration:none">Réinitialiser</a>
+    {% endif %}
+  </form>
+</div>
+
 <div style="display:flex;flex-direction:column;gap:10px">
   {% for r in reservations %}
+    {% set isCalavi = r.departureCity starts with 'Abomey-Calavi' %}
     <div style="min-width:0;background:#fff;border:1px solid #ece4cf;border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:space-between">
       <div style="min-width:0;overflow-wrap:break-word">
-        <div style="font-weight:800;color:#0E3F51;font-size:15px">{{ r.fullName }} <span style="color:#fff;font-weight:600;font-size:12px">· {{ r.phone }}</span></div>
-        <div style="font-size:12.5px;color:#fff;margin-top:2px">{{ r.departureCity }} · {{ r.timeSlot }} · {{ r.passengers }} passager(s) · {{ r.createdAt|date('d/m/Y H:i') }}</div>
+        <div style="font-weight:800;color:#0E3F51;font-size:15px">
+          <span style="color:#C83E34">N°{{ '%03d'|format(r.id) }}</span> · {{ r.fullName }}
+          <a href="tel:{{ r.phone }}" style="color:#6a6a60;font-weight:600;font-size:12px;text-decoration:none">· {{ r.phone }}</a>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:8px">
+          <span style="background:{{ isCalavi ? 'rgba(58,133,86,.12)' : 'rgba(14,63,81,.10)' }};color:{{ isCalavi ? '#3A8556' : '#0E3F51' }};font-weight:700;font-size:11.5px;padding:4px 10px;border-radius:999px">{{ r.departureCity }}</span>
+          <span style="background:#fdeaea;color:#C83E34;font-weight:700;font-size:11.5px;padding:4px 10px;border-radius:999px">{{ r.timeSlot }}</span>
+          <span style="font-size:12.5px;color:#6a6a60">{{ r.passengers }} passager(s)</span>
+          <span style="font-size:12.5px;color:#6a6a60">· réservé le {{ r.createdAt|date('d/m/Y à H:i') }}</span>
+        </div>
       </div>
-      <form method="post" action="{{ path('admin_baobab_reservations_delete', {id: r.id}) }}" data-confirm="Supprimer cette réservation ?">
-        <input type="hidden" name="_token" value="{{ csrf_token('admin_baobab_reservation_' ~ r.id) }}">
-        <button type="submit" style="background:#fdeaea;color:#b91c1c;border:1px solid #f5c9c9;padding:8px 14px;border-radius:999px;font-weight:700;font-size:13px;cursor:pointer">Supprimer</button>
-      </form>
+      <div style="display:flex;align-items:center;gap:8px;flex:none">
+        <a href="{{ path('baobab_ticket', {id: r.id}) }}" target="_blank" rel="noopener" style="background:#F4F2EA;color:#0E3F51;border:1px solid #e2ddcd;padding:8px 14px;border-radius:999px;font-weight:700;font-size:13px;text-decoration:none">Voir le ticket</a>
+        <form method="post" action="{{ path('admin_baobab_reservations_delete', {id: r.id}) }}" data-confirm="Supprimer cette réservation ?">
+          <input type="hidden" name="_token" value="{{ csrf_token('admin_baobab_reservation_' ~ r.id) }}">
+          <button type="submit" style="background:#fdeaea;color:#b91c1c;border:1px solid #f5c9c9;padding:8px 14px;border-radius:999px;font-weight:700;font-size:13px;cursor:pointer">Supprimer</button>
+        </form>
+      </div>
     </div>
   {% else %}
-    <p style="color:#fff;text-align:center;padding:30px 0">Aucune réservation pour le moment.</p>
+    <p style="color:#6a6a60;text-align:center;padding:30px 0">Aucune réservation ne correspond à ces critères.</p>
   {% endfor %}
 </div>
 {% endblock %}

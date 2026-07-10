@@ -27,6 +27,7 @@ body{background:#14160F;font-family:'Manrope',system-ui,sans-serif;-webkit-font-
 @keyframes bbPop{0%{transform:scale(0)}60%{transform:scale(1.12)}100%{transform:scale(1)}}
 @keyframes bbDraw{to{stroke-dashoffset:0}}
 @keyframes bbMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes bbDriveBy{0%{transform:translateX(-30vw) scaleX(-1) translateY(0)}50%{transform:translateX(50vw) scaleX(-1) translateY(-3px)}100%{transform:translateX(130vw) scaleX(-1) translateY(0)}}
 input::placeholder,textarea::placeholder{color:#fff}
 {% block extra_css %}{% endblock %}
 </style>
@@ -35,5 +36,161 @@ input::placeholder,textarea::placeholder{color:#fff}
 <body class="{% block body_class %}{% endblock %}">
 {% block body %}{% endblock %}
 {% block javascripts %}{% endblock %}
+<script>
+(function () {
+  var heart = [
+    ' ██   ██ ',
+    '█████████',
+    '█████████',
+    '█████████',
+    ' ███████ ',
+    '  █████  ',
+    '   ███   ',
+    '    █    '
+  ].join('\n');
+
+  console.log('%c' + heart, 'color:#C83E34;font-weight:900;font-family:monospace;line-height:1.1;');
+  console.log('%cChaque ligne de code compte, comme chaque poche de sang.', 'font-size:16px;font-weight:800;color:#0E3F51;');
+  console.log('%cEnvie de coder pour la cause ? %ccontact@beninbouge.com', 'font-size:13px;color:#55584e;', 'font-size:13px;font-weight:800;color:#3A8556;');
+  console.log('%cBénin Bouge × Sang Donné, Vies Sauvées', 'font-size:11px;color:#9a9a90;letter-spacing:1px;');
+})();
+</script>
+<script>
+(function () {
+  var dropColors = ['#C83E34', '#E1251B', '#ba1a1a', '#e8776b'];
+
+  // Shared red-confetti "blood drop" rain, reused by the Konami code and the
+  // mobile shake easter eggs so both effects stay visually identical.
+  window.bbSpawnBloodRain = function (count) {
+    var layer = document.createElement('div');
+    layer.style.cssText = 'position:fixed;inset:0;z-index:9999;pointer-events:none;overflow:hidden';
+    document.body.appendChild(layer);
+
+    for (var i = 0; i < (count || 60); i++) {
+      var piece = document.createElement('div');
+      var isDrop = Math.random() > 0.4;
+      var size = 8 + Math.random() * 10;
+      var duration = 2.4 + Math.random() * 2;
+      var delay = Math.random() * 0.8;
+      piece.style.cssText =
+        'position:absolute;top:-6vh;left:' + (Math.random() * 100) + 'vw;' +
+        'width:' + size + 'px;height:' + size + 'px;' +
+        'background:' + dropColors[(Math.random() * dropColors.length) | 0] + ';' +
+        (isDrop ? 'border-radius:50% 50% 50% 0;' : 'border-radius:50%;') +
+        'opacity:0;box-shadow:0 2px 6px rgba(0,0,0,.15);' +
+        'animation:bbConf ' + duration + 's ease-in ' + delay + 's forwards;';
+      layer.appendChild(piece);
+    }
+
+    setTimeout(function () { layer.remove(); }, 5200);
+  };
+
+  window.bbShowToast = function (text, duration) {
+    var toast = document.createElement('div');
+    toast.textContent = text;
+    toast.style.cssText =
+      'position:fixed;top:90px;left:50%;transform:translateX(-50%);z-index:10000;' +
+      'background:#0E3F51;color:#fff;padding:16px 28px;border-radius:999px;text-align:center;' +
+      'font-family:Manrope,sans-serif;font-weight:800;font-size:15px;white-space:nowrap;' +
+      'box-shadow:0 12px 30px rgba(0,0,0,.35);animation:bbRise .4s ease both;transition:opacity .5s ease';
+    document.body.appendChild(toast);
+    setTimeout(function () {
+      toast.style.opacity = '0';
+      setTimeout(function () { toast.remove(); }, 500);
+    }, duration || 3200);
+  };
+})();
+</script>
+<script>
+(function () {
+  var sequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+  var progress = 0;
+  var running = false;
+
+  function trigger() {
+    if (running) return;
+    running = true;
+    window.bbSpawnBloodRain();
+    window.bbShowToast('🎉 Vous avez trouvé le easter egg des 2 ans !');
+    setTimeout(function () { running = false; }, 4000);
+  }
+
+  document.addEventListener('keydown', function (e) {
+    var key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    var expected = sequence[progress];
+    if (key === expected) {
+      progress++;
+      if (progress === sequence.length) {
+        progress = 0;
+        trigger();
+      }
+    } else {
+      progress = (key === sequence[0]) ? 1 : 0;
+    }
+  });
+})();
+</script>
+<script>
+(function () {
+  if (typeof window.DeviceMotionEvent === 'undefined') return;
+
+  var THRESHOLD = 18;
+  var COOLDOWN = 3000;
+  var lastX = null, lastY = null, lastZ = null;
+  var lastShake = 0;
+  var running = false;
+
+  function trigger() {
+    if (running) return;
+    running = true;
+    window.bbSpawnBloodRain();
+    window.bbShowToast('📱 Secoué avec amour ! Merci de nous suivre 🩸');
+    setTimeout(function () { running = false; }, 4000);
+  }
+
+  function onMotion(e) {
+    var acc = e.accelerationIncludingGravity || e.acceleration;
+    if (!acc || acc.x === null) return;
+
+    var x = acc.x || 0, y = acc.y || 0, z = acc.z || 0;
+    if (lastX !== null) {
+      var delta = Math.abs(x - lastX) + Math.abs(y - lastY) + Math.abs(z - lastZ);
+      var now = Date.now();
+      if (delta > THRESHOLD && now - lastShake > COOLDOWN) {
+        lastShake = now;
+        trigger();
+      }
+    }
+    lastX = x; lastY = y; lastZ = z;
+  }
+
+  function enable() {
+    window.addEventListener('devicemotion', onMotion);
+  }
+
+  // iOS 13+ gates motion sensors behind an explicit permission prompt that
+  // must be requested from within a user gesture — a first tap anywhere.
+  if (typeof window.DeviceMotionEvent.requestPermission === 'function') {
+    document.addEventListener('touchend', function requestOnce() {
+      document.removeEventListener('touchend', requestOnce);
+      window.DeviceMotionEvent.requestPermission().then(function (state) {
+        if (state === 'granted') enable();
+      }).catch(function () {});
+    }, { once: true });
+  } else {
+    enable();
+  }
+})();
+</script>
+<script>
+(function () {
+  var originalTitle = document.title;
+  var awayTitle = 'Reviens sauver une vie 🩸';
+
+  document.addEventListener('visibilitychange', function () {
+    document.title = document.hidden ? awayTitle : originalTitle;
+  });
+})();
+</script>
 </body>
 </html>

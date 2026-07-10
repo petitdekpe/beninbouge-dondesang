@@ -22,12 +22,24 @@ final class AdminBaobabReservationController extends \Symfony\Bundle\FrameworkBu
     }
 
     #[Route('/admin/baobab-reservations', name: 'admin_baobab_reservations', methods: ['GET'])]
-    public function index(BaobabReservationRepository $reservations): Response
+    public function index(Request $request, BaobabReservationRepository $reservations): Response
     {
+        $city = trim((string) $request->query->get('city', '')) ?: null;
+        $timeSlot = trim((string) $request->query->get('time_slot', '')) ?: null;
+        $search = trim((string) $request->query->get('q', '')) ?: null;
+
+        $filtered = $reservations->findFiltered($city, $timeSlot, $search);
+
         return $this->render('admin/baobab_reservations.html.twig', [
-            'reservations' => $reservations->findAllForAdmin(),
-            'totalPassengers' => $reservations->sumPassengers(),
+            'reservations' => $filtered,
+            'totalPassengers' => array_sum(array_map(static fn ($r) => $r->getPassengers(), $filtered)),
+            'totalCount' => $reservations->countAll(),
             'maxTickets' => $this->settings->getInt(BaobabController::MAX_TICKETS_SETTING_KEY, 0),
+            'cities' => $reservations->findDistinctDepartureCities(),
+            'timeSlots' => $reservations->findDistinctTimeSlots(),
+            'filterCity' => $city,
+            'filterTimeSlot' => $timeSlot,
+            'filterSearch' => $search,
         ]);
     }
 
@@ -46,15 +58,21 @@ final class AdminBaobabReservationController extends \Symfony\Bundle\FrameworkBu
     }
 
     #[Route('/admin/baobab-reservations/export', name: 'admin_baobab_reservations_export', methods: ['GET'])]
-    public function export(BaobabReservationRepository $reservations): StreamedResponse
+    public function export(Request $request, BaobabReservationRepository $reservations): StreamedResponse
     {
-        $response = new StreamedResponse(function () use ($reservations): void {
+        $city = trim((string) $request->query->get('city', '')) ?: null;
+        $timeSlot = trim((string) $request->query->get('time_slot', '')) ?: null;
+        $search = trim((string) $request->query->get('q', '')) ?: null;
+        $rows = $reservations->findFiltered($city, $timeSlot, $search);
+
+        $response = new StreamedResponse(function () use ($rows): void {
             $handle = fopen('php://output', 'w+');
             fwrite($handle, "\xEF\xBB\xBF");
-            fputcsv($handle, ['Nom complet', 'Téléphone', 'Ville de départ', 'Créneau', 'Passagers', 'Date de réservation'], ';');
+            fputcsv($handle, ['N° ticket', 'Nom complet', 'Téléphone', 'Ville de départ', 'Créneau', 'Passagers', 'Date de réservation'], ';');
 
-            foreach ($reservations->findAllForAdmin() as $r) {
+            foreach ($rows as $r) {
                 fputcsv($handle, [
+                    'N°' . sprintf('%03d', $r->getId()),
                     $r->getFullName(),
                     $r->getPhone(),
                     $r->getDepartureCity(),

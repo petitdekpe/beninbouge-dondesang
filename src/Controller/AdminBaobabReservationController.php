@@ -35,6 +35,7 @@ final class AdminBaobabReservationController extends \Symfony\Bundle\FrameworkBu
             'totalPassengers' => array_sum(array_map(static fn ($r) => $r->getPassengers(), $filtered)),
             'totalCount' => $reservations->countAll(),
             'maxTickets' => $this->settings->getInt(BaobabController::MAX_TICKETS_SETTING_KEY, 0),
+            'statsByCity' => $reservations->countByDepartureCityAndTimeSlot(),
             'cities' => $reservations->findDistinctDepartureCities(),
             'timeSlots' => $reservations->findDistinctTimeSlots(),
             'filterCity' => $city,

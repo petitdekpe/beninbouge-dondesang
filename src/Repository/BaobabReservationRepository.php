@@ -93,4 +93,31 @@ class BaobabReservationRepository extends ServiceEntityRepository
             'slot',
         );
     }
+
+    /**
+     * Reservation counts grouped by departure point, and within each departure
+     * point, by time slot: ['Ville (lieu)' => ['total' => 12, 'slots' => ['08h00' => 7, '11h00' => 5]]]
+     *
+     * @return array<string, array{total: int, slots: array<string, int>}>
+     */
+    public function countByDepartureCityAndTimeSlot(): array
+    {
+        $rows = $this->createQueryBuilder('r')
+            ->select('r.departureCity AS city, r.timeSlot AS slot, COUNT(r.id) AS cnt')
+            ->groupBy('r.departureCity, r.timeSlot')
+            ->orderBy('r.departureCity', 'ASC')
+            ->addOrderBy('r.timeSlot', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        $stats = [];
+        foreach ($rows as $row) {
+            $city = $row['city'];
+            $count = (int) $row['cnt'];
+            $stats[$city]['total'] = ($stats[$city]['total'] ?? 0) + $count;
+            $stats[$city]['slots'][$row['slot']] = $count;
+        }
+
+        return $stats;
+    }
 }

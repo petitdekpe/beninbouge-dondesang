@@ -829,6 +829,41 @@ closePromo();
   }
 
   busImg.addEventListener('dblclick', driveBy);
+
+  // 5 clicks: the bus itself flees off the left edge of the page, then drives back.
+  var clickCount = 0;
+  var clickTimer = null;
+  var fleeing = false;
+
+  function fleeBus() {
+    if (fleeing) return;
+    fleeing = true;
+    honk();
+
+    busImg.style.animation = 'bbExitLeft 1.4s ease-in forwards';
+
+    setTimeout(function () {
+      busImg.style.animation = 'none';
+      void busImg.offsetWidth; // force reflow so the next animation restarts cleanly
+      busImg.style.animation = 'bbEnterFromRight 1.2s ease-out forwards';
+
+      setTimeout(function () {
+        busImg.style.animation = 'bbFloat 7s ease-in-out infinite';
+        fleeing = false;
+      }, 1250);
+    }, 1500);
+  }
+
+  busImg.addEventListener('click', function () {
+    clickCount++;
+    clearTimeout(clickTimer);
+    clickTimer = setTimeout(function () { clickCount = 0; }, 2500);
+
+    if (clickCount >= 5) {
+      clickCount = 0;
+      fleeBus();
+    }
+  });
 })();
 </script>
 {% endblock %}

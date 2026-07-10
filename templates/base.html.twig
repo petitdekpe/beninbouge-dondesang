@@ -28,6 +28,8 @@ body{background:#14160F;font-family:'Manrope',system-ui,sans-serif;-webkit-font-
 @keyframes bbDraw{to{stroke-dashoffset:0}}
 @keyframes bbMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes bbDriveBy{0%{transform:translateX(-30vw) scaleX(-1) translateY(0)}50%{transform:translateX(50vw) scaleX(-1) translateY(-3px)}100%{transform:translateX(130vw) scaleX(-1) translateY(0)}}
+@keyframes bbExitLeft{0%{transform:translateX(0)}100%{transform:translateX(-160vw)}}
+@keyframes bbEnterFromRight{0%{transform:translateX(160vw)}100%{transform:translateX(0)}}
 input::placeholder,textarea::placeholder{color:#fff}
 {% block extra_css %}{% endblock %}
 </style>

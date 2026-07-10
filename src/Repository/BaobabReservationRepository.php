@@ -65,6 +65,33 @@ class BaobabReservationRepository extends ServiceEntityRepository
     }
 
     /**
+     * Same as findFiltered() but ordered by destination then time slot, for
+     * grouped exports (CSV/PDF) organized by destination and by hour.
+     *
+     * @return BaobabReservation[]
+     */
+    public function findFilteredForExport(?string $departureCity, ?string $timeSlot, ?string $search): array
+    {
+        $qb = $this->createQueryBuilder('r')
+            ->orderBy('r.departureCity', 'ASC')
+            ->addOrderBy('r.timeSlot', 'ASC')
+            ->addOrderBy('r.createdAt', 'ASC');
+
+        if ($departureCity) {
+            $qb->andWhere('r.departureCity = :departureCity')->setParameter('departureCity', $departureCity);
+        }
+        if ($timeSlot) {
+            $qb->andWhere('r.timeSlot = :timeSlot')->setParameter('timeSlot', $timeSlot);
+        }
+        if ($search) {
+            $qb->andWhere('r.fullName LIKE :search OR r.phone LIKE :search')
+                ->setParameter('search', '%' . $search . '%');
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
      * @return string[]
      */
     public function findDistinctDepartureCities(): array

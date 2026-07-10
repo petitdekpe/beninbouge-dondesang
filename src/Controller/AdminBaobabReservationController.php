@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\BaobabReservation;
 use App\Repository\BaobabReservationRepository;
 use App\Repository\SettingRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,26 +64,33 @@ final class AdminBaobabReservationController extends \Symfony\Bundle\FrameworkBu
     #[Route('/admin/baobab-reservations/export', name: 'admin_baobab_reservations_export', methods: ['GET'])]
     public function export(Request $request, BaobabReservationRepository $reservations): StreamedResponse
     {
-        $city = trim((string) $request->query->get('city', '')) ?: null;
-        $timeSlot = trim((string) $request->query->get('time_slot', '')) ?: null;
-        $search = trim((string) $request->query->get('q', '')) ?: null;
-        $rows = $reservations->findFiltered($city, $timeSlot, $search);
+        [$city, $timeSlot, $search] = $this->readFilters($request);
+        $grouped = $this->groupForExport($reservations->findFilteredForExport($city, $timeSlot, $search));
 
-        $response = new StreamedResponse(function () use ($rows): void {
+        $response = new StreamedResponse(function () use ($grouped): void {
             $handle = fopen('php://output', 'w+');
             fwrite($handle, "\xEF\xBB\xBF");
-            fputcsv($handle, ['N° ticket', 'Nom complet', 'Téléphone', 'Ville de départ', 'Créneau', 'Passagers', 'Date de réservation'], ';');
+            $header = ['N° ticket', 'Nom complet', 'Téléphone', 'Ville de départ', 'Créneau', 'Passagers', 'Date de réservation'];
 
-            foreach ($rows as $r) {
-                fputcsv($handle, [
-                    'N°' . sprintf('%03d', $r->getId()),
-                    $r->getFullName(),
-                    $r->getPhone(),
-                    $r->getDepartureCity(),
-                    $r->getTimeSlot(),
-                    $r->getPassengers(),
-                    $r->getCreatedAt()->format('d/m/Y H:i'),
-                ], ';');
+            foreach ($grouped as $city => $cityData) {
+                fputcsv($handle, ["DESTINATION : {$city}", '', '', '', '', "{$cityData['count']} réservation(s), {$cityData['passengers']} passager(s)", ''], ';');
+                fputcsv($handle, $header, ';');
+
+                foreach ($cityData['slots'] as $slot => $slotData) {
+                    fputcsv($handle, ["Créneau {$slot}", '', '', '', '', "{$slotData['passengers']} passager(s)", ''], ';');
+                    foreach ($slotData['reservations'] as $r) {
+                        fputcsv($handle, [
+                            'N°' . sprintf('%03d', $r->getId()),
+                            $r->getFullName(),
+                            $r->getPhone(),
+                            $r->getDepartureCity(),
+                            $r->getTimeSlot(),
+                            $r->getPassengers(),
+                            $r->getCreatedAt()->format('d/m/Y H:i'),
+                        ], ';');
+                    }
+                }
+                fputcsv($handle, [], ';');
             }
 
             fclose($handle);
@@ -91,6 +101,75 @@ final class AdminBaobabReservationController extends \Symfony\Bundle\FrameworkBu
         $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '"');
 
         return $response;
+    }
+
+    #[Route('/admin/baobab-reservations/export.pdf', name: 'admin_baobab_reservations_export_pdf', methods: ['GET'])]
+    public function exportPdf(Request $request, BaobabReservationRepository $reservations): Response
+    {
+        [$city, $timeSlot, $search] = $this->readFilters($request);
+        $rows = $reservations->findFilteredForExport($city, $timeSlot, $search);
+        $grouped = $this->groupForExport($rows);
+
+        $html = $this->renderView('admin/baobab_reservations_pdf.html.twig', [
+            'grouped' => $grouped,
+            'totalCount' => count($rows),
+            'totalPassengers' => array_sum(array_map(static fn (BaobabReservation $r) => $r->getPassengers(), $rows)),
+            'filterCity' => $city,
+            'filterTimeSlot' => $timeSlot,
+            'filterSearch' => $search,
+            'generatedAt' => new \DateTimeImmutable(),
+        ]);
+
+        $options = new Options();
+        $options->set('defaultFont', 'DejaVu Sans');
+        $options->set('isRemoteEnabled', false);
+
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        $filename = 'reservations-baobab-' . (new \DateTimeImmutable())->format('Y-m-d_His') . '.pdf';
+
+        return new Response($dompdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ]);
+    }
+
+    /**
+     * @return array{0: ?string, 1: ?string, 2: ?string}
+     */
+    private function readFilters(Request $request): array
+    {
+        return [
+            trim((string) $request->query->get('city', '')) ?: null,
+            trim((string) $request->query->get('time_slot', '')) ?: null,
+            trim((string) $request->query->get('q', '')) ?: null,
+        ];
+    }
+
+    /**
+     * Groups reservations by destination, then by time slot, with running
+     * totals at each level — used by both the CSV and PDF exports.
+     *
+     * @param BaobabReservation[] $rows
+     * @return array<string, array{count: int, passengers: int, slots: array<string, array{passengers: int, reservations: BaobabReservation[]}>}>
+     */
+    private function groupForExport(array $rows): array
+    {
+        $grouped = [];
+        foreach ($rows as $r) {
+            $city = $r->getDepartureCity();
+            $slot = $r->getTimeSlot();
+
+            $grouped[$city]['count'] = ($grouped[$city]['count'] ?? 0) + 1;
+            $grouped[$city]['passengers'] = ($grouped[$city]['passengers'] ?? 0) + $r->getPassengers();
+            $grouped[$city]['slots'][$slot]['passengers'] = ($grouped[$city]['slots'][$slot]['passengers'] ?? 0) + $r->getPassengers();
+            $grouped[$city]['slots'][$slot]['reservations'][] = $r;
+        }
+
+        return $grouped;
     }
 
     #[Route('/admin/baobab-reservations/{id}/delete', name: 'admin_baobab_reservations_delete', methods: ['POST'])]

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  @page { margin: 26px 30px; }
+  body { font-family: 'DejaVu Sans', sans-serif; color: #0E3F51; font-size: 12px; }
+  h1 { font-size: 20px; margin: 0 0 4px; color: #0E3F51; }
+  p.subtitle { margin: 0 0 18px; color: #6a6a60; font-size: 11px; }
+  .city { margin-bottom: 22px; page-break-inside: avoid; }
+  .city-header { background: #0E3F51; color: #fff; padding: 8px 12px; border-radius: 4px; font-weight: bold; font-size: 13px; display: block; }
+  .city-header .totals { float: right; font-weight: normal; font-size: 11px; }
+  .slot-header { background: #F4F2EA; border: 1px solid #e2ddcd; color: #0E3F51; font-weight: bold; font-size: 11.5px; padding: 5px 10px; margin-top: 10px; }
+  .slot-header .totals { float: right; font-weight: normal; color: #6a6a60; }
+  table { width: 100%; border-collapse: collapse; margin-top: 4px; }
+  th, td { border: 1px solid #e2ddcd; padding: 5px 8px; text-align: left; font-size: 10.5px; }
+  th { background: #fbf9f2; color: #0E3F51; }
+  tr:nth-child(even) td { background: #fdfcf8; }
+  .empty { color: #6a6a60; text-align: center; padding: 24px 0; }
+  .footer { margin-top: 18px; color: #9a9a90; font-size: 9.5px; }
+</style>
+</head>
+<body>
+  <h1>Réservations Baobab Express</h1>
+  <p class="subtitle">
+    {{ totalCount }} réservation(s) · {{ totalPassengers }} passager(s)
+    {% if filterCity %} · Destination : {{ filterCity }}{% endif %}
+    {% if filterTimeSlot %} · Créneau : {{ filterTimeSlot }}{% endif %}
+    {% if filterSearch %} · Recherche : "{{ filterSearch }}"{% endif %}
+    — généré le {{ generatedAt|date('d/m/Y à H:i') }}
+  </p>
+
+  {% for city, cityData in grouped %}
+    <div class="city">
+      <span class="city-header">
+        {{ city }}
+        <span class="totals">{{ cityData.count }} réservation(s) · {{ cityData.passengers }} passager(s)</span>
+      </span>
+
+      {% for slot, slotData in cityData.slots %}
+        <div class="slot-header">
+          Créneau {{ slot }}
+          <span class="totals">{{ slotData.reservations|length }} réservation(s) · {{ slotData.passengers }} passager(s)</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>N° ticket</th>
+              <th>Nom complet</th>
+              <th>Téléphone</th>
+              <th>Passagers</th>
+              <th>Réservé le</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in slotData.reservations %}
+              <tr>
+                <td>N°{{ '%03d'|format(r.id) }}</td>
+                <td>{{ r.fullName }}</td>
+                <td>{{ r.phone }}</td>
+                <td>{{ r.passengers }}</td>
+                <td>{{ r.createdAt|date('d/m/Y H:i') }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="empty">Aucune réservation ne correspond à ces critères.</p>
+  {% endfor %}
+
+  <p class="footer">Bénin Bouge — document généré automatiquement, à usage interne.</p>
+</body>
+</html>

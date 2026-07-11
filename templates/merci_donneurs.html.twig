@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ lang == 'fr' ? 'Merci à nos donneurs !' : 'Thank you, donors!' }} — Bénin Bouge{% endblock %}
+
+{% block extra_css %}
+body{background:#fff}
+{% endblock %}
+
+{% block body %}
+<div style="min-height:100vh;background:#fff;color:#0E3F51;font-family:'Manrope',sans-serif;display:flex;flex-direction:column">
+
+  <div style="flex:1;display:flex;flex-wrap:wrap">
+    <!-- left half: logo -->
+    <div style="flex:1 1 50%;min-width:280px;min-height:50vh;display:flex;align-items:center;justify-content:center;padding:32px">
+      <img src="{{ asset('assets/logo-sdvs.png') }}" alt="Sang Donné, Vies Sauvées" style="width:100%;max-width:420px;height:auto;object-fit:contain"/>
+    </div>
+
+    <!-- right half: count + message -->
+    <div style="flex:1 1 50%;min-width:280px;min-height:50vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px">
+      <div id="bag-counter" data-target="{{ bagsCollected }}" style="font-family:'Anton',sans-serif;font-size:clamp(80px,12vw,180px);color:#C83E34;line-height:1;font-variant-numeric:tabular-nums">0</div>
+      <p style="font-size:clamp(15px,2vw,19px);line-height:1.5;color:#55584e;margin:14px 0 0;max-width:420px">
+        {% if lang == 'fr' %}
+          poches de sang collectées grâce à vous. 
+          Merci à tous nos donneurs&nbsp;!
+        {% else %}
+          blood bags collected thanks to you. 
+          Thank you to all our donors!
+        {% endif %}
+      </p>
+    </div>
+  </div>
+
+  <!-- bottom banner -->
+  <div style="text-align:center;padding:0 24px clamp(28px,5vw,56px)">
+    <p style="font-weight:800;font-size:clamp(22px,4vw,34px);color:#0E3F51;margin:0">
+      {{ lang == 'fr' ? 'Grâce à vous ! Merci à tous !' : 'Thanks to you! Thank you all!' }}
+    </p>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+(function () {
+  // Count-up animation for the blood bag counter.
+  var counterEl = document.getElementById('bag-counter');
+  var target = parseInt(counterEl.getAttribute('data-target'), 10) || 0;
+  var duration = 1800;
+  var start = null;
+
+  function easeOutExpo(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
+
+  function step(ts) {
+    if (start === null) start = ts;
+    var progress = Math.min((ts - start) / duration, 1);
+    counterEl.textContent = Math.round(easeOutExpo(progress) * target);
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+})();
+</script>
+{% endblock %}

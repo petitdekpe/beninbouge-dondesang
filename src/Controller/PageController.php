@@ -27,7 +27,13 @@ final class PageController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
     ) {
     }
 
-    #[Route('/', name: 'landing', methods: ['GET'])]
+    #[Route('/', name: 'home', methods: ['GET'])]
+    public function home(Request $request): Response
+    {
+        return $this->redirectToRoute('merci_donneurs', $request->query->all());
+    }
+
+    #[Route('/accueil', name: 'landing', methods: ['GET'])]
     public function landing(Request $request): Response
     {
         $lang = $request->query->get('lang') === 'en' ? 'en' : 'fr';
@@ -68,6 +74,18 @@ final class PageController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
             'amount' => $amount > 0 ? $amount : 5000,
             'donorName' => $name !== '' ? $name : ($lang === 'fr' ? 'Donateur anonyme' : 'Anonymous donor'),
             'reference' => $reference,
+        ]);
+    }
+
+    #[Route('/merci-donneurs', name: 'merci_donneurs', methods: ['GET'])]
+    public function merciDonneurs(Request $request): Response
+    {
+        $lang = $request->query->get('lang') === 'en' ? 'en' : 'fr';
+
+        return $this->render('merci_donneurs.html.twig', [
+            'lang' => $lang,
+            'bagsCollected' => 664,
+            'bagsGoal' => 300,
         ]);
     }
 }

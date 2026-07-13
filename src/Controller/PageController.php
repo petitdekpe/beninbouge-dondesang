@@ -82,10 +82,14 @@ final class PageController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
     {
         $lang = $request->query->get('lang') === 'en' ? 'en' : 'fr';
 
+        $bagsCollected = 664;
+
         return $this->render('merci_donneurs.html.twig', [
             'lang' => $lang,
-            'bagsCollected' => 664,
+            'bagsCollected' => $bagsCollected,
             'bagsGoal' => 300,
+            // Each blood bag can save up to 3 lives; rounded to the nearest hundred for the headline figure.
+            'livesSaved' => (int) round($bagsCollected * 3 / 100) * 100,
         ]);
     }
 }

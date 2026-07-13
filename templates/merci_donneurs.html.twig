@@ -1,62 +1,108 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ lang == 'fr' ? 'Merci à nos donneurs !' : 'Thank you, donors!' }} — Bénin Bouge{% endblock %}
+{% block title %}{{ lang == 'fr' ? 'Nouveau record national !' : 'New national record!' }} — Bénin Bouge{% endblock %}
 
 {% block extra_css %}
 body{background:#fff}
 {% endblock %}
 
 {% block body %}
-<div style="min-height:100vh;background:#fff;color:#0E3F51;font-family:'Manrope',sans-serif;display:flex;flex-direction:column">
+<div style="min-height:100vh;background:#fff;color:#0E3F51;font-family:'Manrope',sans-serif;display:flex;flex-direction:column;background-image:radial-gradient(rgba(14,63,81,.05) 1.5px,transparent 1.5px);background-size:16px 16px">
 
-  <div style="flex:1;display:flex;flex-wrap:wrap">
-    <!-- left half: logo -->
-    <div style="flex:1 1 50%;min-width:280px;min-height:50vh;display:flex;align-items:center;justify-content:center;padding:32px">
-      <img src="{{ asset('assets/logo-sdvs.png') }}" alt="Sang Donné, Vies Sauvées" style="width:100%;max-width:420px;height:auto;object-fit:contain"/>
+  <div style="max-width:900px;margin:0 auto;width:100%;padding:clamp(20px,4vw,44px) clamp(20px,5vw,48px) 0;flex:1;display:flex;flex-direction:column">
+
+    <!-- header: BB logo + SDVS lockup -->
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <img src="{{ asset('assets/logo-bb-noir.png') }}" alt="Bénin Bouge" style="height:clamp(40px,6vw,64px);width:auto"/>
+
+      <div style="text-align:center">
+        <img src="{{ asset('assets/logo-sdvs.png') }}" alt="Sang Donné, Vies Sauvées" style="height:clamp(50px,7vw,80px);width:auto"/>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:2px">
+          <span style="flex:1;height:1px;background:#C83E34;max-width:16px"></span>
+          <span style="font-family:'Archivo',sans-serif;font-weight:700;font-size:clamp(8px,1vw,10px);color:#C83E34;letter-spacing:1px;white-space:nowrap">{{ lang == 'fr' ? '2ÈME ÉDITION' : '2ND EDITION' }}</span>
+          <span style="flex:1;height:1px;background:#C83E34;max-width:16px"></span>
+        </div>
+      </div>
     </div>
 
-    <!-- right half: count + message -->
-    <div style="flex:1 1 50%;min-width:280px;min-height:50vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px">
-      <div id="bag-counter" data-target="{{ bagsCollected }}" style="font-family:'Anton',sans-serif;font-size:clamp(80px,12vw,180px);color:#C83E34;line-height:1;font-variant-numeric:tabular-nums">0</div>
-      <p style="font-size:clamp(15px,2vw,19px);line-height:1.5;color:#55584e;margin:14px 0 0;max-width:420px">
-        {% if lang == 'fr' %}
-          poches de sang collectées grâce à vous. 
-          Merci à tous nos donneurs&nbsp;!
-        {% else %}
-          blood bags collected thanks to you. 
-          Thank you to all our donors!
-        {% endif %}
+    <!-- headline banner -->
+    <div style="margin:clamp(28px,6vw,52px) 0 0">
+      <div style="display:inline-block;background:#F8CFC9;color:#C83E34;font-family:'Archivo',sans-serif;font-weight:900;font-size:clamp(28px,7vw,64px);letter-spacing:.5px;text-transform:uppercase;padding:2px clamp(10px,2vw,20px);transform:rotate(-1deg)">
+        {{ lang == 'fr' ? 'Nouveau' : 'New' }}
+      </div>
+      <div style="display:block;margin-top:8px">
+        <span style="display:inline-block;background:#C83E34;color:#fff;font-family:'Archivo',sans-serif;font-weight:900;font-size:clamp(28px,7vw,64px);letter-spacing:.5px;text-transform:uppercase;padding:2px clamp(10px,2vw,20px);transform:rotate(-1deg)">
+          {{ lang == 'fr' ? 'Record national' : 'National record' }}
+        </span>
+      </div>
+    </div>
+
+    <!-- stats -->
+    <div style="display:flex;flex-wrap:wrap;gap:clamp(24px,5vw,40px);margin:clamp(32px,7vw,56px) 0">
+      <div style="flex:1 1 220px;display:flex;align-items:center;gap:16px">
+        <img src="{{ asset('assets/goutte.png') }}" alt="" style="width:clamp(44px,7vw,72px);height:auto;flex:none"/>
+        <div>
+          <div class="bb-counter" data-target="{{ bagsCollected }}" style="font-family:'Anton',sans-serif;font-size:clamp(48px,9vw,96px);color:#C83E34;line-height:1;font-variant-numeric:tabular-nums">0</div>
+          <div style="font-weight:800;font-size:clamp(13px,1.8vw,17px);letter-spacing:.3px;text-transform:uppercase;color:#0E3F51">{{ lang == 'fr' ? 'Poches collectées' : 'Blood bags collected' }}</div>
+        </div>
+      </div>
+
+      <div style="flex:1 1 220px;display:flex;align-items:center;gap:16px">
+        <div style="width:clamp(44px,7vw,72px);height:clamp(44px,7vw,72px);flex:none;background-color:#C83E34;-webkit-mask:url('{{ asset('assets/coeur.svg') }}') center/contain no-repeat;mask:url('{{ asset('assets/coeur.svg') }}') center/contain no-repeat"></div>
+        <div>
+          <div class="bb-counter" data-target="{{ livesSaved }}" style="font-family:'Anton',sans-serif;font-size:clamp(48px,9vw,96px);color:#F090A8;line-height:1;font-variant-numeric:tabular-nums">0</div>
+          <div style="font-weight:800;font-size:clamp(13px,1.8vw,17px);letter-spacing:.3px;text-transform:uppercase;color:#0E3F51">{{ lang == 'fr' ? 'Vies potentiellement sauvées' : 'Lives potentially saved' }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- merci -->
+    <div style="text-align:center;margin:clamp(8px,3vw,20px) 0">
+      <p style="font-weight:900;font-size:clamp(24px,5vw,40px);color:#0E3F51;margin:0;letter-spacing:.3px">
+        {{ lang == 'fr' ? 'Merci à tous !' : 'Thank you all!' }}
       </p>
+    </div>
+
+    <!-- date / location -->
+    <div style="flex:1;display:flex;align-items:flex-end;justify-content:center;padding:clamp(20px,4vw,36px) 0">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:clamp(14px,3vw,28px);font-weight:700;font-size:clamp(13px,1.8vw,17px);color:#0E3F51">
+        <div style="display:flex;align-items:center;gap:8px">
+          <svg viewBox="0 0 24 24" style="width:22px;height:22px;flex:none"><circle cx="12" cy="12" r="12" fill="#C83E34"/><path d="M7 8h10a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z" fill="none" stroke="#fff" stroke-width="1.4"/><path d="M6 11h12M8.5 6.5v3M15.5 6.5v3" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <span>{{ lang == 'fr' ? 'Samedi 11 Juillet 2026' : 'Saturday, July 11 2026' }}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <svg viewBox="0 0 24 24" style="width:22px;height:22px;flex:none"><circle cx="12" cy="12" r="12" fill="#C83E34"/><path d="M12 18s5-4.2 5-8.2A5 5 0 0 0 7 9.8C7 13.8 12 18 12 18Z" fill="#fff"/><circle cx="12" cy="9.7" r="1.8" fill="#C83E34"/></svg>
+          <span>{{ lang == 'fr' ? 'EYA Centre Communautaire (Akpakpa)' : 'EYA Community Center (Akpakpa)' }}</span>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- bottom banner -->
-  <div style="text-align:center;padding:0 24px clamp(28px,5vw,56px)">
-    <p style="font-weight:800;font-size:clamp(22px,4vw,34px);color:#0E3F51;margin:0">
-      {{ lang == 'fr' ? 'Grâce à vous ! Merci à tous !' : 'Thanks to you! Thank you all!' }}
-    </p>
-  </div>
+  <div style="height:clamp(10px,1.6vw,16px);background:#C83E34"></div>
 </div>
 {% endblock %}
 
 {% block javascripts %}
 <script>
 (function () {
-  // Count-up animation for the blood bag counter.
-  var counterEl = document.getElementById('bag-counter');
-  var target = parseInt(counterEl.getAttribute('data-target'), 10) || 0;
+  // Count-up animation, shared by every element with the .bb-counter class.
   var duration = 1800;
-  var start = null;
 
   function easeOutExpo(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
 
-  function step(ts) {
-    if (start === null) start = ts;
-    var progress = Math.min((ts - start) / duration, 1);
-    counterEl.textContent = Math.round(easeOutExpo(progress) * target);
-    if (progress < 1) requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
+  Array.prototype.forEach.call(document.querySelectorAll('.bb-counter'), function (el) {
+    var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+    var start = null;
+
+    function step(ts) {
+      if (start === null) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      el.textContent = Math.round(easeOutExpo(progress) * target);
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  });
 })();
 </script>
 {% endblock %}

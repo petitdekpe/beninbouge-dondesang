@@ -33,9 +33,9 @@
       group.querySelectorAll('[data-chip]').forEach(function (btn) {
         var active = !state.custom && parseInt(btn.getAttribute('data-amount'), 10) === state.amount;
         if (light) {
-          btn.style.background = active ? '#fdeaea' : '#f6f5ef';
-          btn.style.borderColor = active ? '#C83E34' : '#e6e3d7';
-          btn.style.color = active ? '#C83E34' : '#14160F';
+          btn.style.background = active ? '#e6f5ee' : '#f6f5ef';
+          btn.style.borderColor = active ? '#008651' : '#e6e3d7';
+          btn.style.color = active ? '#008651' : '#14160F';
         } else {
           btn.style.background = active ? 'rgba(255,255,255,.22)' : 'rgba(255,255,255,.06)';
           btn.style.borderColor = active ? '#fff' : 'rgba(255,255,255,.18)';
@@ -82,7 +82,7 @@
       panel.hidden = parseInt(panel.getAttribute('data-step-panel'), 10) !== n;
     });
     modal.querySelectorAll('[data-step-tab]').forEach(function (tab) {
-      tab.style.color = parseInt(tab.getAttribute('data-step-tab'), 10) <= n ? '#C83E34' : '#bdbdb4';
+      tab.style.color = parseInt(tab.getAttribute('data-step-tab'), 10) <= n ? '#008651' : '#bdbdb4';
     });
     var bar = modal.querySelector('[data-progress-bar]');
     if (bar) bar.style.width = (Math.min(100, (Math.min(n, 3) / 3) * 100)) + '%';
@@ -129,7 +129,7 @@
     var valid = state.name.trim().length > 0 && state.email.trim().length > 0;
     if (nextStep2Btn) {
       nextStep2Btn.disabled = !valid;
-      nextStep2Btn.style.background = valid ? '#C83E34' : '#e9c4c2';
+      nextStep2Btn.style.background = valid ? '#008651' : '#e9c4c2';
       nextStep2Btn.style.cursor = valid ? 'pointer' : 'not-allowed';
     }
     return valid;
@@ -146,8 +146,8 @@
   if (anonBtn) {
     anonBtn.addEventListener('click', function () {
       state.anonymous = !state.anonymous;
-      anonBtn.style.borderColor = state.anonymous ? '#C83E34' : '#cfcdc2';
-      anonBtn.style.background = state.anonymous ? '#C83E34' : '#fff';
+      anonBtn.style.borderColor = state.anonymous ? '#008651' : '#cfcdc2';
+      anonBtn.style.background = state.anonymous ? '#008651' : '#fff';
       anonBtn.textContent = state.anonymous ? '✓' : '';
     });
   }
@@ -158,12 +158,12 @@
       state.method = btn.getAttribute('data-method-id');
       modal.querySelectorAll('[data-method]').forEach(function (b) {
         var active = b === btn;
-        b.style.background = active ? '#fdeaea' : '#fff';
-        b.style.borderColor = active ? '#C83E34' : '#e6e3d7';
+        b.style.background = active ? '#e6f5ee' : '#fff';
+        b.style.borderColor = active ? '#008651' : '#e6e3d7';
         var radio = b.querySelector('[data-method-radio]');
         if (radio) {
-          radio.style.borderColor = active ? '#C83E34' : '#cfcdc2';
-          radio.style.background = active ? 'radial-gradient(circle,#C83E34 0 5px,transparent 6px)' : 'transparent';
+          radio.style.borderColor = active ? '#008651' : '#cfcdc2';
+          radio.style.background = active ? 'radial-gradient(circle,#008651 0 5px,transparent 6px)' : 'transparent';
         }
       });
     });
@@ -177,7 +177,7 @@
     toggle.addEventListener('click', function () {
       var open = body.style.maxHeight && body.style.maxHeight !== '0px';
       body.style.maxHeight = open ? '0' : '220px';
-      sign.style.background = open ? '#f4f2ea' : '#C83E34';
+      sign.style.background = open ? '#f4f2ea' : '#008651';
       sign.style.color = open ? '#14160F' : '#fff';
       sign.style.transform = open ? 'rotate(0deg)' : 'rotate(45deg)';
     });
@@ -206,8 +206,8 @@
   function openFedaPay(donationId) {
     var eff = effectiveAmount();
     var donorName = state.name.trim() || cfg.donorFallback;
-    var description = 'Don – Sang Donné, Vies Sauvées (Bénin Bouge)';
-    if (donationId) description = 'Don #' + donationId + ' – Sang Donné, Vies Sauvées (Bénin Bouge)';
+    var description = 'Don – Bénin Bouge';
+    if (donationId) description = 'Don #' + donationId + ' – Bénin Bouge';
 
     var widget = FedaPay.init({
       public_key: cfg.fedapayPublicKey,

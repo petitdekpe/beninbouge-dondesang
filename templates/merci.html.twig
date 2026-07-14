@@ -41,17 +41,17 @@ body{background:#FBF7EC}
 
       <h1 style="font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(34px,9vw,62px);line-height:1;margin:18px 0 0;text-transform:uppercase;letter-spacing:.5px">
         {% if lang == 'fr' %}
-          <span style="color:#0E3F51">Merci</span> <span style="color:#C83E34">infiniment !</span>
+          <span style="color:#0E3F51">Merci</span> <span style="color:#008651">infiniment !</span>
         {% else %}
-          <span style="color:#0E3F51">Thank</span> <span style="color:#C83E34">you so much!</span>
+          <span style="color:#0E3F51">Thank</span> <span style="color:#008651">you so much!</span>
         {% endif %}
       </h1>
 
       <p style="font-size:clamp(15px,2.4vw,17.5px);line-height:1.6;color:#55584e;margin:18px auto 0;max-width:460px">
         {% if lang == 'fr' %}
-          Votre don pour « Sang Donné, Vies Sauvées » a bien été reçu. Grâce à vous, nous faisons rayonner les 2 ans de Bénin Bouge et nous sauvons des vies, ensemble.
+          Votre don a bien été reçu. Grâce à vous, nous faisons rayonner les 2 ans de Bénin Bouge et continuons à faire bouger le Bénin, ensemble.
         {% else %}
-          Your donation to "Blood Given, Lives Saved" has been received. Thanks to you, we celebrate the 2 years of Bénin Bouge and save lives, together.
+          Your donation has been received. Thanks to you, we celebrate the 2 years of Bénin Bouge and keep moving Benin forward, together.
         {% endif %}
       </p>
 
@@ -60,10 +60,10 @@ body{background:#FBF7EC}
         <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px dashed #e6ddc8;padding-bottom:16px">
           <div>
             <div style="font-size:12px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:.6px">{{ lang == 'fr' ? 'Montant du don' : 'Donation amount' }}</div>
-            <div style="font-family:'Anton';font-size:clamp(24px,6vw,34px);color:#C83E34;line-height:1.05;margin-top:3px">{{ amount|number_format(0, ',', ' ') }} <span style="font-size:17px;color:#0E3F51">FCFA</span></div>
+            <div style="font-family:'Anton';font-size:clamp(24px,6vw,34px);color:#008651;line-height:1.05;margin-top:3px">{{ amount|number_format(0, ',', ' ') }} <span style="font-size:17px;color:#0E3F51">FCFA</span></div>
           </div>
           <span style="flex:none;width:50px;height:58px;display:flex;align-items:center;justify-content:center;position:relative">
-            <span style="position:absolute;inset:0;background:#C83E34;clip-path:polygon(50% 0,100% 100%,0 100%);border-radius:0 50% 50% 50%"></span>
+            <span style="position:absolute;inset:0;background:#008651;clip-path:polygon(50% 0,100% 100%,0 100%);border-radius:0 50% 50% 50%"></span>
             <span style="position:relative;color:#fff;font-size:18px;z-index:1">♥</span>
           </span>
         </div>
@@ -105,7 +105,7 @@ body{background:#FBF7EC}
 {% block javascripts %}
 <script>
   window.BB_MERCI = {
-    shareText: {{ (lang == 'fr' ? "J'ai soutenu la campagne « Sang Donné, Vies Sauvées » pour les 2 ans de Bénin Bouge. Rejoignez-nous !" : 'I supported the "Blood Given, Lives Saved" campaign for the 2 years of Bénin Bouge. Join us!')|json_encode|raw }},
+    shareText: {{ (lang == 'fr' ? "J'ai soutenu Bénin Bouge pour ses 2 ans. Rejoignez-nous !" : 'I supported Bénin Bouge for its 2nd anniversary. Join us!')|json_encode|raw }},
     copyLabel: {{ (lang == 'fr' ? 'Copier le lien' : 'Copy link')|json_encode|raw }},
     copiedLabel: {{ (lang == 'fr' ? 'Copié ✓' : 'Copied ✓')|json_encode|raw }}
   };

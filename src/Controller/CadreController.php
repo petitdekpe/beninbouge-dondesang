@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -12,7 +13,12 @@ final class CadreController extends AbstractController
 {
     public function __construct(private readonly string $cadresSaveDir) {}
 
-    #[Route('/jyserai', name: 'cadre', methods: ['GET'])]
+    /**
+     * This photo-pledge tool only ever existed for the (now finished) "Sang Donné,
+     * Vies Sauvées" blood drive, so it's archived rather than reworked — see /jyserai
+     * for the legacy-URL redirect kept for anyone with an old link.
+     */
+    #[Route('/archive/jyserai', name: 'cadre', methods: ['GET'])]
     public function index(): Response
     {
         $images = [];
@@ -22,12 +28,18 @@ final class CadreController extends AbstractController
             $images = array_map('basename', array_slice($files, 0, 16));
         }
 
-        return $this->render('cadre.html.twig', [
+        return $this->render('archive/cadre.html.twig', [
             'participantImages' => $images,
         ]);
     }
 
-    #[Route('/jyserai/save', name: 'cadre_save', methods: ['POST'])]
+    #[Route('/jyserai', name: 'cadre_legacy', methods: ['GET'])]
+    public function legacyIndex(): RedirectResponse
+    {
+        return $this->redirectToRoute('cadre');
+    }
+
+    #[Route('/archive/jyserai/save', name: 'cadre_save', methods: ['POST'])]
     public function save(Request $request): JsonResponse
     {
         try {

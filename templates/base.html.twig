@@ -51,17 +51,17 @@ input::placeholder,textarea::placeholder{color:#fff}
     '    █    '
   ].join('\n');
 
-  console.log('%c' + heart, 'color:#C83E34;font-weight:900;font-family:monospace;line-height:1.1;');
-  console.log('%cChaque ligne de code compte, comme chaque poche de sang.', 'font-size:16px;font-weight:800;color:#0E3F51;');
+  console.log('%c' + heart, 'color:#008651;font-weight:900;font-family:monospace;line-height:1.1;');
+  console.log('%cChaque ligne de code compte, comme chaque geste pour le Bénin.', 'font-size:16px;font-weight:800;color:#0E3F51;');
   console.log('%cEnvie de coder pour la cause ? %ccontact@beninbouge.com', 'font-size:13px;color:#55584e;', 'font-size:13px;font-weight:800;color:#3A8556;');
-  console.log('%cBénin Bouge × Sang Donné, Vies Sauvées', 'font-size:11px;color:#9a9a90;letter-spacing:1px;');
+  console.log('%cBénin Bouge — le média du Bénin qui bouge', 'font-size:11px;color:#9a9a90;letter-spacing:1px;');
 })();
 </script>
 <script>
 (function () {
-  var dropColors = ['#C83E34', '#E1251B', '#ba1a1a', '#e8776b'];
+  var dropColors = ['#008651', '#3A8556', '#295D3C', '#6BA480'];
 
-  // Shared red-confetti "blood drop" rain, reused by the Konami code and the
+  // Shared red-confetti rain, reused by the Konami code and the
   // mobile shake easter eggs so both effects stay visually identical.
   window.bbSpawnBloodRain = function (count) {
     var layer = document.createElement('div');
@@ -146,7 +146,7 @@ input::placeholder,textarea::placeholder{color:#fff}
     if (running) return;
     running = true;
     window.bbSpawnBloodRain();
-    window.bbShowToast('📱 Secoué avec amour ! Merci de nous suivre 🩸');
+    window.bbShowToast('📱 Secoué avec amour ! Merci de nous suivre 💚');
     setTimeout(function () { running = false; }, 4000);
   }
 

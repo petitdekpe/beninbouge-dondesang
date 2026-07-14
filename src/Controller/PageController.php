@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use App\Repository\BirthdayMessageRepository;
-use App\Repository\PartnerRepository;
 use App\Repository\SponsorRepository;
 use App\Translation\Dictionary;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -22,7 +22,6 @@ final class PageController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
 
     public function __construct(
         private readonly BirthdayMessageRepository $messages,
-        private readonly PartnerRepository $partnerRepository,
         private readonly SponsorRepository $sponsors,
     ) {
     }
@@ -30,7 +29,7 @@ final class PageController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
     #[Route('/', name: 'home', methods: ['GET'])]
     public function home(Request $request): Response
     {
-        return $this->redirectToRoute('merci_donneurs', $request->query->all());
+        return $this->redirectToRoute('landing', $request->query->all());
     }
 
     #[Route('/accueil', name: 'landing', methods: ['GET'])]
@@ -51,9 +50,7 @@ final class PageController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
             'chipAmounts' => self::CHIP_AMOUNTS,
             'methods' => array_merge(self::PAYMENT_METHODS, [$cardMethod]),
             'fedapayPublicKey' => $_ENV['FEDAPAY_PUBLIC_KEY'] ?? 'pk_sandbox_XXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-            'birthdayMessages' => $this->messages->findLatest(12),
-            'technicalPartners' => $this->partnerRepository->findByCategory('technique'),
-            'partners' => $this->partnerRepository->findByCategory('partenaire'),
+            'birthdayMessages' => $this->messages->findLatest(3),
             'sponsors' => $this->sponsors->findAllOrdered(),
         ]);
     }
@@ -77,19 +74,30 @@ final class PageController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
         ]);
     }
 
-    #[Route('/merci-donneurs', name: 'merci_donneurs', methods: ['GET'])]
+    /**
+     * The "Sang Donné, Vies Sauvées" blood drive this thanked donors for is over, so the
+     * page is archived rather than reworked — see /merci-donneurs for the legacy-URL
+     * redirect kept for anyone with an old link.
+     */
+    #[Route('/archive/merci-donneurs', name: 'merci_donneurs', methods: ['GET'])]
     public function merciDonneurs(Request $request): Response
     {
         $lang = $request->query->get('lang') === 'en' ? 'en' : 'fr';
 
         $bagsCollected = 664;
 
-        return $this->render('merci_donneurs.html.twig', [
+        return $this->render('archive/merci_donneurs.html.twig', [
             'lang' => $lang,
             'bagsCollected' => $bagsCollected,
             'bagsGoal' => 300,
             // Each blood bag can save up to 3 lives; rounded to the nearest hundred for the headline figure.
             'livesSaved' => (int) round($bagsCollected * 3 / 100) * 100,
         ]);
+    }
+
+    #[Route('/merci-donneurs', name: 'merci_donneurs_legacy', methods: ['GET'])]
+    public function legacyMerciDonneurs(Request $request): RedirectResponse
+    {
+        return $this->redirectToRoute('merci_donneurs', $request->query->all());
     }
 }

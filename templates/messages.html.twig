@@ -17,10 +17,9 @@ body{background:#FBF7EC}
     <div class="bb-header-row" style="max-width:1200px;margin:0 auto;padding:14px clamp(16px,4vw,24px);display:flex;align-items:center;flex-wrap:wrap;gap:clamp(10px,2vw,20px)">
       <a href="{{ path('landing', {lang: lang}) }}#top" style="display:flex;align-items:center;gap:9px;text-decoration:none;flex:none">
         <img src="{{ asset('assets/mark-coureur.png') }}" alt="Bénin Bouge" style="height:clamp(30px,6vw,42px);width:auto;display:block"/>
-        <img src="{{ asset('assets/logo-sdvs-blanc.png') }}" alt="Sang Donné, Vies Sauvées" style="height:clamp(36px,7vw,50px);width:auto;display:block"/>
       </a>
       <nav class="bb-nav" style="display:flex;gap:26px;margin-left:18px;flex:1">
-        <a href="{{ path('landing', {lang: lang}) }}#campagne" style="color:#EFEEE6;text-decoration:none;font-weight:600;font-size:14.5px;letter-spacing:.2px">{{ t.nav.campaign }}</a>
+        <a href="{{ path('landing', {lang: lang}) }}#don" style="color:#EFEEE6;text-decoration:none;font-weight:600;font-size:14.5px;letter-spacing:.2px">{{ t.nav.campaign }}</a>
         <a href="{{ path('landing', {lang: lang}) }}#partenaires" style="color:#EFEEE6;text-decoration:none;font-weight:600;font-size:14.5px;letter-spacing:.2px">{{ t.nav.partners }}</a>
         <a href="{{ path('landing', {lang: lang}) }}#infos" style="color:#EFEEE6;text-decoration:none;font-weight:600;font-size:14.5px;letter-spacing:.2px">{{ t.nav.info }}</a>
         <a href="{{ path('donations_track', {lang: lang}) }}" style="color:#EFEEE6;text-decoration:none;font-weight:600;font-size:14.5px;letter-spacing:.2px">{{ t.tracking.title }}</a>
@@ -31,7 +30,7 @@ body{background:#FBF7EC}
           <a href="?lang=fr" style="display:inline-block;background:{{ lang == 'fr' ? '#fff' : 'transparent' }};color:{{ lang == 'fr' ? '#295D3C' : '#EFEEE6' }};padding:6px 13px;font-family:Manrope;font-weight:800;font-size:13px;text-decoration:none">FR</a>
           <a href="?lang=en" style="display:inline-block;background:{{ lang == 'en' ? '#fff' : 'transparent' }};color:{{ lang == 'en' ? '#295D3C' : '#EFEEE6' }};padding:6px 13px;font-family:Manrope;font-weight:800;font-size:13px;text-decoration:none">EN</a>
         </div>
-        <a href="{{ path('landing', {lang: lang}) }}#don" style="background:#C83E34;color:#fff;text-decoration:none;padding:clamp(9px,2vw,11px) clamp(14px,4vw,20px);border-radius:999px;font-family:'Manrope';font-weight:800;font-size:clamp(13px,2vw,14.5px);display:flex;align-items:center;gap:8px;box-shadow:0 6px 18px rgba(225,37,27,.35);white-space:nowrap">
+        <a href="{{ path('landing', {lang: lang}) }}#don" style="background:#008651;color:#fff;text-decoration:none;padding:clamp(9px,2vw,11px) clamp(14px,4vw,20px);border-radius:999px;font-family:'Manrope';font-weight:800;font-size:clamp(13px,2vw,14.5px);display:flex;align-items:center;gap:8px;box-shadow:0 6px 18px rgba(0,134,81,.35);white-space:nowrap">
           <span style="font-size:15px">♥</span>{{ t.nav.donate }}
         </a>
       </div>
@@ -62,7 +61,7 @@ body{background:#FBF7EC}
 
     <div style="text-align:center;margin-top:clamp(36px,6vw,48px);display:flex;flex-wrap:wrap;gap:14px;justify-content:center">
       <a href="{{ path('landing', {lang: lang}) }}" style="display:inline-flex;align-items:center;gap:8px;color:#0E3F51;text-decoration:none;font-weight:800;font-size:15px;border-bottom:2px solid #3A8556;padding-bottom:2px">{{ t.msgsPage.back }}</a>
-      <a href="{{ path('landing', {lang: lang}) }}#voeux" style="display:inline-flex;align-items:center;gap:8px;background:#C83E34;color:#fff;text-decoration:none;font-weight:800;font-size:15px;padding:10px 20px;border-radius:999px">{{ t.msgsPage.cta }}</a>
+      <a href="{{ path('landing', {lang: lang}) }}#voeux" style="display:inline-flex;align-items:center;gap:8px;background:#008651;color:#fff;text-decoration:none;font-weight:800;font-size:15px;padding:10px 20px;border-radius:999px">{{ t.msgsPage.cta }}</a>
     </div>
   </main>
 </div>

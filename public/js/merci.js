@@ -2,7 +2,7 @@
   'use strict';
 
   var cfg = window.BB_MERCI || {};
-  var palette = ['#3A8556', '#0E3F51', '#C83E34', '#295D3C'];
+  var palette = ['#3A8556', '#0E3F51', '#008651', '#295D3C'];
   var root = document.getElementById('confetti-root');
 
   if (root) {

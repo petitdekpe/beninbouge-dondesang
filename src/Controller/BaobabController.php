@@ -34,14 +34,19 @@ final class BaobabController extends AbstractController
     ) {
     }
 
-    #[Route('/baobab', name: 'baobab', methods: ['GET'])]
+    /**
+     * The Baobab Express shuttle only ever ran donors to the (now finished) "Sang Donné,
+     * Vies Sauvées" blood drive, so this whole flow is archived rather than reworked —
+     * see /baobab for the legacy-URL redirect kept for anyone with an old link.
+     */
+    #[Route('/archive/baobab', name: 'baobab', methods: ['GET'])]
     public function index(BaobabReservationRepository $reservations): Response
     {
         $maxTickets = $this->settings->getInt(self::MAX_TICKETS_SETTING_KEY, 0);
         $ticketsUsed = $reservations->countAll();
         $isFull = $maxTickets > 0 && $ticketsUsed >= $maxTickets;
 
-        return $this->render('baobab.html.twig', [
+        return $this->render('archive/baobab.html.twig', [
             'maxTickets' => $maxTickets,
             'ticketsUsed' => $ticketsUsed,
             'ticketsRemaining' => $maxTickets > 0 ? max(0, $maxTickets - $ticketsUsed) : null,
@@ -50,7 +55,13 @@ final class BaobabController extends AbstractController
         ]);
     }
 
-    #[Route('/baobab/reservation', name: 'baobab_reservation_create', methods: ['POST'])]
+    #[Route('/baobab', name: 'baobab_legacy', methods: ['GET'])]
+    public function legacyIndex(): RedirectResponse
+    {
+        return $this->redirectToRoute('baobab');
+    }
+
+    #[Route('/archive/baobab/reservation', name: 'baobab_reservation_create', methods: ['POST'])]
     public function reserve(Request $request, BaobabReservationRepository $reservations): RedirectResponse
     {
         if (!$this->isCsrfTokenValid('baobab_reservation', (string) $request->request->get('_token'))) {
@@ -113,7 +124,7 @@ final class BaobabController extends AbstractController
         return $this->redirectToRoute('baobab_ticket', ['id' => $reservation->getId()]);
     }
 
-    #[Route('/baobab/ticket/{id}', name: 'baobab_ticket', methods: ['GET'])]
+    #[Route('/archive/baobab/ticket/{id}', name: 'baobab_ticket', methods: ['GET'])]
     public function ticket(int $id, BaobabReservationRepository $reservations): Response
     {
         $reservation = $reservations->find($id);
@@ -121,7 +132,7 @@ final class BaobabController extends AbstractController
             throw new NotFoundHttpException('Réservation introuvable.');
         }
 
-        return $this->render('baobab_ticket.html.twig', [
+        return $this->render('archive/baobab_ticket.html.twig', [
             'reservation' => $reservation,
         ]);
     }

@@ -33,9 +33,11 @@
       </p>
 
       <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:32px">
+        {% if donations_enabled() %}
         <a href="{{ path('landing') }}#don" style="background:#008651;color:#fff;text-decoration:none;padding:16px 30px;border-radius:999px;font-weight:800;font-size:16px;display:inline-flex;align-items:center;gap:9px;box-shadow:0 12px 30px rgba(0,134,81,.35)">
           <span style="font-size:17px">♥</span> Faire un don maintenant
         </a>
+        {% endif %}
         <a href="{{ path('landing') }}" style="background:transparent;color:#0E3F51;border:1.5px solid rgba(14,63,81,.3);text-decoration:none;padding:16px 28px;border-radius:999px;font-weight:700;font-size:16px;display:inline-flex;align-items:center;gap:8px">
           Retour à l'accueil
         </a>

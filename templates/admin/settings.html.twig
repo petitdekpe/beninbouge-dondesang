@@ -1,0 +1,32 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Réglages — Backoffice{% endblock %}
+
+{% block admin_body %}
+<h1 style="font-family:'Anton';font-size:clamp(24px,5vw,32px);text-transform:uppercase;color:#0E3F51;margin-bottom:6px">Réglages</h1>
+<p style="color:#6a6a60;font-size:14.5px;margin-bottom:24px">Paramètres généraux d'affichage du site.</p>
+
+<div style="background:#fff;border:1px solid #ece4cf;border-radius:16px;padding:clamp(18px,4vw,24px);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
+  <div style="min-width:0">
+    <h2 style="font-size:16px;font-weight:800;color:#0E3F51;margin-bottom:6px">Bloc don &amp; boutons de contribution</h2>
+    <p style="color:#6a6a60;font-size:14px;line-height:1.5;max-width:520px">
+      Active ou masque la section « Bloc Don » de la page d'accueil ainsi que tous les boutons « Contribuer » du site.
+      Le reste du site (suivi des dons, messages, partenaires…) reste inchangé.
+    </p>
+  </div>
+
+  <form method="post" action="{{ path('admin_settings_toggle_donations') }}" onchange="this.submit()" style="flex:none">
+    <input type="hidden" name="_token" value="{{ csrf_token('admin_toggle_donations') }}">
+    <input type="hidden" name="enabled" value="0">
+    <label style="position:relative;display:inline-block;width:52px;height:30px;cursor:pointer">
+      <input type="checkbox" name="enabled" value="1" {{ donationsEnabled ? 'checked' : '' }} style="opacity:0;width:0;height:0;position:absolute">
+      <span style="position:absolute;inset:0;background:{{ donationsEnabled ? '#3A8556' : '#d8d3c2' }};border-radius:999px;transition:background .15s"></span>
+      <span style="position:absolute;top:3px;left:{{ donationsEnabled ? '25px' : '3px' }};width:24px;height:24px;background:#fff;border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,.3);transition:left .15s"></span>
+    </label>
+  </form>
+</div>
+
+<div style="margin-top:16px;font-size:13.5px;color:#6a6a60">
+  État actuel : <strong style="color:{{ donationsEnabled ? '#3A8556' : '#b91c1c' }}">{{ donationsEnabled ? 'Affiché' : 'Masqué' }}</strong>
+</div>
+{% endblock %}

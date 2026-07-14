@@ -29,6 +29,13 @@ class SettingRepository extends ServiceEntityRepository
         return $value !== null && $value !== '' ? (int) $value : $default;
     }
 
+    public function getBool(string $key, bool $default = true): bool
+    {
+        $value = $this->getValue($key);
+
+        return $value !== null && $value !== '' ? $value === '1' : $default;
+    }
+
     public function setValue(EntityManagerInterface $em, string $key, ?string $value): void
     {
         $setting = $this->findOneBy(['settingKey' => $key]);

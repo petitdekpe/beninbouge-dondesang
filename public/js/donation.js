@@ -71,6 +71,7 @@
 
   // ---- modal open/close/steps ----
   var modal = document.getElementById('donation-modal');
+  if (!modal) return; // donations toggled off in the backoffice — modal markup isn't rendered
 
   function setBodyScrollLocked(locked) {
     document.body.style.overflow = locked ? 'hidden' : '';

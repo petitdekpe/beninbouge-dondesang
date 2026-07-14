@@ -35,10 +35,12 @@
 						<a href="?lang=fr" style="display:inline-block;background:{{ lang == 'fr' ? '#fff' : 'transparent' }};color:{{ lang == 'fr' ? '#295D3C' : '#EFEEE6' }};padding:6px 13px;font-family:Manrope;font-weight:800;font-size:13px;text-decoration:none">FR</a>
 						<a href="?lang=en" style="display:inline-block;background:{{ lang == 'en' ? '#fff' : 'transparent' }};color:{{ lang == 'en' ? '#295D3C' : '#EFEEE6' }};padding:6px 13px;font-family:Manrope;font-weight:800;font-size:13px;text-decoration:none">EN</a>
 					</div>
-					<button data-open-modal class="bb-donate-btn" style="background:#008651;color:#fff;border:none;padding:clamp(9px,2vw,11px) clamp(14px,4vw,20px);border-radius:999px;font-family:'Manrope';font-weight:800;font-size:clamp(13px,2vw,14.5px);cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 6px 18px rgba(0,134,81,.35);white-space:nowrap">
-						<span style="font-size:15px">♥</span>
-						{{ t.nav.donate }}
-					</button>
+					{% if donations_enabled() %}
+						<button data-open-modal class="bb-donate-btn" style="background:#008651;color:#fff;border:none;padding:clamp(9px,2vw,11px) clamp(14px,4vw,20px);border-radius:999px;font-family:'Manrope';font-weight:800;font-size:clamp(13px,2vw,14.5px);cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 6px 18px rgba(0,134,81,.35);white-space:nowrap">
+							<span style="font-size:15px">♥</span>
+							{{ t.nav.donate }}
+						</button>
+					{% endif %}
 					<button id="bb-burger-btn" class="bb-burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="bb-mobile-nav" style="display:none;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);color:#fff;width:40px;height:40px;border-radius:10px;align-items:center;justify-content:center;cursor:pointer;flex:none">
 						<svg id="bb-burger-icon-open" width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
 						<svg id="bb-burger-icon-close" width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="display:none"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
@@ -75,12 +77,14 @@
 					</h1>
 					<p style="font-size:clamp(15px,2.4vw,18px);line-height:1.6;color:#55584e;max-width:520px;margin:22px 0 0">{{ t.hero.lead }}</p>
 
-					<div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:30px">
-						<button data-open-modal style="background:#008651;color:#fff;border:none;padding:16px 30px;border-radius:999px;font-family:'Manrope';font-weight:800;font-size:17px;cursor:pointer;display:inline-flex;align-items:center;gap:10px;box-shadow:0 12px 30px rgba(0,134,81,.4);animation:bbPulse 3.4s ease-in-out infinite">
-							<span style="font-size:18px">♥</span>
-							{{ t.hero.cta }}
-						</button>
-					</div>
+					{% if donations_enabled() %}
+						<div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:30px">
+							<button data-open-modal style="background:#008651;color:#fff;border:none;padding:16px 30px;border-radius:999px;font-family:'Manrope';font-weight:800;font-size:17px;cursor:pointer;display:inline-flex;align-items:center;gap:10px;box-shadow:0 12px 30px rgba(0,134,81,.4);animation:bbPulse 3.4s ease-in-out infinite">
+								<span style="font-size:18px">♥</span>
+								{{ t.hero.cta }}
+							</button>
+						</div>
+					{% endif %}
 				</div>
 
 				<div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:22px">
@@ -156,6 +160,7 @@
 		</section>
 
 		<!-- ============ BLOC DON ============ -->
+		{% if donations_enabled() %}
 		<section id="don" style="background:#FBF7EC;color:#0E3F51;padding:clamp(48px,8vw,84px) clamp(16px,5vw,24px);position:relative;overflow:hidden">
 			<div style="position:absolute;top:10%;left:8%;font-size:22px;color:rgba(0,134,81,.25);animation:bbSpark 4s ease-in-out infinite">✦</div>
 			<div style="position:absolute;bottom:14%;right:10%;width:30px;height:6px;background:rgba(0,134,81,.2);border-radius:4px;transform:rotate(-20deg)"></div>
@@ -192,6 +197,7 @@
 				</div>
 			</div>
 		</section>
+		{% endif %}
 
 		<!-- ============ SPONSORS ============ -->
 		<section id="sponsors" style="background:#0E3F51;color:#EFEEE6;padding:clamp(44px,8vw,80px) clamp(16px,5vw,24px)">
@@ -287,6 +293,7 @@
 		</footer>
 
 		<!-- ============ TUNNEL DE DON (MODAL) ============ -->
+		{% if donations_enabled() %}
 		<div id="donation-modal" style="display:none;position:fixed;inset:0;z-index:90;background:rgba(8,9,6,.62);backdrop-filter:blur(4px);align-items:flex-start;justify-content:center;padding:clamp(16px,5vw,32px) clamp(10px,4vw,18px);overflow-y:auto">
 			<div
 				data-modal-card style="width:100%;max-width:480px;background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.4);animation:bbRise .3s ease">
@@ -393,6 +400,7 @@
 				</div>
 			</div>
 		</div>
+		{% endif %}
 
 	</div>
 {% endblock %}
